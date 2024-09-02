@@ -1,6 +1,6 @@
 # TODO: also add the package to the .rockspec file
 .PHONY: add
-add: ## Add a lua dependency to the local project, usage: make install package=package-name
+add: ## Add a lua dependency to the local project, usage: make add package=package-name
 	luarocks install --tree lua_modules $(package)
 
 .PHONY: install

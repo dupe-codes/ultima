@@ -1,0 +1,3 @@
+[generator]
+input_dir       = "src/content"
+output_dir      = "build"
