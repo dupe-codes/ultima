@@ -18,7 +18,7 @@ local find_content = function(content_dir)
             local full_path = content_dir .. "/" .. file
             local attributes = lfs.attributes(full_path)
             if attributes.mode == "directory" then
-                print "directories not yet supported"
+                print("directories not yet supported: " .. file)
             else
                 print("Found file " .. full_path)
                 table.insert(
@@ -33,12 +33,16 @@ end
 
 local render_content = function(source_path, file_name, output_dir)
     local output_file = file_name:gsub("%.md$", ".html")
-    local pandoc_cmd = string.format(
-        "pandoc %s -o %s",
-        source_path,
-        output_dir .. "/" .. output_file
-    )
-    local _ = os.execute(pandoc_cmd)
+    local output_path = output_dir .. "/" .. output_file
+    local pandoc_cmd =
+        string.format("pandoc %s -o %s", source_path, output_path)
+
+    local succeeded = os.execute(pandoc_cmd)
+    if succeeded then
+        print("Wrote rendered file at " .. output_path)
+    else
+        print("Failed to render file " .. source_path)
+    end
 end
 
 local main = function()
