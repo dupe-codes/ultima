@@ -9,7 +9,7 @@ install: ## Install project dependencies
 
 .PHONY: run
 run: ## Run the ultima application
-	@source $(CURDIR)/.env && ./src/ultima.lua
+	@source $(CURDIR)/project.env && ./src/ultima.lua
 
 .PHONY: lint
 lint: ## Lint lua source files

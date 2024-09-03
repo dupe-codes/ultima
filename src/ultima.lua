@@ -4,7 +4,7 @@ local inspect = require "inspect"
 local lfs = require "lfs"
 local toml = require "toml"
 
-local succeeded, config = pcall(toml.decodeFromFile, "./src/config.toml")
+local succeeded, config = pcall(toml.decodeFromFile, "config.toml")
 
 if not succeeded then
     print("Failed to load config! Error: " .. inspect(config))
@@ -34,8 +34,11 @@ end
 local render_content = function(source_path, file_name, output_dir)
     local output_file = file_name:gsub("%.md$", ".html")
     local output_path = output_dir .. "/" .. output_file
+
+    -- TODO: write to and capture stdout, write to file using
+    --       lua
     local pandoc_cmd =
-        string.format("pandoc %s -o %s", source_path, output_path)
+        string.format("pandoc -t html %s -o %s", source_path, output_path)
 
     local succeeded = os.execute(pandoc_cmd)
     if succeeded then
