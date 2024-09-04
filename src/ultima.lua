@@ -59,22 +59,48 @@ local render_file = function(output_path, source_path, file_name)
     else
         print("Failed to render file " .. source_path)
     end
+
+    return output_file
+end
+
+local write_index_file = function(file_path, links)
+    -- TODO: replace with a template once the template engine is
+    --       implemented
+    local file = io.open(file_path, "w")
+    if not file then
+        error("Could not open file: " .. file_path)
+    end
+
+    file:write "<!DOCTYPE html>\n<html>\n<head>\n<title>Index</title>\n</head>\n<body>\n"
+    file:write "<h1>Index of Files</h1>\n<ul>\n"
+
+    for _, link in ipairs(links) do
+        file:write(string.format('<li><a href="%s">%s</a></li>\n', link, link))
+    end
+    file:write "</ul>\n</body>\n</html>"
+    file:close()
 end
 
 local function render_content_dir(output_path, content)
+    local links = {}
     for dir, src_files in pairs(content) do
         if dir == "" then
             -- list of files in the current directory to render
             for _, file in pairs(src_files) do
-                render_file(output_path, file.source_path, file.file_name)
+                local output_file =
+                    render_file(output_path, file.source_path, file.file_name)
+                table.insert(links, output_file)
             end
         else
             -- directory to recursively render
             local nested_dir = output_path .. dir .. "/"
             make_dir_if_not_exists(nested_dir)
             render_content_dir(output_path .. dir .. "/", src_files)
+            table.insert(links, dir .. "/index.html")
         end
     end
+    local index_file_path = output_path .. "/index.html"
+    write_index_file(index_file_path, links)
 end
 
 local main = function()

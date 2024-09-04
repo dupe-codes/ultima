@@ -10,6 +10,7 @@ install: ## Install project dependencies
 .PHONY: run
 run: ## Run the ultima application
 	@source $(CURDIR)/project.env && ./src/ultima.lua
+	xdg-open build/index.html
 
 .PHONY: lint
 lint: ## Lint lua source files
