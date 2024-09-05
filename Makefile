@@ -12,6 +12,10 @@ run: ## Run the ultima application
 	@source $(CURDIR)/project.env && ./src/ultima.lua
 	xdg-open build/index.html
 
+.PHONY: clean
+clean: ## Clean compiled artifacts
+	rm -rf build/
+
 .PHONY: lint
 lint: ## Lint lua source files
 	@luacheck src/

@@ -4,6 +4,8 @@ local inspect = require "inspect"
 local lfs = require "lfs"
 local toml = require "toml"
 
+local template_engine = require "templates.engine"
+
 local decode_succeeded, config = pcall(toml.decodeFromFile, "config.toml")
 
 if not decode_succeeded then
@@ -44,18 +46,33 @@ end
 
 local render_file = function(output_path, source_path, file_name)
     local output_file = file_name:gsub("%.md$", ".html")
+    local pandoc_cmd = string.format("pandoc -t html %s", source_path)
 
-    -- TODO: write to and capture stdout, write to file using
-    --       lua
-    local pandoc_cmd = string.format(
-        "pandoc -t html %s -o %s",
-        source_path,
-        output_path .. output_file
-    )
+    local pipe = io.popen(pandoc_cmd, "r")
+    if not pipe then
+        error "Failed to open pipe to run pandoc"
+    end
 
-    local succeeded = os.execute(pandoc_cmd)
-    if succeeded then
-        print("Wrote rendered file at " .. output_path .. output_file)
+    local pandoc_output = pipe:read "*a"
+    local succeeded, exit_type, code = pipe:close()
+
+    if succeeded and exit_type == "exit" and code == 0 then
+        local default_template = config.templates.dir
+            .. "/"
+            .. config.templates.default
+        local templatized_output =
+            template_engine.compile_template_file(default_template, {
+                content = pandoc_output,
+            })
+        local output_file_path = output_path .. output_file
+
+        local file = io.open(output_file_path, "w")
+        if not file then
+            error("Could not open file: " .. output_file_path)
+        end
+        file:write(templatized_output)
+        file:close()
+        print("Wrote rendered file at " .. output_file_path)
     else
         print("Failed to render file " .. source_path)
     end

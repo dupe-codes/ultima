@@ -1,3 +1,7 @@
 [generator]
 input_dir       = "src/content"
 output_dir      = "build"
+
+[templates]
+dir             = "src/templates"
+default         = "test.ltml"
