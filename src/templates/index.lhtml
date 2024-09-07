@@ -1,0 +1,9 @@
+<h1>{{ dir_name }}</h1>
+
+<ul>
+    {% for _, link in ipairs(links) do }}
+        <li>
+            <a href="{{ link }}">{{ link }}</a>
+        </li>
+    {% end }}
+</ul>

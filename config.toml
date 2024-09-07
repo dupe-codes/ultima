@@ -1,7 +1,12 @@
+[main]
+site_name       = "Ultima"
+
 [generator]
 input_dir       = "src/content"
+static_dir      = "src/static"
 output_dir      = "build"
 
 [templates]
 dir             = "src/templates"
-default         = "test.ltml"
+default         = "page.lhtml"
+index_page      = "index.lhtml"

@@ -1,16 +1,23 @@
 #!/usr/bin/env lua
 
+local dbg = require "debugger"
 local inspect = require "inspect"
 local lfs = require "lfs"
-local toml = require "toml"
 
+local config = require("config").load_config()
 local template_engine = require "templates.engine"
 
-local decode_succeeded, config = pcall(toml.decodeFromFile, "config.toml")
+local function get_template_path(tmpl_name)
+    return config.templates.dir .. "/" .. tmpl_name
+end
 
-if not decode_succeeded then
-    print("Failed to load config! Error: " .. inspect(config))
-    return 1
+local function write_file(output_file_path, output)
+    local file = io.open(output_file_path, "w")
+    if not file then
+        error("Could not open file: " .. output_file_path)
+    end
+    file:write(output)
+    file:close()
 end
 
 local make_dir_if_not_exists = function(dir)
@@ -44,7 +51,7 @@ local function find_content(content_dir)
     return result
 end
 
-local render_file = function(output_path, source_path, file_name)
+local function render_file(output_path, source_path, file_name)
     local output_file = file_name:gsub("%.md$", ".html")
     local pandoc_cmd = string.format("pandoc -t html %s", source_path)
 
@@ -57,21 +64,15 @@ local render_file = function(output_path, source_path, file_name)
     local succeeded, exit_type, code = pipe:close()
 
     if succeeded and exit_type == "exit" and code == 0 then
-        local default_template = config.templates.dir
-            .. "/"
-            .. config.templates.default
-        local templatized_output =
-            template_engine.compile_template_file(default_template, {
+        local templatized_output = template_engine.compile_template_file(
+            get_template_path(config.templates.default),
+            {
+                config = config,
                 content = pandoc_output,
-            })
+            }
+        )
         local output_file_path = output_path .. output_file
-
-        local file = io.open(output_file_path, "w")
-        if not file then
-            error("Could not open file: " .. output_file_path)
-        end
-        file:write(templatized_output)
-        file:close()
+        write_file(output_file_path, templatized_output)
         print("Wrote rendered file at " .. output_file_path)
     else
         print("Failed to render file " .. source_path)
@@ -80,22 +81,34 @@ local render_file = function(output_path, source_path, file_name)
     return output_file
 end
 
-local write_index_file = function(file_path, links)
-    -- TODO: replace with a template once the template engine is
-    --       implemented
-    local file = io.open(file_path, "w")
-    if not file then
-        error("Could not open file: " .. file_path)
+local function write_index_file(file_path, links)
+    -- get directory name
+    -- TODO: break full path down and display as clickable breadcrumbs
+    --      e.g. blog > posts > personal
+    --      add breadcrumds ".." to go back up one level
+    local stripped_path =
+        file_path:gsub("^" .. config.generator.output_dir .. "/", "")
+    local current_dir = stripped_path:match "([^/]+)/[^/]+$"
+    if not current_dir then
+        current_dir = config.main.site_name
     end
 
-    file:write "<!DOCTYPE html>\n<html>\n<head>\n<title>Index</title>\n</head>\n<body>\n"
-    file:write "<h1>Index of Files</h1>\n<ul>\n"
+    local index_page = template_engine.compile_template_file(
+        get_template_path(config.templates.index_page),
+        {
+            dir_name = current_dir,
+            links = links,
+            ipairs = ipairs,
+        }
+    )
 
-    for _, link in ipairs(links) do
-        file:write(string.format('<li><a href="%s">%s</a></li>\n', link, link))
-    end
-    file:write "</ul>\n</body>\n</html>"
-    file:close()
+    write_file(
+        file_path,
+        template_engine.compile_template_file(
+            get_template_path(config.templates.default),
+            { config = config, content = index_page }
+        )
+    )
 end
 
 local function render_content_dir(output_path, content)
@@ -116,15 +129,59 @@ local function render_content_dir(output_path, content)
             table.insert(links, dir .. "/index.html")
         end
     end
-    local index_file_path = output_path .. "/index.html"
+    local index_file_path = output_path .. "index.html"
     write_index_file(index_file_path, links)
 end
 
-local main = function()
+local function copy_file(source, destination)
+    local source_file = io.open(source, "rb")
+    if not source_file then
+        error("Could not open source file: " .. source)
+    end
+
+    local content = source_file:read "*a"
+    source_file:close()
+
+    local destination_file = io.open(destination, "wb")
+    if not destination_file then
+        error("Could not open destination file: " .. destination)
+    end
+    destination_file:write(content)
+    destination_file:close()
+end
+
+local function copy_directory(src_dir, output_dir)
+    lfs.mkdir(output_dir)
+    for file in lfs.dir(src_dir) do
+        if file ~= "." and file ~= ".." then
+            local src_path = src_dir .. "/" .. file
+            local target_path = output_dir .. "/" .. file
+
+            local mode = lfs.attributes(src_path, "mode")
+            if mode == "file" then
+                copy_file(src_path, target_path)
+            elseif mode == "directory" then
+                copy_directory(src_path, target_path)
+            end
+        end
+    end
+end
+
+local function compile_static_assets(static_dir, output_dir)
+    -- for now, just transfer static dir as is to output_dir
+    print "Copying static assets to build directory"
+    copy_directory(static_dir, output_dir)
+end
+
+local function main()
     local content_root = find_content(config.generator.input_dir)
     make_dir_if_not_exists(config.generator.output_dir)
     local output_path = config.generator.output_dir .. "/"
     render_content_dir(output_path, content_root)
+    compile_static_assets(
+        config.generator.static_dir,
+        config.generator.output_dir .. "/static"
+    )
 end
 
 main()

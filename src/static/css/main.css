@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'departure_monoregular';
+    src: url('departuremono-regular-webfont.woff2') format('woff2'),
+         url('departuremono-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'departure_monoregular', monospace;
+}

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ultima</title>
+        <link rel="stylesheet"
+            href="{{ config.generator.root_dir .. '/' .. config.generator.output_dir .. '/static/css/main.css' }}">
+    </head>
+<body>
+    <a href={{ config.generator.root_dir .. "/" .. config.generator.output_dir .. "/index.html" }}>
+        home
+    </a>
+    {{ content }}
+</body>
+</html>
