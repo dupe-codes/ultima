@@ -1,8 +1,6 @@
 -- copied and adapted from https://nachtimwald.com/2014/08/06/using-lua-as-a-templating-engine/
 -- TODO: replace with a scanner => parser => interpreter approach
 
-local dbg = require "debugger"
-
 local M = {}
 
 local function append(builder, text, code)

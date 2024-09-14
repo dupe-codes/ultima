@@ -4,11 +4,13 @@
         <title>ultima</title>
         <link rel="stylesheet"
             href="{{ config.generator.root_dir .. '/' .. config.generator.output_dir .. '/static/css/main.css' }}">
+        <script src="https://kit.fontawesome.com/0387a22d91.js" crossorigin="anonymous"></script>
     </head>
 <body>
-    <a href={{ config.generator.root_dir .. "/" .. config.generator.output_dir .. "/index.html" }}>
+    <!-- <a href={{ config.generator.root_dir .. "/" .. config.generator.output_dir .. "/index.html" }}>
         home
-    </a>
+    </a> -->
+
     {{ content }}
 </body>
 </html>

@@ -3,7 +3,12 @@
 <ul>
     {% for _, link in ipairs(links) do }}
         <li>
-            <a href="{{ link }}">{{ link }}</a>
+            {% if link.file_type == FileType.DIRECTORY then }}
+                <i class="fa-regular fa-folder"></i>
+            {% else }}
+                <i class="fa-regular fa-file-lines"></i>
+            {% end }}
+            <a href="{{ link.link }}">{{ link.display_name }}</a>
         </li>
     {% end }}
 </ul>

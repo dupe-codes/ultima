@@ -1,0 +1,5 @@
+<a href="{{directory}}">
+    <i class="fa-solid fa-chevron-left"></i> back
+</a>
+
+{{ content }}

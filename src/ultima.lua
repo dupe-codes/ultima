@@ -1,11 +1,19 @@
 #!/usr/bin/env lua
 
-local dbg = require "debugger"
 local inspect = require "inspect"
 local lfs = require "lfs"
 
 local config = require("config").load_config()
 local template_engine = require "templates.engine"
+
+local FileType = {
+    DIRECTORY = 0,
+    FILE = 1,
+}
+
+local function strip_output_dir(file_path)
+    return file_path:gsub("^" .. config.generator.output_dir .. "/", "")
+end
 
 local function get_template_path(tmpl_name)
     return config.templates.dir .. "/" .. tmpl_name
@@ -64,11 +72,23 @@ local function render_file(output_path, source_path, file_name)
     local succeeded, exit_type, code = pipe:close()
 
     if succeeded and exit_type == "exit" and code == 0 then
+        local dir_index_path = config.generator.root_dir
+            .. "/"
+            .. output_path
+            .. "index.html"
+        local rendered_content = template_engine.compile_template_file(
+            get_template_path(config.templates.post),
+            {
+                content = pandoc_output,
+                directory = dir_index_path,
+            }
+        )
+
         local templatized_output = template_engine.compile_template_file(
             get_template_path(config.templates.default),
             {
                 config = config,
-                content = pandoc_output,
+                content = rendered_content,
             }
         )
         local output_file_path = output_path .. output_file
@@ -81,17 +101,40 @@ local function render_file(output_path, source_path, file_name)
     return output_file
 end
 
-local function write_index_file(file_path, links)
+local function sort_file_links(a, b)
+    local a_is_dir = a.file_type == FileType.DIRECTORY
+    local b_is_dir = b.file_type == FileType.DIRECTORY
+
+    if a_is_dir ~= b_is_dir then
+        return a_is_dir
+    else
+        return a.display_name < b.display_name
+    end
+end
+
+local function write_index_file(file_path, links, parent_dir)
     -- get directory name
     -- TODO: break full path down and display as clickable breadcrumbs
     --      e.g. blog > posts > personal
     --      add breadcrumds ".." to go back up one level
-    local stripped_path =
-        file_path:gsub("^" .. config.generator.output_dir .. "/", "")
+    local stripped_path = strip_output_dir(file_path)
     local current_dir = stripped_path:match "([^/]+)/[^/]+$"
     if not current_dir then
         current_dir = config.main.site_name
     end
+
+    if parent_dir then
+        table.insert(links, 1, {
+            link = config.generator.root_dir
+                .. "/"
+                .. parent_dir
+                .. "/index.html",
+            file_type = FileType.DIRECTORY,
+            display_name = "..",
+        })
+    end
+
+    table.sort(links, sort_file_links)
 
     local index_page = template_engine.compile_template_file(
         get_template_path(config.templates.index_page),
@@ -99,6 +142,7 @@ local function write_index_file(file_path, links)
             dir_name = current_dir,
             links = links,
             ipairs = ipairs,
+            FileType = FileType,
         }
     )
 
@@ -111,7 +155,9 @@ local function write_index_file(file_path, links)
     )
 end
 
-local function render_content_dir(output_path, content)
+local function render_content_dir(output_path, content, parent_dir)
+    -- TODO: expose file icon and display name as properties
+    --       in post frontmatter configs
     local links = {}
     for dir, src_files in pairs(content) do
         if dir == "" then
@@ -119,18 +165,30 @@ local function render_content_dir(output_path, content)
             for _, file in pairs(src_files) do
                 local output_file =
                     render_file(output_path, file.source_path, file.file_name)
-                table.insert(links, output_file)
+                table.insert(links, {
+                    link = output_file,
+                    file_type = FileType.FILE,
+                    display_name = output_file,
+                })
             end
         else
             -- directory to recursively render
             local nested_dir = output_path .. dir .. "/"
             make_dir_if_not_exists(nested_dir)
-            render_content_dir(output_path .. dir .. "/", src_files)
-            table.insert(links, dir .. "/index.html")
+            render_content_dir(
+                output_path .. dir .. "/",
+                src_files,
+                output_path
+            )
+            table.insert(links, {
+                link = dir .. "/index.html",
+                file_type = FileType.DIRECTORY,
+                display_name = dir,
+            })
         end
     end
     local index_file_path = output_path .. "index.html"
-    write_index_file(index_file_path, links)
+    write_index_file(index_file_path, links, parent_dir)
 end
 
 local function copy_file(source, destination)
