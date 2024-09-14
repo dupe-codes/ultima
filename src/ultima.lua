@@ -114,9 +114,10 @@ end
 
 local function write_index_file(file_path, links, parent_dir)
     -- get directory name
-    -- TODO: break full path down and display as clickable breadcrumbs
+    -- TODO: break full path down and display as clickable breadcrumbs for
+    --      index file title
     --      e.g. blog > posts > personal
-    --      add breadcrumds ".." to go back up one level
+    --      that makes navigation easier
     local stripped_path = strip_output_dir(file_path)
     local current_dir = stripped_path:match "([^/]+)/[^/]+$"
     if not current_dir then
