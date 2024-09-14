@@ -1,15 +1,32 @@
 #!/usr/bin/env lua
 
+-- TODO LIST:
+--  1. figure out how to support links between posts within posts
+--  2. support static assets (images, videos, etc.) embedded in posts
+--  3. style posts
+--  4. auto generate xml feed with "publish: true" front matter tag
+--     on posts, copy to build directory
+--  5. render code snippets with syntax highlighting copied from neovim
+--     color scheme
+--  6. ...
+
+local dbg = require "debugger"
 local inspect = require "inspect"
 local lfs = require "lfs"
 
 local config = require("config").load_config()
 local template_engine = require "templates.engine"
 
+-- SECTION: utils
+
 local FileType = {
     DIRECTORY = 0,
     FILE = 1,
 }
+
+local function shell_escape(arg)
+    return "'" .. string.gsub(arg, "'", "'\\''") .. "'"
+end
 
 local function strip_output_dir(file_path)
     return file_path:gsub("^" .. config.generator.output_dir .. "/", "")
@@ -17,6 +34,40 @@ end
 
 local function get_template_path(tmpl_name)
     return config.templates.dir .. "/" .. tmpl_name
+end
+
+local function copy_file(source, destination)
+    local source_file = io.open(source, "rb")
+    if not source_file then
+        error("Could not open source file: " .. source)
+    end
+
+    local content = source_file:read "*a"
+    source_file:close()
+
+    local destination_file = io.open(destination, "wb")
+    if not destination_file then
+        error("Could not open destination file: " .. destination)
+    end
+    destination_file:write(content)
+    destination_file:close()
+end
+
+local function copy_directory(src_dir, output_dir)
+    lfs.mkdir(output_dir)
+    for file in lfs.dir(src_dir) do
+        if file ~= "." and file ~= ".." then
+            local src_path = src_dir .. "/" .. file
+            local target_path = output_dir .. "/" .. file
+
+            local mode = lfs.attributes(src_path, "mode")
+            if mode == "file" then
+                copy_file(src_path, target_path)
+            elseif mode == "directory" then
+                copy_directory(src_path, target_path)
+            end
+        end
+    end
 end
 
 local function write_file(output_file_path, output)
@@ -37,6 +88,8 @@ local make_dir_if_not_exists = function(dir)
         end
     end
 end
+
+-- SECTION: render content
 
 local function find_content(content_dir)
     local result = {
@@ -61,7 +114,8 @@ end
 
 local function render_file(output_path, source_path, file_name)
     local output_file = file_name:gsub("%.md$", ".html")
-    local pandoc_cmd = string.format("pandoc -t html %s", source_path)
+    local pandoc_cmd =
+        string.format("pandoc -t html %s", shell_escape(source_path))
 
     local pipe = io.popen(pandoc_cmd, "r")
     if not pipe then
@@ -113,11 +167,6 @@ local function sort_file_links(a, b)
 end
 
 local function write_index_file(file_path, links, parent_dir)
-    -- get directory name
-    -- TODO: break full path down and display as clickable breadcrumbs for
-    --      index file title
-    --      e.g. blog > posts > personal
-    --      that makes navigation easier
     local stripped_path = strip_output_dir(file_path)
     local current_dir = stripped_path:match "([^/]+)/[^/]+$"
     if not current_dir then
@@ -163,6 +212,7 @@ local function render_content_dir(output_path, content, parent_dir)
     for dir, src_files in pairs(content) do
         if dir == "" then
             -- list of files in the current directory to render
+            -- TODO: run in parallel
             for _, file in pairs(src_files) do
                 local output_file =
                     render_file(output_path, file.source_path, file.file_name)
@@ -184,7 +234,7 @@ local function render_content_dir(output_path, content, parent_dir)
             table.insert(links, {
                 link = dir .. "/index.html",
                 file_type = FileType.DIRECTORY,
-                display_name = dir,
+                display_name = dir .. "/",
             })
         end
     end
@@ -192,44 +242,16 @@ local function render_content_dir(output_path, content, parent_dir)
     write_index_file(index_file_path, links, parent_dir)
 end
 
-local function copy_file(source, destination)
-    local source_file = io.open(source, "rb")
-    if not source_file then
-        error("Could not open source file: " .. source)
-    end
-
-    local content = source_file:read "*a"
-    source_file:close()
-
-    local destination_file = io.open(destination, "wb")
-    if not destination_file then
-        error("Could not open destination file: " .. destination)
-    end
-    destination_file:write(content)
-    destination_file:close()
-end
-
-local function copy_directory(src_dir, output_dir)
-    lfs.mkdir(output_dir)
-    for file in lfs.dir(src_dir) do
-        if file ~= "." and file ~= ".." then
-            local src_path = src_dir .. "/" .. file
-            local target_path = output_dir .. "/" .. file
-
-            local mode = lfs.attributes(src_path, "mode")
-            if mode == "file" then
-                copy_file(src_path, target_path)
-            elseif mode == "directory" then
-                copy_directory(src_path, target_path)
-            end
-        end
-    end
-end
-
 local function compile_static_assets(static_dir, output_dir)
     -- for now, just transfer static dir as is to output_dir
     print "Copying static assets to build directory"
     copy_directory(static_dir, output_dir)
+end
+
+local function generate_xml_feed(src_dir, output_dir)
+    -- TODO: dynamically generate this feed file direct in
+    --       the output dir from posts with publish = true
+    copy_file(src_dir .. "/" .. "feed.xml", output_dir .. "/feed.xml")
 end
 
 local function main()
@@ -241,6 +263,7 @@ local function main()
         config.generator.static_dir,
         config.generator.output_dir .. "/static"
     )
+    generate_xml_feed("src", config.generator.output_dir)
 end
 
 main()

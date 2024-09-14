@@ -7,9 +7,12 @@ add: ## Add a lua dependency to the local project, usage: make add package=packa
 install: ## Install project dependencies
 	luarocks install --tree lua_modules --deps-only ultima-dev-1.rockspec
 
-.PHONY: run
-run: ## Run the ultima application
+.PHONY: build
+build: ## Buils the ultima site
 	@source $(CURDIR)/project.env && ./src/ultima.lua
+
+.PHONY: run
+run: build ## Run the ultima application
 	xdg-open build/index.html
 
 .PHONY: clean
