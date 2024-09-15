@@ -8,7 +8,7 @@ install: ## Install project dependencies
 	luarocks install --tree lua_modules --deps-only ultima-dev-1.rockspec
 
 .PHONY: build
-build: ## Buils the ultima site
+build: ## Build the ultima site
 	@source $(CURDIR)/project.env && ./src/ultima.lua
 
 .PHONY: run

@@ -12,6 +12,7 @@
 
 local dbg = require "debugger"
 local inspect = require "inspect"
+local json = require "dkjson"
 local lfs = require "lfs"
 
 local config = require("config").load_config()
@@ -34,6 +35,16 @@ end
 
 local function get_template_path(tmpl_name)
     return config.templates.dir .. "/" .. tmpl_name
+end
+
+local function read_file(path)
+    local file = io.open(path, "r")
+    if not file then
+        error("Could not open file: " .. path)
+    end
+    local content = file:read "*a"
+    file:close()
+    return content
 end
 
 local function copy_file(source, destination)
@@ -112,10 +123,28 @@ local function find_content(content_dir)
     return result
 end
 
+local function read_metadata(source_path)
+    local metadata_file = source_path .. ".meta.json"
+
+    local mode = lfs.attributes(metadata_file, "mode")
+    if mode ~= "file" then
+        return {}
+    end
+
+    local metadata_content = read_file(metadata_file)
+    local metadata = json.decode(metadata_content)
+    os.remove(metadata_file)
+    return metadata
+end
+
 local function render_file(output_path, source_path, file_name)
+    -- TODO: parse out frontmatter data
+
     local output_file = file_name:gsub("%.md$", ".html")
-    local pandoc_cmd =
-        string.format("pandoc -t html %s", shell_escape(source_path))
+    local pandoc_cmd = string.format(
+        "pandoc -t html --lua-filter=src/pandoc_filters/metadata_extractor.lua %s",
+        shell_escape(source_path)
+    )
 
     local pipe = io.popen(pandoc_cmd, "r")
     if not pipe then
@@ -126,6 +155,9 @@ local function render_file(output_path, source_path, file_name)
     local succeeded, exit_type, code = pipe:close()
 
     if succeeded and exit_type == "exit" and code == 0 then
+        -- TODO: use the metadata lol
+        local metadata = read_metadata(source_path)
+
         local dir_index_path = config.generator.root_dir
             .. "/"
             .. output_path
@@ -152,6 +184,8 @@ local function render_file(output_path, source_path, file_name)
         print("Failed to render file " .. source_path)
     end
 
+    -- TODO: return table, with all data currently added in #render_content_dir
+    --       plus frontmatter data
     return output_file
 end
 
