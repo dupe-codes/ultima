@@ -1,0 +1,4 @@
+*.woff filter=lfs diff=lfs merge=lfs -text lockable
+*.woff2 filter=lfs diff=lfs merge=lfs -text lockable
+*.png filter=lfs diff=lfs merge=lfs -text lockable
+*.jpg filter=lfs diff=lfs merge=lfs -text lockable

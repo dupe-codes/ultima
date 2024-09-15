@@ -14,8 +14,24 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'berkeley_mono_regular';
+    src: url('BerkeleyMono-Regular.woff2') format('woff2'),
+         url('BerkeleyMono-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'eb_garamond12_regular';
+    src: url('ebgaramond12-regular-webfont.woff2') format('woff2'),
+         url('ebgaramond12-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
-    font-family: 'drafting_monoregular', monospace;
+    font-family: 'berkeley_mono_regular', monospace;
 }
 
 .file-index {
@@ -74,4 +90,3 @@ body {
 .file-index-table i {
     margin-right: 10px;
 }
-
