@@ -6,11 +6,10 @@
 --  3. style posts
 --  4. auto generate xml feed with "publish: true" front matter tag
 --     on posts, copy to build directory
---  5. render code snippets with syntax highlighting copied from neovim
---     color scheme
+--  5. render code snippets with syntax highlighting extracted from
+--     neovim
 --  6. ...
 
-local dbg = require "debugger"
 local inspect = require "inspect"
 local json = require "dkjson"
 local lfs = require "lfs"
@@ -142,7 +141,7 @@ local function render_file(output_path, source_path, file_name)
 
     local output_file = file_name:gsub("%.md$", ".html")
     local pandoc_cmd = string.format(
-        "pandoc -t html --lua-filter=src/pandoc_filters/metadata_extractor.lua %s",
+        "pandoc -t html --lua-filter=src/pandoc/metadata_extractor.lua %s",
         shell_escape(source_path)
     )
 
