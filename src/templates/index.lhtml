@@ -1,18 +1,35 @@
 <!-- TODO: display as table with data [icon, name, file size, date modified] -->
-<div class = "file-index">
+<div class="file-index">
 
     <h1>{{ dir_name }}</h1>
 
-    <ul class = "file-index-list">
-        {% for _, link in ipairs(links) do }}
-            <li>
-                {% if link.file_type == FileType.DIRECTORY then }}
-                    <i class="fa-regular fa-folder"></i>
-                {% else }}
-                    <i class="fa-regular fa-file-lines"></i>
-                {% end }}
-                <a href="{{ link.link }}">{{ link.display_name }}</a>
-            </li>
-        {% end }}
-    </ul>
+    <table class="file-index-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Size</th>
+                <th>Last Modified</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for _, link in ipairs(links) do }}
+                <tr>
+                    <td>
+                        {% if link.file_type == FileType.DIRECTORY then }}
+                            <i class="fa-regular fa-folder"></i>
+                        {% else }}
+                            <i class="fa-regular fa-file-lines"></i>
+                        {% end }}
+                        <a href="{{ link.link }}">{{ link.display_name }}</a>
+                    </td>
+                    <td>
+                        {{ link.metadata.file_size or "-" }}
+                    </td>
+                    <td>
+                        {{ link.metadata.updated_at or "-" }}
+                    </td>
+                </tr>
+            {% end }}
+        </tbody>
+    </table>
 </div>

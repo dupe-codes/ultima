@@ -6,8 +6,16 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'drafting_monoregular';
+    src: url('draftingmono-regular-webfont.woff2') format('woff2'),
+         url('draftingmono-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
-    font-family: 'departure_monoregular', monospace;
+    font-family: 'drafting_monoregular', monospace;
 }
 
 .file-index {
@@ -16,11 +24,11 @@ body {
     padding: 20px;
 }
 
-.file-index-list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
+/*.file-index-list {*/
+    /*list-style-type: none;*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+/*}*/
 
 .post-content {
     max-width: 600px;
@@ -30,3 +38,40 @@ body {
     font-size: 16px;
     color: #333333;
 }
+
+.file-index-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.file-index-table thead th {
+    border-bottom: 2px solid #ddd;
+    text-align: left;
+    padding: 15px;
+}
+
+.file-index-table tbody td {
+    border-bottom: 1px solid #eee;
+    padding: 15px;
+    vertical-align: middle;
+}
+
+.file-index-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.file-index-table td a {
+    text-decoration: none;
+    color: #007BFF;
+    word-wrap: break-word;
+}
+
+.file-index-table td a:hover {
+    text-decoration: underline;
+}
+
+.file-index-table i {
+    margin-right: 10px;
+}
+

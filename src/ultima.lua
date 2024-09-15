@@ -19,10 +19,29 @@ local template_engine = require "templates.engine"
 
 -- SECTION: utils
 
+local PANDOC_CMD_FMT = "pandoc -t html --lua-filter=%s %s"
+
 local FileType = {
     DIRECTORY = 0,
     FILE = 1,
 }
+
+local function format_bytes(bytes, decimal_places)
+    local units =
+        { "B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB" }
+    local divisor = 1024
+    local i = 1
+    while bytes >= divisor and i < #units do
+        bytes = bytes / divisor
+        i = i + 1
+    end
+    local format_string = "%." .. (decimal_places or 2) .. "f %s"
+    return string.format(format_string, bytes, units[i])
+end
+
+local function unix_ts_to_iso8601(timestamp)
+    return os.date("!%Y-%m-%dT%H:%M:%SZ", timestamp)
+end
 
 local function shell_escape(arg)
     return "'" .. string.gsub(arg, "'", "'\\''") .. "'"
@@ -137,11 +156,10 @@ local function read_metadata(source_path)
 end
 
 local function render_file(output_path, source_path, file_name)
-    -- TODO: parse out frontmatter data
-
     local output_file = file_name:gsub("%.md$", ".html")
     local pandoc_cmd = string.format(
-        "pandoc -t html --lua-filter=src/pandoc/metadata_extractor.lua %s",
+        PANDOC_CMD_FMT,
+        "src/pandoc/metadata_extractor.lua",
         shell_escape(source_path)
     )
 
@@ -154,7 +172,6 @@ local function render_file(output_path, source_path, file_name)
     local succeeded, exit_type, code = pipe:close()
 
     if succeeded and exit_type == "exit" and code == 0 then
-        -- TODO: use the metadata lol
         local metadata = read_metadata(source_path)
 
         local dir_index_path = config.generator.root_dir
@@ -166,6 +183,7 @@ local function render_file(output_path, source_path, file_name)
             {
                 content = pandoc_output,
                 directory = dir_index_path,
+                metadata = metadata,
             }
         )
 
@@ -174,18 +192,33 @@ local function render_file(output_path, source_path, file_name)
             {
                 config = config,
                 content = rendered_content,
+                metadata = metadata,
             }
         )
+
         local output_file_path = output_path .. output_file
         write_file(output_file_path, templatized_output)
         print("Wrote rendered file at " .. output_file_path)
-    else
-        print("Failed to render file " .. source_path)
-    end
 
-    -- TODO: return table, with all data currently added in #render_content_dir
-    --       plus frontmatter data
-    return output_file
+        metadata.file_size =
+            format_bytes(lfs.attributes(output_file_path, "size"))
+
+        -- TODO: figure out how to set this such that ALL files aren't reset
+        --       to current timestamp when site it re-compiled
+        --       idea: check build artifacts into git and do a diff
+        --       of new rendered content with the old
+        metadata.updated_at =
+            unix_ts_to_iso8601(lfs.attributes(output_file_path, "modification"))
+
+        return {
+            link = output_file,
+            file_type = FileType.FILE,
+            display_name = output_file,
+            metadata = metadata,
+        }
+    else
+        error("Failed to render file " .. source_path)
+    end
 end
 
 local function sort_file_links(a, b)
@@ -214,6 +247,7 @@ local function write_index_file(file_path, links, parent_dir)
                 .. "/index.html",
             file_type = FileType.DIRECTORY,
             display_name = "..",
+            metadata = {},
         })
     end
 
@@ -247,13 +281,9 @@ local function render_content_dir(output_path, content, parent_dir)
             -- list of files in the current directory to render
             -- TODO: run in parallel
             for _, file in pairs(src_files) do
-                local output_file =
+                local output_data =
                     render_file(output_path, file.source_path, file.file_name)
-                table.insert(links, {
-                    link = output_file,
-                    file_type = FileType.FILE,
-                    display_name = output_file,
-                })
+                table.insert(links, output_data)
             end
         else
             -- directory to recursively render
@@ -268,6 +298,7 @@ local function render_content_dir(output_path, content, parent_dir)
                 link = dir .. "/index.html",
                 file_type = FileType.DIRECTORY,
                 display_name = dir .. "/",
+                metadata = {},
             })
         end
     end
