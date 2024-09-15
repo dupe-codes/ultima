@@ -294,11 +294,17 @@ local function render_content_dir(output_path, content, parent_dir)
                 src_files,
                 output_path
             )
+            local subdir_index_file = dir .. "/index.html"
+            local subdir_metadata = {
+                updated_at = unix_ts_to_iso8601(
+                    lfs.attributes(subdir_index_file, "modification")
+                ),
+            }
             table.insert(links, {
                 link = dir .. "/index.html",
                 file_type = FileType.DIRECTORY,
                 display_name = dir .. "/",
-                metadata = {},
+                metadata = subdir_metadata,
             })
         end
     end
