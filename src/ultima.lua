@@ -15,110 +15,18 @@ local json = require "dkjson"
 local lfs = require "lfs"
 
 local config = require("config").load_config()
+local constants = require "utils.constants"
+local file_utils = require "utils.files"
+local formatters = require "utils.formatters"
+local lock_files = require "utils.lock_files"
 local template_engine = require "templates.engine"
 
--- SECTION: utils
-
 local PANDOC_CMD_FMT = "pandoc -t html --lua-filter=%s %s"
-
-local FileType = {
-    DIRECTORY = 0,
-    FILE = 1,
-}
-
-local function format_bytes(bytes, decimal_places)
-    local units =
-        { "B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB" }
-    local divisor = 1024
-    local i = 1
-    while bytes >= divisor and i < #units do
-        bytes = bytes / divisor
-        i = i + 1
-    end
-    local format_string = "%." .. (decimal_places or 2) .. "f %s"
-    return string.format(format_string, bytes, units[i])
-end
-
-local function unix_ts_to_iso8601(timestamp)
-    return os.date("!%Y-%m-%dT%H:%M:%SZ", timestamp)
-end
-
-local function shell_escape(arg)
-    return "'" .. string.gsub(arg, "'", "'\\''") .. "'"
-end
-
-local function strip_output_dir(file_path)
-    return file_path:gsub("^" .. config.generator.output_dir .. "/", "")
-end
+local LOCK_FILE = lock_files.load(constants.LOCK_FILE)
 
 local function get_template_path(tmpl_name)
     return config.templates.dir .. "/" .. tmpl_name
 end
-
-local function read_file(path)
-    local file = io.open(path, "r")
-    if not file then
-        error("Could not open file: " .. path)
-    end
-    local content = file:read "*a"
-    file:close()
-    return content
-end
-
-local function copy_file(source, destination)
-    local source_file = io.open(source, "rb")
-    if not source_file then
-        error("Could not open source file: " .. source)
-    end
-
-    local content = source_file:read "*a"
-    source_file:close()
-
-    local destination_file = io.open(destination, "wb")
-    if not destination_file then
-        error("Could not open destination file: " .. destination)
-    end
-    destination_file:write(content)
-    destination_file:close()
-end
-
-local function copy_directory(src_dir, output_dir)
-    lfs.mkdir(output_dir)
-    for file in lfs.dir(src_dir) do
-        if file ~= "." and file ~= ".." then
-            local src_path = src_dir .. "/" .. file
-            local target_path = output_dir .. "/" .. file
-
-            local mode = lfs.attributes(src_path, "mode")
-            if mode == "file" then
-                copy_file(src_path, target_path)
-            elseif mode == "directory" then
-                copy_directory(src_path, target_path)
-            end
-        end
-    end
-end
-
-local function write_file(output_file_path, output)
-    local file = io.open(output_file_path, "w")
-    if not file then
-        error("Could not open file: " .. output_file_path)
-    end
-    file:write(output)
-    file:close()
-end
-
-local make_dir_if_not_exists = function(dir)
-    local output_dir_exists = lfs.attributes(dir)
-    if not output_dir_exists then
-        local success, err = lfs.mkdir(dir)
-        if not success then
-            print("failed to make directory " .. dir .. ": " .. inspect(err))
-        end
-    end
-end
-
--- SECTION: render content
 
 local function find_content(content_dir)
     local result = {
@@ -149,7 +57,7 @@ local function read_metadata(source_path)
         return {}
     end
 
-    local metadata_content = read_file(metadata_file)
+    local metadata_content = file_utils.read_file(metadata_file)
     local metadata = json.decode(metadata_content)
     os.remove(metadata_file)
     return metadata
@@ -160,7 +68,7 @@ local function render_file(output_path, source_path, file_name)
     local pandoc_cmd = string.format(
         PANDOC_CMD_FMT,
         "src/pandoc/metadata_extractor.lua",
-        shell_escape(source_path)
+        formatters.shell_escape(source_path)
     )
 
     local pipe = io.popen(pandoc_cmd, "r")
@@ -197,22 +105,23 @@ local function render_file(output_path, source_path, file_name)
         )
 
         local output_file_path = output_path .. output_file
-        write_file(output_file_path, templatized_output)
+        file_utils.write_file(output_file_path, templatized_output)
         print("Wrote rendered file at " .. output_file_path)
 
         metadata.file_size =
-            format_bytes(lfs.attributes(output_file_path, "size"))
+            formatters.format_bytes(lfs.attributes(output_file_path, "size"))
 
         -- TODO: figure out how to set this such that ALL files aren't reset
         --       to current timestamp when site it re-compiled
         --       idea: check build artifacts into git and do a diff
         --       of new rendered content with the old
-        metadata.updated_at =
-            unix_ts_to_iso8601(lfs.attributes(output_file_path, "modification"))
+        metadata.updated_at = formatters.unix_ts_to_iso8601(
+            lfs.attributes(output_file_path, "modification")
+        )
 
         return {
             link = output_file,
-            file_type = FileType.FILE,
+            file_type = file_utils.FileType.FILE,
             display_name = output_file,
             metadata = metadata,
         }
@@ -222,8 +131,8 @@ local function render_file(output_path, source_path, file_name)
 end
 
 local function sort_file_links(a, b)
-    local a_is_dir = a.file_type == FileType.DIRECTORY
-    local b_is_dir = b.file_type == FileType.DIRECTORY
+    local a_is_dir = a.file_type == file_utils.FileType.DIRECTORY
+    local b_is_dir = b.file_type == file_utils.FileType.DIRECTORY
 
     if a_is_dir ~= b_is_dir then
         return a_is_dir
@@ -233,7 +142,8 @@ local function sort_file_links(a, b)
 end
 
 local function write_index_file(file_path, links, parent_dir)
-    local stripped_path = strip_output_dir(file_path)
+    local stripped_path =
+        formatters.strip_output_dir(file_path, config.generator.output_dir)
     local current_dir = stripped_path:match "([^/]+)/[^/]+$"
     if not current_dir then
         current_dir = config.main.site_name
@@ -245,7 +155,7 @@ local function write_index_file(file_path, links, parent_dir)
                 .. "/"
                 .. parent_dir
                 .. "/index.html",
-            file_type = FileType.DIRECTORY,
+            file_type = file_utils.FileType.DIRECTORY,
             display_name = "..",
             metadata = {},
         })
@@ -259,11 +169,11 @@ local function write_index_file(file_path, links, parent_dir)
             dir_name = current_dir,
             links = links,
             ipairs = ipairs,
-            FileType = FileType,
+            FileType = file_utils.FileType,
         }
     )
 
-    write_file(
+    file_utils.write_file(
         file_path,
         template_engine.compile_template_file(
             get_template_path(config.templates.default),
@@ -288,7 +198,7 @@ local function render_content_dir(output_path, content, parent_dir)
         else
             -- directory to recursively render
             local nested_dir = output_path .. dir .. "/"
-            make_dir_if_not_exists(nested_dir)
+            file_utils.make_dir_if_not_exists(nested_dir)
             render_content_dir(
                 output_path .. dir .. "/",
                 src_files,
@@ -296,13 +206,13 @@ local function render_content_dir(output_path, content, parent_dir)
             )
             local subdir_index_file = dir .. "/index.html"
             local subdir_metadata = {
-                updated_at = unix_ts_to_iso8601(
+                updated_at = formatters.unix_ts_to_iso8601(
                     lfs.attributes(subdir_index_file, "modification")
                 ),
             }
             table.insert(links, {
                 link = dir .. "/index.html",
-                file_type = FileType.DIRECTORY,
+                file_type = file_utils.FileType.DIRECTORY,
                 display_name = dir .. "/",
                 metadata = subdir_metadata,
             })
@@ -315,18 +225,21 @@ end
 local function compile_static_assets(static_dir, output_dir)
     -- for now, just transfer static dir as is to output_dir
     print "Copying static assets to build directory"
-    copy_directory(static_dir, output_dir)
+    file_utils.copy_directory(static_dir, output_dir)
 end
 
 local function generate_xml_feed(src_dir, output_dir)
     -- TODO: dynamically generate this feed file direct in
     --       the output dir from posts with publish = true
-    copy_file(src_dir .. "/" .. "feed.xml", output_dir .. "/feed.xml")
+    file_utils.copy_file(
+        src_dir .. "/" .. "feed.xml",
+        output_dir .. "/feed.xml"
+    )
 end
 
 local function main()
     local content_root = find_content(config.generator.input_dir)
-    make_dir_if_not_exists(config.generator.output_dir)
+    file_utils.make_dir_if_not_exists(config.generator.output_dir)
     local output_path = config.generator.output_dir .. "/"
     render_content_dir(output_path, content_root)
     compile_static_assets(

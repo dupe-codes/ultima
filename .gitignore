@@ -4,3 +4,4 @@
 /.luarocks
 
 build/
+doc/
