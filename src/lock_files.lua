@@ -67,7 +67,7 @@ function M.file_content_changed(lock_file, file_path, content)
 end
 
 function M.write(lock_file_content, output_file)
-    local lock_file_data = json.encode(lock_file_content)
+    local lock_file_data = json.encode(lock_file_content, { indent = true })
     local file = io.open(output_file, "w")
 
     if not file then

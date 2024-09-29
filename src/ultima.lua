@@ -11,7 +11,6 @@
 --  6. ...
 
 local argparse = require "argparse"
-local inspect = require "inspect"
 local json = require "dkjson"
 local lfs = require "lfs"
 
@@ -98,6 +97,7 @@ local function render_file(output_path, source_path, file_name)
             .. "/"
             .. output_path
             .. "index.html"
+
         local rendered_content = template_engine.compile_template_file(
             get_template_path(CONFIG.templates.post),
             {
@@ -121,7 +121,7 @@ local function render_file(output_path, source_path, file_name)
         local file_changed, checksum = lock_files.file_content_changed(
             LOCK_FILE,
             source_path,
-            rendered_content
+            pandoc_output
         )
         if file_changed then
             file_utils.write_file(output_file_path, templatized_output)
@@ -246,6 +246,10 @@ local function render_content_dir(output_path, content, parent_dir)
                 output_path
             )
             local subdir_index_file = dir .. "/index.html"
+            -- TODO: support directories in lock file, only change
+            --       updated_at if any file in a directory has changed; or, maybe
+            --       just set subdir updated_at to most recent updated_at of all
+            --       files within it
             local subdir_metadata = {
                 updated_at = formatters.unix_ts_to_iso8601(
                     lfs.attributes(subdir_index_file, "modification")

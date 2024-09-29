@@ -15,6 +15,10 @@ build-f: ## Force build the ultima site
 build: ## Build the ultima site
 	@source $(CURDIR)/project.env && ./src/ultima.lua
 
+.PHONY: deploy
+deploy: ## Build & deploy the ultima site to production
+	@source $(CURDIR)/project.env && ./src/ultima.lua -f --env prod
+
 .PHONY: run
 run: build ## Run the ultima application
 	xdg-open build/index.html

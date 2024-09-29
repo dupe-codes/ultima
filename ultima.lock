@@ -1,1 +1,44 @@
-{"files":{"src/content/gallery/clothing studies.md":{"checksum":"da7cee4850e8a88c2b97652da40830ce","file_size":"534.00 B","last_modified_ts":"2024-09-29T01:32:21Z"},"src/content/now.md":{"checksum":"98178e20641495419f8abf3f28cc1a4b","file_size":"2.84 KiB","last_modified_ts":"2024-09-29T01:32:21Z"},"src/content/manuscripts/in-n-out, my brief stint at princeton.md":{"checksum":"99f53e6f6d5d2b2ae4f08d7b38fecf42","file_size":"5.40 KiB","last_modified_ts":"2024-09-29T01:32:20Z"},"src/content/home.md":{"checksum":"b9ed5130a379e991cf969063400e6ffe","file_size":"2.04 KiB","last_modified_ts":"2024-09-29T01:32:21Z"},"src/content/about.md":{"checksum":"8ae77144c96b4db0e909a7f47c21970a","file_size":"1.87 KiB","last_modified_ts":"2024-09-29T01:32:20Z"},"src/content/bookshelf/snippets.md":{"checksum":"aa2c9dc915880af36622c3672dd655d7","file_size":"5.39 KiB","last_modified_ts":"2024-09-29T01:32:20Z"},"src/content/bookshelf/on programming.md":{"checksum":"d34c4c48c04c14fb005dbdbab71a7391","file_size":"1.14 KiB","last_modified_ts":"2024-09-29T01:32:20Z"},"src/content/manuscripts/off on a coding adventure.md":{"checksum":"90f321d53f570eb6e684f0ece819e550","file_size":"517.00 B","last_modified_ts":"2024-09-29T01:32:20Z"}}}
+{
+  "files":{
+    "src/content/about.md":{
+      "last_modified_ts":"2024-09-29T21:15:28Z",
+      "file_size":"1.87 KiB",
+      "checksum":"f00374f8ecd52052a22bd134031a233f"
+    },
+    "src/content/manuscripts/off on a coding adventure.md":{
+      "last_modified_ts":"2024-09-29T21:15:28Z",
+      "file_size":"517.00 B",
+      "checksum":"b37786e832cdd640d20948d021c188f8"
+    },
+    "src/content/now.md":{
+      "last_modified_ts":"2024-09-29T21:15:29Z",
+      "file_size":"2.84 KiB",
+      "checksum":"11c447a6ac25a34a1bd774d511b3ace8"
+    },
+    "src/content/home.md":{
+      "last_modified_ts":"2024-09-29T21:15:28Z",
+      "file_size":"2.04 KiB",
+      "checksum":"64624689c2551cbbbff0ceae9b4b1c1b"
+    },
+    "src/content/gallery/clothing studies.md":{
+      "last_modified_ts":"2024-09-29T21:15:29Z",
+      "file_size":"534.00 B",
+      "checksum":"4f12711b7c527e896b1db0739c8df930"
+    },
+    "src/content/manuscripts/in-n-out, my brief stint at princeton.md":{
+      "last_modified_ts":"2024-09-29T21:15:28Z",
+      "file_size":"5.40 KiB",
+      "checksum":"dbe40a3386ada2e80836bb590e5d581d"
+    },
+    "src/content/bookshelf/snippets.md":{
+      "last_modified_ts":"2024-09-29T21:15:29Z",
+      "file_size":"5.39 KiB",
+      "checksum":"7ada7dbd14bc2440d457fb3d4be5fbb4"
+    },
+    "src/content/bookshelf/on programming.md":{
+      "last_modified_ts":"2024-09-29T21:15:29Z",
+      "file_size":"1.14 KiB",
+      "checksum":"8584372367be600244777464368285d8"
+    }
+  }
+}
