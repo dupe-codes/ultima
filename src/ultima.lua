@@ -10,11 +10,11 @@
 --     neovim
 --  6. ...
 
+local argparse = require "argparse"
 local inspect = require "inspect"
 local json = require "dkjson"
 local lfs = require "lfs"
 
-local config = require("config").load_config()
 local constants = require "utils.constants"
 local file_utils = require "utils.files"
 local formatters = require "utils.formatters"
@@ -24,8 +24,20 @@ local template_engine = require "templates.engine"
 local PANDOC_CMD_FMT = "pandoc -t html --lua-filter=%s %s"
 local LOCK_FILE = lock_files.load(constants.LOCK_FILE)
 
+-- START: parse arguments and set parameters as globals
+
+local parser = argparse("ultima", "the ultimate static site generator")
+parser:flag("-f --force", "Force write rendered files")
+parser:option("-e --env", "The compilation environment", "dev")
+local args = parser:parse()
+
+local FORCE_WRITE = args.force
+local CONFIG = require("config").load_config(args.env)
+
+-- END
+
 local function get_template_path(tmpl_name)
-    return config.templates.dir .. "/" .. tmpl_name
+    return CONFIG.templates.dir .. "/" .. tmpl_name
 end
 
 local function find_content(content_dir)
@@ -82,14 +94,14 @@ local function render_file(output_path, source_path, file_name)
     if succeeded and exit_type == "exit" and code == 0 then
         local metadata = read_metadata(source_path)
 
-        local dir_index_path = config.generator.root_dir
+        local dir_index_path = CONFIG.generator.root_dir
             .. "/"
             .. output_path
             .. "index.html"
         local rendered_content = template_engine.compile_template_file(
-            get_template_path(config.templates.post),
+            get_template_path(CONFIG.templates.post),
             {
-                config = config,
+                config = CONFIG,
                 content = pandoc_output,
                 directory = dir_index_path,
                 metadata = metadata,
@@ -97,9 +109,9 @@ local function render_file(output_path, source_path, file_name)
         )
 
         local templatized_output = template_engine.compile_template_file(
-            get_template_path(config.templates.default),
+            get_template_path(CONFIG.templates.default),
             {
-                config = config,
+                config = CONFIG,
                 content = rendered_content,
                 metadata = metadata,
             }
@@ -126,6 +138,9 @@ local function render_file(output_path, source_path, file_name)
                 file_size = file_size,
                 checksum = checksum,
             })
+        elseif FORCE_WRITE then
+            file_utils.write_file(output_file_path, templatized_output)
+            print("Force wrote unchanged file at " .. output_file_path)
         else
             print(
                 string.format("%s content unchanged; skipping...", source_path)
@@ -168,15 +183,15 @@ end
 
 local function write_index_file(file_path, links, parent_dir)
     local stripped_path =
-        formatters.strip_output_dir(file_path, config.generator.output_dir)
+        formatters.strip_output_dir(file_path, CONFIG.generator.output_dir)
     local current_dir = stripped_path:match "([^/]+)/[^/]+$"
     if not current_dir then
-        current_dir = config.main.site_name
+        current_dir = CONFIG.main.site_name
     end
 
     if parent_dir then
         table.insert(links, 1, {
-            link = config.generator.root_dir
+            link = CONFIG.generator.root_dir
                 .. "/"
                 .. parent_dir
                 .. "/index.html",
@@ -189,9 +204,9 @@ local function write_index_file(file_path, links, parent_dir)
     table.sort(links, sort_file_links)
 
     local index_page = template_engine.compile_template_file(
-        get_template_path(config.templates.index_page),
+        get_template_path(CONFIG.templates.index_page),
         {
-            config = config,
+            config = CONFIG,
             dir_name = current_dir,
             links = links,
             ipairs = ipairs,
@@ -202,8 +217,8 @@ local function write_index_file(file_path, links, parent_dir)
     file_utils.write_file(
         file_path,
         template_engine.compile_template_file(
-            get_template_path(config.templates.default),
-            { config = config, content = index_page }
+            get_template_path(CONFIG.templates.default),
+            { config = CONFIG, content = index_page }
         )
     )
 end
@@ -264,16 +279,16 @@ local function generate_xml_feed(src_dir, output_dir)
 end
 
 local function main()
-    local content_root = find_content(config.generator.input_dir)
-    file_utils.make_dir_if_not_exists(config.generator.output_dir)
-    local output_path = config.generator.output_dir .. "/"
+    local content_root = find_content(CONFIG.generator.input_dir)
+    file_utils.make_dir_if_not_exists(CONFIG.generator.output_dir)
+    local output_path = CONFIG.generator.output_dir .. "/"
     render_content_dir(output_path, content_root)
     lock_files.write(LOCK_FILE, constants.LOCK_FILE)
     compile_static_assets(
-        config.generator.static_dir,
-        config.generator.output_dir .. "/static"
+        CONFIG.generator.static_dir,
+        CONFIG.generator.output_dir .. "/static"
     )
-    generate_xml_feed("src", config.generator.output_dir)
+    generate_xml_feed("src", CONFIG.generator.output_dir)
 end
 
 main()

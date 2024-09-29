@@ -1,5 +1,6 @@
 [main]
 site_name       = "Ultima"
+site_url        = "https://www.dupe.sh"
 
 [generator]
 input_dir       = "src/content"
