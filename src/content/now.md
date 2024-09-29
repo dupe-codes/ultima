@@ -1,3 +1,7 @@
+#### @September 2024
+
+Time for something new...
+
 #### @March 2024
 
 This update is belated; the changes I describe took effect almost two months ago. I'm officially back living in New York City. The move took what felt like a thousand years, but I'm happily all settled. I've also made a job change, starting a new software engineering role at Arena AI. I'm working on greenfield projects applying transformer models to the process optimization, validation, and configuration challenges abundant in manufacturing industries. The role comes with the promise of truly full-stack work — in the modern AI platform sense of the term — across data processing pipelines, model training efforts, model deployment, and user-facing product integration. I'm wary of AI's effects and usefulness in some domains, but the one I'm now working in feels eminently impactful.  

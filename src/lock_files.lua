@@ -1,6 +1,7 @@
 local inspect = require "inspect"
 local json = require "dkjson"
 local lfs = require "lfs"
+local md5 = require "md5"
 
 local file_utils = require "utils.files"
 
@@ -23,7 +24,6 @@ function M.load(lock_file_path)
             )
         )
     end
-    require "debugger"()
     return result
 end
 
@@ -51,8 +51,23 @@ function M.set_file_data(lock_file, target_file, data)
     end
 end
 
+function M.file_content_changed(lock_file, file_path, content)
+    if not lock_file or not lock_file.files then
+        error "Given incorrectly typed lock_file"
+    end
+
+    local lock_file_attrs = lock_file.files[file_path]
+    local content_checksum = md5.sumhexa(content)
+
+    if not lock_file_attrs or not lock_file_attrs.checksum then
+        return true, content_checksum
+    end
+
+    return content_checksum ~= lock_file_attrs.checksum, content_checksum
+end
+
 function M.write(lock_file_content, output_file)
-    local lock_file_data = json.encode(lock_file_content.files)
+    local lock_file_data = json.encode(lock_file_content)
     local file = io.open(output_file, "w")
 
     if not file then

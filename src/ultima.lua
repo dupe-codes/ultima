@@ -18,7 +18,7 @@ local config = require("config").load_config()
 local constants = require "utils.constants"
 local file_utils = require "utils.files"
 local formatters = require "utils.formatters"
-local lock_files = require "utils.lock_files"
+local lock_files = require "lock_files"
 local template_engine = require "templates.engine"
 
 local PANDOC_CMD_FMT = "pandoc -t html --lua-filter=%s %s"
@@ -105,20 +105,44 @@ local function render_file(output_path, source_path, file_name)
         )
 
         local output_file_path = output_path .. output_file
-        file_utils.write_file(output_file_path, templatized_output)
-        print("Wrote rendered file at " .. output_file_path)
-
-        metadata.file_size =
-            formatters.format_bytes(lfs.attributes(output_file_path, "size"))
-
-        -- TODO: figure out how to set this such that ALL files aren't reset
-        --       to current timestamp when site it re-compiled
-        --       idea: check build artifacts into git and do a diff
-        --       of new rendered content with the old
-        metadata.updated_at = formatters.unix_ts_to_iso8601(
-            lfs.attributes(output_file_path, "modification")
+        local file_changed, checksum = lock_files.file_content_changed(
+            LOCK_FILE,
+            source_path,
+            rendered_content
         )
+        if file_changed then
+            file_utils.write_file(output_file_path, templatized_output)
+            print("Wrote rendered file at " .. output_file_path)
 
+            local file_size = formatters.format_bytes(
+                lfs.attributes(output_file_path, "size")
+            )
+            local modified_ts = formatters.unix_ts_to_iso8601(
+                lfs.attributes(output_file_path, "modification")
+            )
+            lock_files.set_file_data(LOCK_FILE, source_path, {
+                last_modified_ts = modified_ts,
+                file_size = file_size,
+                checksum = checksum,
+            })
+        else
+            print(
+                string.format("%s content unchanged; skipping...", source_path)
+            )
+        end
+
+        local file_data = lock_files.get_file_data(LOCK_FILE, source_path)
+        if not file_data then
+            error(
+                string.format(
+                    "Missing file data for %s in lock file",
+                    source_path
+                )
+            )
+        end
+
+        metadata.file_size = file_data.file_size
+        metadata.updated_at = file_data.last_modified_ts
         return {
             link = output_file,
             file_type = file_utils.FileType.FILE,
@@ -242,6 +266,7 @@ local function main()
     file_utils.make_dir_if_not_exists(config.generator.output_dir)
     local output_path = config.generator.output_dir .. "/"
     render_content_dir(output_path, content_root)
+    lock_files.write(LOCK_FILE, constants.LOCK_FILE)
     compile_static_assets(
         config.generator.static_dir,
         config.generator.output_dir .. "/static"

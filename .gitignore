@@ -3,5 +3,4 @@
 /lua_modules
 /.luarocks
 
-build/
 doc/

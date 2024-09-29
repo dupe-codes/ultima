@@ -14,6 +14,7 @@ dependencies = {
     "lua ~> 5.4",
     "debugger = scm-1",
     "dkjson = 2.8-1",
+    "md5 = 1.3-1",
 }
 build = {
     type = "builtin",
