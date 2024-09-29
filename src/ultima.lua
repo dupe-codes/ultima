@@ -89,6 +89,7 @@ local function render_file(output_path, source_path, file_name)
         local rendered_content = template_engine.compile_template_file(
             get_template_path(config.templates.post),
             {
+                config = config,
                 content = pandoc_output,
                 directory = dir_index_path,
                 metadata = metadata,
@@ -190,6 +191,7 @@ local function write_index_file(file_path, links, parent_dir)
     local index_page = template_engine.compile_template_file(
         get_template_path(config.templates.index_page),
         {
+            config = config,
             dir_name = current_dir,
             links = links,
             ipairs = ipairs,

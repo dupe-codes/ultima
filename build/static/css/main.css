@@ -90,3 +90,36 @@ body {
 .file-index-table i {
     margin-right: 10px;
 }
+
+.nav-bar {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    line-height: 20px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    color: #333333;
+    padding: 8px 12px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    position: relative;
+}
+
+.nav-list {
+    display: flex;
+    align-items: center;
+}
+
+.nav-list a {
+    margin-right: 10px;
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.nav-list a:hover {
+    text-decoration: underline;
+}
+
+.nav-list a:last-child {
+    margin-right: 0;
+}
