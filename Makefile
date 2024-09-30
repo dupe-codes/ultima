@@ -26,6 +26,7 @@ run: build ## Run the ultima application
 .PHONY: clean
 clean: ## Clean compiled artifacts and lock file
 	rm -rf build/
+	rm -rf deploy/
 	rm ultima.lock
 
 .PHONY: lint

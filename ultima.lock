@@ -1,42 +1,42 @@
 {
   "files":{
-    "src/content/about.md":{
-      "last_modified_ts":"2024-09-29T21:15:28Z",
-      "file_size":"1.87 KiB",
-      "checksum":"f00374f8ecd52052a22bd134031a233f"
-    },
-    "src/content/manuscripts/off on a coding adventure.md":{
-      "last_modified_ts":"2024-09-29T21:15:28Z",
-      "file_size":"517.00 B",
-      "checksum":"b37786e832cdd640d20948d021c188f8"
-    },
-    "src/content/now.md":{
-      "last_modified_ts":"2024-09-29T21:15:29Z",
-      "file_size":"2.84 KiB",
-      "checksum":"11c447a6ac25a34a1bd774d511b3ace8"
-    },
     "src/content/home.md":{
-      "last_modified_ts":"2024-09-29T21:15:28Z",
+      "last_modified_ts":"2024-09-30T11:02:46Z",
       "file_size":"2.04 KiB",
       "checksum":"64624689c2551cbbbff0ceae9b4b1c1b"
     },
-    "src/content/gallery/clothing studies.md":{
-      "last_modified_ts":"2024-09-29T21:15:29Z",
-      "file_size":"534.00 B",
-      "checksum":"4f12711b7c527e896b1db0739c8df930"
+    "src/content/about.md":{
+      "last_modified_ts":"2024-09-30T11:02:45Z",
+      "file_size":"1.87 KiB",
+      "checksum":"f00374f8ecd52052a22bd134031a233f"
+    },
+    "src/content/now.md":{
+      "last_modified_ts":"2024-09-30T11:02:46Z",
+      "file_size":"2.84 KiB",
+      "checksum":"11c447a6ac25a34a1bd774d511b3ace8"
     },
     "src/content/manuscripts/in-n-out, my brief stint at princeton.md":{
-      "last_modified_ts":"2024-09-29T21:15:28Z",
+      "last_modified_ts":"2024-09-30T11:02:45Z",
       "file_size":"5.40 KiB",
       "checksum":"dbe40a3386ada2e80836bb590e5d581d"
     },
+    "src/content/manuscripts/off on a coding adventure.md":{
+      "last_modified_ts":"2024-09-30T11:02:45Z",
+      "file_size":"517.00 B",
+      "checksum":"b37786e832cdd640d20948d021c188f8"
+    },
     "src/content/bookshelf/snippets.md":{
-      "last_modified_ts":"2024-09-29T21:15:29Z",
+      "last_modified_ts":"2024-09-30T11:02:45Z",
       "file_size":"5.39 KiB",
       "checksum":"7ada7dbd14bc2440d457fb3d4be5fbb4"
     },
+    "src/content/gallery/clothing studies.md":{
+      "last_modified_ts":"2024-09-30T11:02:44Z",
+      "file_size":"534.00 B",
+      "checksum":"4f12711b7c527e896b1db0739c8df930"
+    },
     "src/content/bookshelf/on programming.md":{
-      "last_modified_ts":"2024-09-29T21:15:29Z",
+      "last_modified_ts":"2024-09-30T11:02:45Z",
       "file_size":"1.14 KiB",
       "checksum":"8584372367be600244777464368285d8"
     }

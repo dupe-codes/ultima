@@ -15,9 +15,8 @@ function M.load_config(env)
     -- OR site root if compiling for production
     config.generator.root_dir = env == "dev" and lfs.currentdir()
         or config.main.site_url
-
     config.generator.output_dir = env == "dev" and config.generator.output_dir
-        or "deploy"
+        or config.generator.deploy_dir
 
     return config
 end

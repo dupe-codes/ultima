@@ -30,7 +30,7 @@ parser:flag("-f --force", "Force write rendered files")
 parser:option("-e --env", "The compilation environment", "dev")
 local args = parser:parse()
 
-local FORCE_WRITE = args.force
+local FORCE_WRITE = args.force or false
 local CONFIG = require("config").load_config(args.env)
 
 -- END

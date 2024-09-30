@@ -6,6 +6,7 @@ site_url        = "https://www.dupe.sh"
 input_dir       = "src/content"
 static_dir      = "src/static"
 output_dir      = "build"
+deploy_dir      = "deploy"
 
 [templates]
 dir             = "src/templates"
