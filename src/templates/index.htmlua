@@ -113,6 +113,10 @@
                 }
             });
 
+            searchResults.addEventListener('mousedown', function(event) \{
+                event.preventDefault();
+            });
+
             searchBar.addEventListener('blur', function() \{
                 searchResults.style.display = 'none';
                 searchBar.value = '';
