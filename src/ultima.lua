@@ -190,6 +190,16 @@ local function sort_file_links(a, b)
     end
 end
 
+local function get_default_icon(file_type)
+    if file_type == file_utils.FileType.DIRECTORY then
+        return "mi-folder"
+    elseif file_type == file_utils.FileType.FILE then
+        return "mi-document"
+    else
+        return "mi-inbox"
+    end
+end
+
 local function write_index_file(file_path, links, parent_dir)
     local stripped_path =
         formatters.strip_output_dir(file_path, CONFIG.generator.output_dir)
@@ -227,6 +237,7 @@ local function write_index_file(file_path, links, parent_dir)
             links = links,
             ipairs = ipairs,
             FileType = file_utils.FileType,
+            get_default_icon = get_default_icon,
         }
     )
 

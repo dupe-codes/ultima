@@ -14,13 +14,8 @@
             {% for _, link in ipairs(links) do }}
                 <tr>
                     <td>
-                        {% if link.file_type == FileType.DIRECTORY then }}
-                            <i class="mi-folder"></i>
-                        {% elseif link.file_type == FileType.FILE then }}
-                            <i class="mi-document"></i>
-                        {% else }}
-                            <i class="mi-inbox"></i>
-                        {% end }}
+                        {% local icon = link.metadata.icon or get_default_icon(link.file_type) }}
+                        <i class="{{icon}}"></i>
                         <a href="{{ link.link }}">{{ link.display_name }}</a>
                     </td>
                     <td>
