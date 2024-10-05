@@ -1,3 +1,5 @@
+local date = require "date"
+
 local M = {}
 
 function M.format_bytes(bytes, decimal_places)
@@ -17,12 +19,31 @@ function M.unix_ts_to_iso8601(timestamp)
     return os.date("!%Y-%m-%dT%H:%M:%SZ", timestamp)
 end
 
+function M.iso8601_str_to_format(iso_ts, format)
+    local date_obj = date(iso_ts)
+    return date_obj:fmt(format)
+end
+
 function M.shell_escape(arg)
     return "'" .. string.gsub(arg, "'", "'\\''") .. "'"
 end
 
 function M.strip_output_dir(file_path, output_dir)
     return file_path:gsub("^" .. output_dir .. "/", "")
+end
+
+function M.generate_absolute_path(config, target)
+    -- strip redundant output dir if already included in target path
+    target = M.strip_output_dir(target, config.generator.output_dir)
+    if config.env == "dev" then
+        return config.generator.root_dir
+            .. "/"
+            .. config.generator.output_dir
+            .. "/"
+            .. target
+    else
+        return config.generator.root_dir .. "/" .. target
+    end
 end
 
 return M

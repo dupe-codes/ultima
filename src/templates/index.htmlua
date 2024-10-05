@@ -16,8 +16,10 @@
                     <td>
                         {% if link.file_type == FileType.DIRECTORY then }}
                             <i class="mi-folder"></i>
-                        {% else }}
+                        {% elseif link.file_type == FileType.FILE then }}
                             <i class="mi-document"></i>
+                        {% else }}
+                            <i class="mi-inbox"></i>
                         {% end }}
                         <a href="{{ link.link }}">{{ link.display_name }}</a>
                     </td>

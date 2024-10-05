@@ -6,6 +6,7 @@ local M = {}
 M.FileType = {
     DIRECTORY = 0,
     FILE = 1,
+    RSS = 2,
 }
 
 function M.read_file(path)

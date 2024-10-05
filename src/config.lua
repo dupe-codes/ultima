@@ -19,6 +19,7 @@ function M.load_config(env)
     config.generator.output_dir = env == "dev" and config.generator.output_dir
         or config.generator.deploy_dir
 
+    config.env = env
     return config
 end
 

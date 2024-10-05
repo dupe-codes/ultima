@@ -160,7 +160,10 @@ local function render_file(output_path, source_path, file_name)
         metadata.file_size = file_data.file_size
         metadata.updated_at = file_data.last_modified_ts
         return {
-            link = output_file,
+            link = formatters.generate_absolute_path(
+                CONFIG,
+                output_path .. output_file
+            ),
             file_type = file_utils.FileType.FILE,
             display_name = output_file,
             metadata = metadata,
@@ -171,11 +174,17 @@ local function render_file(output_path, source_path, file_name)
 end
 
 local function sort_file_links(a, b)
-    local a_is_dir = a.file_type == file_utils.FileType.DIRECTORY
-    local b_is_dir = b.file_type == file_utils.FileType.DIRECTORY
+    local file_type_priority = {
+        [file_utils.FileType.DIRECTORY] = 1,
+        [file_utils.FileType.RSS] = 2,
+        [file_utils.FileType.FILE] = 3,
+    }
 
-    if a_is_dir ~= b_is_dir then
-        return a_is_dir
+    local a_priority = file_type_priority[a.file_type] or 3
+    local b_priority = file_type_priority[b.file_type] or 3
+
+    if a_priority ~= b_priority then
+        return a_priority < b_priority
     else
         return a.display_name < b.display_name
     end
@@ -189,12 +198,21 @@ local function write_index_file(file_path, links, parent_dir)
 
     if parent_dir then
         table.insert(links, 1, {
-            link = CONFIG.generator.root_dir
-                .. "/"
-                .. parent_dir
-                .. "/index.html",
+            link = formatters.generate_absolute_path(
+                CONFIG,
+                parent_dir .. "index.html"
+            ),
             file_type = file_utils.FileType.DIRECTORY,
             display_name = "..",
+            metadata = {},
+        })
+    else
+        -- if there is no parent dir, we are at the site root; include
+        -- a link to the to-be-generated feed.xml file
+        table.insert(links, {
+            link = formatters.generate_absolute_path(CONFIG, "feed.xml"),
+            file_type = file_utils.FileType.RSS,
+            display_name = "feed.xml",
             metadata = {},
         })
     end
@@ -224,6 +242,7 @@ end
 local function render_content_dir(output_path, content, parent_dir)
     -- TODO: expose file icon and display name as properties
     --       in post frontmatter configs
+    local content_metadata = {}
     local links = {}
     for dir, src_files in pairs(content) do
         if dir == "" then
@@ -238,11 +257,20 @@ local function render_content_dir(output_path, content, parent_dir)
             -- directory to recursively render
             local nested_dir = output_path .. dir .. "/"
             file_utils.make_dir_if_not_exists(nested_dir)
-            render_content_dir(
+            local subdir_content = render_content_dir(
                 output_path .. dir .. "/",
                 src_files,
                 output_path
             )
+            -- copy all metadata from subdir to metadata table
+            table.move(
+                subdir_content,
+                1,
+                #subdir_content,
+                #content_metadata + 1,
+                content_metadata
+            )
+
             local subdir_index_file = dir .. "/index.html"
             -- TODO: support directories in lock file, only change
             --       updated_at if any file in a directory has changed; or, maybe
@@ -261,8 +289,12 @@ local function render_content_dir(output_path, content, parent_dir)
             })
         end
     end
+
     local index_file_path = output_path .. "index.html"
     write_index_file(index_file_path, links, parent_dir)
+
+    table.move(links, 1, #links, #content_metadata + 1, content_metadata)
+    return content_metadata
 end
 
 local function compile_static_assets(static_dir, output_dir)
@@ -271,13 +303,34 @@ local function compile_static_assets(static_dir, output_dir)
     file_utils.copy_directory(static_dir, output_dir)
 end
 
-local function generate_xml_feed(src_dir, output_dir)
-    -- TODO: dynamically generate this feed file direct in
-    --       the output dir from posts with publish = true
-    file_utils.copy_file(
-        src_dir .. "/" .. "feed.xml",
-        output_dir .. "/feed.xml"
+local function generate_xml_feed(output_dir, content_data)
+    local feed_items = {}
+    for _, content in ipairs(content_data) do
+        if
+            content.file_type == file_utils.FileType.FILE
+            and content.metadata.publish
+        then
+            table.insert(feed_items, {
+                title = content.display_name,
+                publish_date = formatters.iso8601_str_to_format(
+                    content.metadata.updated_at,
+                    "%a, %d %b %Y %H:%M:%S"
+                ),
+                link = content.link,
+                description = content.metadata.description or "a cool post",
+            })
+        end
+    end
+
+    local feed = template_engine.compile_template_file(
+        get_template_path(CONFIG.templates.feed),
+        {
+            config = CONFIG,
+            ipairs = ipairs,
+            feed = feed_items,
+        }
     )
+    file_utils.write_file(output_dir .. "/feed.xml", feed)
 end
 
 local function main()
@@ -285,17 +338,15 @@ local function main()
 
     file_utils.make_dir_if_not_exists(CONFIG.generator.output_dir)
     local output_path = CONFIG.generator.output_dir .. "/"
-
-    -- TODO: return all file data here for downstream use cases; i.e.,
-    --       rendering feed.xml file
-    render_content_dir(output_path, content_root)
+    local content_data = render_content_dir(output_path, content_root)
 
     lock_files.write(LOCK_FILE, constants.LOCK_FILE)
     compile_static_assets(
         CONFIG.generator.static_dir,
         CONFIG.generator.output_dir .. "/static"
     )
-    generate_xml_feed("src", CONFIG.generator.output_dir)
+
+    generate_xml_feed(CONFIG.generator.output_dir, content_data)
 end
 
 main()

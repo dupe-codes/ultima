@@ -1,6 +1,7 @@
 [main]
 site_name       = "dupe.sh"
 site_url        = "https://www.dupe.sh"
+description     = "jaunts through the software frontiers"
 
 [generator]
 input_dir       = "src/content"
@@ -13,3 +14,4 @@ dir             = "src/templates"
 default         = "page.htmlua"
 index_page      = "index.htmlua"
 post            = "post.htmlua"
+feed            = "feed.xmlua"

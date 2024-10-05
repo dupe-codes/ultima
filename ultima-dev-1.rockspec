@@ -16,6 +16,7 @@ dependencies = {
     "dkjson = 2.8-1",
     "md5 = 1.3-1",
     "argparse = 0.7.1-1",
+    "date = 2.2.1-1",
 }
 build = {
     type = "builtin",
