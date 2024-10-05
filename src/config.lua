@@ -13,6 +13,7 @@ function M.load_config(env)
 
     -- set current working directory as project root for local dev
     -- OR site root if compiling for production
+    -- TODO: make enum for environment DEV or PROD
     config.generator.root_dir = env == "dev" and lfs.currentdir()
         or config.main.site_url
     config.generator.output_dir = env == "dev" and config.generator.output_dir

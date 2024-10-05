@@ -1,5 +1,5 @@
 [main]
-site_name       = "Ultima"
+site_name       = "dupe.sh"
 site_url        = "https://www.dupe.sh"
 
 [generator]
@@ -10,6 +10,6 @@ deploy_dir      = "deploy"
 
 [templates]
 dir             = "src/templates"
-default         = "page.lhtml"
-index_page      = "index.lhtml"
-post            = "post.lhtml"
+default         = "page.htmlua"
+index_page      = "index.htmlua"
+post            = "post.htmlua"

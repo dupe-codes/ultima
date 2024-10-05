@@ -184,10 +184,8 @@ end
 local function write_index_file(file_path, links, parent_dir)
     local stripped_path =
         formatters.strip_output_dir(file_path, CONFIG.generator.output_dir)
-    local current_dir = stripped_path:match "([^/]+)/[^/]+$"
-    if not current_dir then
-        current_dir = CONFIG.main.site_name
-    end
+    local current_dir_path = stripped_path:match "(.*/)[^/]+$" or ""
+    current_dir_path = CONFIG.main.site_name .. "/" .. current_dir_path
 
     if parent_dir then
         table.insert(links, 1, {
@@ -207,7 +205,7 @@ local function write_index_file(file_path, links, parent_dir)
         get_template_path(CONFIG.templates.index_page),
         {
             config = CONFIG,
-            dir_name = current_dir,
+            dir_name = current_dir_path,
             links = links,
             ipairs = ipairs,
             FileType = file_utils.FileType,
@@ -284,9 +282,14 @@ end
 
 local function main()
     local content_root = find_content(CONFIG.generator.input_dir)
+
     file_utils.make_dir_if_not_exists(CONFIG.generator.output_dir)
     local output_path = CONFIG.generator.output_dir .. "/"
+
+    -- TODO: return all file data here for downstream use cases; i.e.,
+    --       rendering feed.xml file
     render_content_dir(output_path, content_root)
+
     lock_files.write(LOCK_FILE, constants.LOCK_FILE)
     compile_static_assets(
         CONFIG.generator.static_dir,

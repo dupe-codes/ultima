@@ -1,6 +1,6 @@
 <div class="post-content">
     <div class="nav-bar">
-        <span class="nav-lins">
+        <span class="nav-list">
             <a href="{{ config.generator.root_dir .. '/' .. config.generator.output_dir .. '/index.html' }}">~/</a>
         </span>
     </div>

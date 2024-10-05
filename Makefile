@@ -24,10 +24,9 @@ run: build ## Run the ultima application
 	xdg-open build/index.html
 
 .PHONY: clean
-clean: ## Clean compiled artifacts and lock file
+clean: ## Clean compiled artifacts
 	rm -rf build/
 	rm -rf deploy/
-	rm ultima.lock
 
 .PHONY: lint
 lint: ## Lint lua source files

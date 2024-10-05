@@ -35,16 +35,10 @@ body {
 }
 
 .file-index {
-    max-width: 1400px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
 }
-
-/*.file-index-list {*/
-    /*list-style-type: none;*/
-    /*margin: 0;*/
-    /*padding: 0;*/
-/*}*/
 
 .post-content {
     max-width: 800px;
@@ -97,11 +91,8 @@ body {
     font-size: 16px;
     line-height: 20px;
     margin-bottom: 20px;
-    background-color: #f9f9f9;
     color: #333333;
     padding: 8px 12px;
-    border: 1px solid #dddddd;
-    border-radius: 5px;
     position: relative;
 }
 
