@@ -2,6 +2,13 @@
 
     <h1>{{ dir_name }}</h1>
 
+    {% if is_site_root then }}
+        <div class="search-container">
+            <input type="text" id="search-bar" placeholder="/ to search..." />
+            <div id="search-results" class="search-dropdown"></div>
+        </div>
+    {% end }}
+
     <table class="file-index-table">
         <thead>
             <tr>
@@ -29,3 +36,87 @@
         </tbody>
     </table>
 </div>
+
+
+{% if is_site_root and all_links then }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() \{
+            var allLinks = JSON.parse('{{ all_links }}');
+
+            var searchBar = document.getElementById('search-bar');
+            var searchResults = document.getElementById('search-results');
+
+            function filterLinks(query) \{
+                var matches = [];
+                if (query.trim() === '') \{
+                    return allLinks;
+                }
+
+                query = query.toLowerCase();
+
+                for (var i = 0; i < allLinks.length; i++) \{
+                    var link = allLinks[i];
+                    if (link.toLowerCase().includes(query)) \{
+                        matches.push(link);
+                    }
+                }
+                return matches;
+            }
+
+            function highlightText(text, query) \{
+                var index = text.toLowerCase().indexOf(query.toLowerCase());
+                if (index === -1) \{
+                    return text;
+                }
+
+                // Split text into three parts: before match, match, after match
+                var beforeMatch = text.substring(0, index);
+                var matchText = text.substring(index, index + query.length);
+                var afterMatch = text.substring(index + query.length);
+
+                // Return a concatenation of parts with <span> for highlighting the match
+                return `$\{beforeMatch}<span class="highlight">$\{matchText}</span>$\{afterMatch}`;
+            }
+
+            function renderSearchResults(matches, query) \{
+                searchResults.innerHTML = '';
+                searchResults.style.display = matches.length > 0 ? 'block' : 'none';
+
+                matches.forEach(function(link) \{
+                    var resultItem = document.createElement('div');
+                    resultItem.className = 'search-result';
+                    resultItem.textContent = link;
+                    resultItem.innerHTML = highlightText(link, query);
+
+                    resultItem.addEventListener('click', function() \{
+                        window.location.href = link;
+                    });
+
+                    searchResults.appendChild(resultItem);
+                });
+            }
+
+            searchBar.addEventListener('input', function() \{
+                var query = searchBar.value;
+                var matches = filterLinks(query);
+                renderSearchResults(matches, query);
+            });
+
+            searchBar.addEventListener('focus', function() \{
+                renderSearchResults(allLinks, '');
+            });
+
+            document.addEventListener('keydown', function(event) \{
+                if (event.key === '/' && !event.ctrlKey && !event.altKey && !event.metaKey) \{
+                    event.preventDefault();
+                    searchBar.focus();
+                }
+            });
+
+            searchBar.addEventListener('blur', function() \{
+                searchResults.style.display = 'none';
+                searchBar.value = '';
+            });
+        });
+    </script>
+{% end }}

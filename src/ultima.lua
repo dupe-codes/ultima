@@ -17,6 +17,7 @@ local lfs = require "lfs"
 local constants = require "utils.constants"
 local file_utils = require "utils.files"
 local formatters = require "utils.formatters"
+local functions = require "utils.functions"
 local lock_files = require "lock_files"
 local template_engine = require "templates.engine"
 
@@ -157,6 +158,12 @@ local function render_file(output_path, source_path, file_name)
             )
         end
 
+        if metadata.enable_discussion then
+            -- TODO: check if discussion link already exists in lock file; if not,
+            --       create a new discussion via the github API and write it to the
+            --       lock file data
+        end
+
         metadata.file_size = file_data.file_size
         metadata.updated_at = file_data.last_modified_ts
         return {
@@ -200,7 +207,7 @@ local function get_default_icon(file_type)
     end
 end
 
-local function write_index_file(file_path, links, parent_dir)
+local function write_index_file(file_path, links, parent_dir, all_links)
     local stripped_path =
         formatters.strip_output_dir(file_path, CONFIG.generator.output_dir)
     local current_dir_path = stripped_path:match "(.*/)[^/]+$" or ""
@@ -238,6 +245,8 @@ local function write_index_file(file_path, links, parent_dir)
             ipairs = ipairs,
             FileType = file_utils.FileType,
             get_default_icon = get_default_icon,
+            is_site_root = not parent_dir,
+            all_links = json.encode(all_links),
         }
     )
 
@@ -301,10 +310,18 @@ local function render_content_dir(output_path, content, parent_dir)
         end
     end
 
-    local index_file_path = output_path .. "index.html"
-    write_index_file(index_file_path, links, parent_dir)
-
     table.move(links, 1, #links, #content_metadata + 1, content_metadata)
+    local index_file_path = output_path .. "index.html"
+
+    local all_file_links = functions.map(
+        functions.filter(content_metadata, function(entry)
+            return entry.file_type ~= file_utils.FileType.DIRECTORY
+        end),
+        function(entry)
+            return entry.link
+        end
+    )
+    write_index_file(index_file_path, links, parent_dir, all_file_links)
     return content_metadata
 end
 
