@@ -103,6 +103,7 @@ local function render_file(output_path, source_path, file_name)
             get_template_path(CONFIG.templates.post),
             {
                 config = CONFIG,
+                title = output_file,
                 content = pandoc_output,
                 directory = dir_index_path,
                 metadata = metadata,

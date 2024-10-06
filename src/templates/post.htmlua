@@ -1,9 +1,19 @@
 <div class="post-content">
+
     <div class="nav-bar">
         <span class="nav-list">
             <a href="{{ config.generator.root_dir .. '/' .. config.generator.output_dir .. '/index.html' }}">~/</a>
         </span>
     </div>
+
+    <h1>{{ title }}</h1>
+
     {{ content }}
+
+    {% if metadata.discussion_link then }}
+        <i class="mi-message"></i>
+        <a href="{{ metadata.discussion_link }}">discuss</a>
+    {% end }}
+
 </div>
 

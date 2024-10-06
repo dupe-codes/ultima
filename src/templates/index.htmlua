@@ -45,6 +45,7 @@
 
             var searchBar = document.getElementById('search-bar');
             var searchResults = document.getElementById('search-results');
+            var currentIndex = -1;
 
             function filterLinks(query) \{
                 var matches = [];
@@ -94,7 +95,22 @@
 
                     searchResults.appendChild(resultItem);
                 });
+
+                currentIndex = -1;
             }
+
+            function highlightResult(index) \{
+                var items = searchResults.getElementsByClassName('search-result');
+                for (var i = 0; i < items.length; i++) \{
+                    items[i].classList.remove('highlighted');
+                }
+
+                if (index >= 0 && index < items.length) \{
+                    items[index].classList.add('highlighted');
+                    items[index].scrollIntoView(\{ block: 'nearest' });
+                }
+            }
+
 
             searchBar.addEventListener('input', function() \{
                 var query = searchBar.value;
@@ -120,6 +136,34 @@
             searchBar.addEventListener('blur', function() \{
                 searchResults.style.display = 'none';
                 searchBar.value = '';
+            });
+
+            searchBar.addEventListener('keydown', function(event) \{
+                var items = searchResults.getElementsByClassName('search-result');
+
+                if (event.key === 'ArrowDown') \{
+                    event.preventDefault();
+                    if (currentIndex < items.length - 1) \{
+                        currentIndex++;
+                        highlightResult(currentIndex);
+                    }
+                }
+
+                if (event.key === 'ArrowUp') \{
+                    event.preventDefault();
+                    if (currentIndex > 0) \{
+                        currentIndex--;
+                        highlightResult(currentIndex);
+                    }
+                }
+
+                if (event.key === 'Enter') \{
+                    event.preventDefault();
+                    if (currentIndex >= 0 && currentIndex < items.length) \{
+                        var selectedLink = items[currentIndex].textContent.trim();
+                        window.location.href = selectedLink;
+                    }
+                }
             });
         });
     </script>
