@@ -32,6 +32,11 @@
 
 body {
     font-family: 'berkeley_mono_regular', monospace;
+    background-color: #f0f4fc;
+}
+
+a {
+    color: #3498db;
 }
 
 .file-index {
@@ -68,12 +73,11 @@ body {
 }
 
 .file-index-table tbody tr:hover {
-    background-color: #f9f9f9;
+    background-color: #dae1f0;
 }
 
 .file-index-table td a {
     text-decoration: none;
-    color: #007BFF;
     word-wrap: break-word;
 }
 
@@ -103,7 +107,6 @@ body {
 
 .nav-list a {
     margin-right: 10px;
-    color: #007BFF;
     text-decoration: none;
 }
 
@@ -127,6 +130,7 @@ body {
     padding: 10px;
     font-size: 16px;
     border: none;
+    background-color: #f0f4fc;
 }
 
 .search-dropdown {
@@ -140,6 +144,7 @@ body {
     max-height: 200px;
     overflow-y: auto;
     display: none;
+    background-color: #f0f4fc;
 }
 
 .search-result {
@@ -150,15 +155,15 @@ body {
 }
 
 .search-result:hover {
-    background-color: #f1f1f1;
+    background-color: #dae1f0;
 }
 
 .highlight {
-    background-color: yellow;
+    background-color: #a1b3cc;
     font-weight: bold;
 }
 
 .highlighted {
-    background-color: #f0f0f0;
-    border-left: 4px solid #007bff;
+    background-color: #dae1f0;
+    border-left: 4px solid #a1b3cc;
 }
