@@ -96,7 +96,12 @@
                     searchResults.appendChild(resultItem);
                 });
 
-                currentIndex = -1;
+                if (matches.length > 0) \{
+                    currentIndex = 0;
+                    highlightResult(currentIndex);
+                } else \{
+                    currentIndex = -1;
+                }
             }
 
             function highlightResult(index) \{
@@ -110,7 +115,6 @@
                     items[index].scrollIntoView(\{ block: 'nearest' });
                 }
             }
-
 
             searchBar.addEventListener('input', function() \{
                 var query = searchBar.value;
