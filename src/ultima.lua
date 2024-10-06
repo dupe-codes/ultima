@@ -1,15 +1,5 @@
 #!/usr/bin/env lua
 
--- TODO LIST:
---  1. figure out how to support links between posts within posts
---  2. support static assets (images, videos, etc.) embedded in posts
---  3. style posts
---  4. auto generate xml feed with "publish: true" front matter tag
---     on posts, copy to build directory
---  5. render code snippets with syntax highlighting extracted from
---     neovim
---  6. ...
-
 local argparse = require "argparse"
 local json = require "dkjson"
 local lfs = require "lfs"
@@ -246,7 +236,6 @@ local function write_index_file(file_path, links, parent_dir, all_links)
             ipairs = ipairs,
             FileType = file_utils.FileType,
             get_default_icon = get_default_icon,
-            is_site_root = not parent_dir,
             all_links = json.encode(all_links),
         }
     )

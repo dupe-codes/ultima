@@ -2,12 +2,10 @@
 
     <h1>{{ dir_name }}</h1>
 
-    {% if is_site_root then }}
-        <div class="search-container">
-            <input type="text" id="search-bar" placeholder="/ to search..." />
-            <div id="search-results" class="search-dropdown"></div>
-        </div>
-    {% end }}
+    <div class="search-container">
+        <input type="text" id="search-bar" placeholder="/ to search..." />
+        <div id="search-results" class="search-dropdown"></div>
+    </div>
 
     <table class="file-index-table">
         <thead>
@@ -38,7 +36,7 @@
 </div>
 
 
-{% if is_site_root and all_links then }}
+{% if all_links then }}
     <script>
         document.addEventListener('DOMContentLoaded', function() \{
             var allLinks = JSON.parse('{{ all_links }}');
