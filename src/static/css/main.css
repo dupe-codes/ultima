@@ -33,6 +33,7 @@
 body {
     font-family: 'berkeley_mono_regular', monospace;
     background-color: #f0f4fc;
+    font-size: 16px;
 }
 
 a {
@@ -40,7 +41,7 @@ a {
 }
 
 .file-index {
-    max-width: 1000px;
+    max-width: 850px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -57,18 +58,18 @@ a {
 .file-index-table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
+    margin: 10px 0;
 }
 
 .file-index-table thead th {
     border-bottom: 2px solid #ddd;
     text-align: left;
-    padding: 15px;
+    padding: 10px;
 }
 
 .file-index-table tbody td {
     border-bottom: 1px solid #eee;
-    padding: 15px;
+    padding: 10px;
     vertical-align: middle;
 }
 
@@ -122,11 +123,11 @@ a {
 
 .search-container {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 #search-bar {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     font-size: 16px;
     border: none;
@@ -134,10 +135,10 @@ a {
 }
 
 .search-dropdown {
+    width: 100%;
     position: absolute;
     top: 40px;
     left: 0;
-    width: 100%;
     background: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1000;
