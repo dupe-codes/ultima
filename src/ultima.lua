@@ -176,8 +176,25 @@ local function render_post_file(
 end
 
 local function render_media_file(metadata, output_file)
-    -- TODO: return link to static file to add into index file
-    print "Media files not yet implemented..."
+    -- TODO: just get file_size and modified at from static file in
+    --       source
+    --       Also, add override for "link" usage in search so that
+    --       displayed path is still to the media files place in
+    --       the displayed file hierarchy, not its actual path
+    --       in the static directory
+    metadata.file_size = "0B"
+    metadata.updated_at = "today"
+    assert(
+        metadata.static_link,
+        "Media files must have static_link in metadata"
+    )
+    require "debugger"()
+    return {
+        link = formatters.generate_absolute_path(CONFIG, metadata.static_link),
+        file_type = file_utils.FileType.FILE,
+        display_name = output_file,
+        metadata = metadata,
+    }
 end
 
 local function render_file(output_path, source_path, file_name)
