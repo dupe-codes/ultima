@@ -26,6 +26,18 @@ local CONFIG = require("config").load_config(args.env)
 
 -- END
 
+-- START: rendering constants and config types
+--
+local CONTENT_TYPE = {
+    POST = "post",
+    MEDIA = "media",
+    GALLERY = "gallery",
+}
+
+-- END
+
+-- START: rendering logic
+
 local function get_template_path(tmpl_name)
     return CONFIG.templates.dir .. "/" .. tmpl_name
 end
@@ -65,8 +77,110 @@ local function read_metadata(source_path)
     return metadata
 end
 
+local function get_output_file_name(file_name, metadata)
+    if
+        not metadata.content_type
+        or metadata.content_type ~= CONTENT_TYPE.MEDIA
+    then
+        return file_name:gsub("%.md$", ".html")
+    else
+        -- media file names should be ripped from the static_link metadata
+        assert(
+            metadata.static_link,
+            "Media content type must have static link metadata"
+        )
+        return metadata.static_link:match "^.+/(.+)$"
+    end
+end
+
+local function render_post_file(
+    source_path,
+    output_path,
+    output_file,
+    pandoc_output,
+    metadata
+)
+    local dir_index_path = CONFIG.generator.root_dir
+        .. "/"
+        .. output_path
+        .. "index.html"
+
+    local rendered_content = template_engine.compile_template_file(
+        get_template_path(CONFIG.templates.post),
+        {
+            config = CONFIG,
+            title = output_file,
+            content = pandoc_output,
+            directory = dir_index_path,
+            metadata = metadata,
+        }
+    )
+
+    local templatized_output = template_engine.compile_template_file(
+        get_template_path(CONFIG.templates.default),
+        {
+            config = CONFIG,
+            content = rendered_content,
+            metadata = metadata,
+        }
+    )
+
+    local output_file_path = output_path .. output_file
+    local file_changed, checksum =
+        lock_files.file_content_changed(LOCK_FILE, source_path, pandoc_output)
+    if file_changed then
+        file_utils.write_file(output_file_path, templatized_output)
+        print("Wrote rendered file at " .. output_file_path)
+
+        local file_size =
+            formatters.format_bytes(lfs.attributes(output_file_path, "size"))
+        local modified_ts = formatters.unix_ts_to_iso8601(
+            lfs.attributes(output_file_path, "modification")
+        )
+        lock_files.set_file_data(LOCK_FILE, source_path, {
+            last_modified_ts = modified_ts,
+            file_size = file_size,
+            checksum = checksum,
+        })
+    elseif FORCE_WRITE then
+        file_utils.write_file(output_file_path, templatized_output)
+        print("Force wrote unchanged file at " .. output_file_path)
+    else
+        print(string.format("%s content unchanged; skipping...", source_path))
+    end
+
+    local file_data = lock_files.get_file_data(LOCK_FILE, source_path)
+    if not file_data then
+        error(
+            string.format("Missing file data for %s in lock file", source_path)
+        )
+    end
+
+    if metadata.enable_discussion then
+        -- TODO: check if discussion link already exists in lock file; if not,
+        --       create a new discussion via the github API and write it to the
+        --       lock file data
+    end
+
+    metadata.file_size = file_data.file_size
+    metadata.updated_at = file_data.last_modified_ts
+    return {
+        link = formatters.generate_absolute_path(
+            CONFIG,
+            output_path .. output_file
+        ),
+        file_type = file_utils.FileType.FILE,
+        display_name = output_file,
+        metadata = metadata,
+    }
+end
+
+local function render_media_file(metadata, output_file)
+    -- TODO: return link to static file to add into index file
+    print "Media files not yet implemented..."
+end
+
 local function render_file(output_path, source_path, file_name)
-    local output_file = file_name:gsub("%.md$", ".html")
     local pandoc_cmd = string.format(
         PANDOC_CMD_FMT,
         "src/pandoc/metadata_extractor.lua",
@@ -83,89 +197,19 @@ local function render_file(output_path, source_path, file_name)
 
     if succeeded and exit_type == "exit" and code == 0 then
         local metadata = read_metadata(source_path)
+        local output_file = get_output_file_name(file_name, metadata)
 
-        local dir_index_path = CONFIG.generator.root_dir
-            .. "/"
-            .. output_path
-            .. "index.html"
-
-        local rendered_content = template_engine.compile_template_file(
-            get_template_path(CONFIG.templates.post),
-            {
-                config = CONFIG,
-                title = output_file,
-                content = pandoc_output,
-                directory = dir_index_path,
-                metadata = metadata,
-            }
-        )
-
-        local templatized_output = template_engine.compile_template_file(
-            get_template_path(CONFIG.templates.default),
-            {
-                config = CONFIG,
-                content = rendered_content,
-                metadata = metadata,
-            }
-        )
-
-        local output_file_path = output_path .. output_file
-        local file_changed, checksum = lock_files.file_content_changed(
-            LOCK_FILE,
-            source_path,
-            pandoc_output
-        )
-        if file_changed then
-            file_utils.write_file(output_file_path, templatized_output)
-            print("Wrote rendered file at " .. output_file_path)
-
-            local file_size = formatters.format_bytes(
-                lfs.attributes(output_file_path, "size")
-            )
-            local modified_ts = formatters.unix_ts_to_iso8601(
-                lfs.attributes(output_file_path, "modification")
-            )
-            lock_files.set_file_data(LOCK_FILE, source_path, {
-                last_modified_ts = modified_ts,
-                file_size = file_size,
-                checksum = checksum,
-            })
-        elseif FORCE_WRITE then
-            file_utils.write_file(output_file_path, templatized_output)
-            print("Force wrote unchanged file at " .. output_file_path)
+        if metadata.content_type == CONTENT_TYPE.MEDIA then
+            return render_media_file(metadata, output_file)
         else
-            print(
-                string.format("%s content unchanged; skipping...", source_path)
+            return render_post_file(
+                source_path,
+                output_path,
+                output_file,
+                pandoc_output,
+                metadata
             )
         end
-
-        local file_data = lock_files.get_file_data(LOCK_FILE, source_path)
-        if not file_data then
-            error(
-                string.format(
-                    "Missing file data for %s in lock file",
-                    source_path
-                )
-            )
-        end
-
-        if metadata.enable_discussion then
-            -- TODO: check if discussion link already exists in lock file; if not,
-            --       create a new discussion via the github API and write it to the
-            --       lock file data
-        end
-
-        metadata.file_size = file_data.file_size
-        metadata.updated_at = file_data.last_modified_ts
-        return {
-            link = formatters.generate_absolute_path(
-                CONFIG,
-                output_path .. output_file
-            ),
-            file_type = file_utils.FileType.FILE,
-            display_name = output_file,
-            metadata = metadata,
-        }
     else
         error("Failed to render file " .. source_path)
     end
@@ -350,6 +394,8 @@ local function generate_xml_feed(output_dir, content_data)
     )
     file_utils.write_file(output_dir .. "/feed.xml", feed)
 end
+
+-- END
 
 local function main()
     local content_root = find_content(CONFIG.generator.input_dir)
