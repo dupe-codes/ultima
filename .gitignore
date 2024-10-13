@@ -4,5 +4,4 @@
 /.luarocks
 
 doc/
-deploy/
 build/
