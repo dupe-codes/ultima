@@ -177,7 +177,7 @@ local function render_post_file(
     }
 end
 
-local function render_media_file(metadata, output_file)
+local function render_media_file(metadata, output_path, output_file)
     -- TODO: just get file_size and modified at from static file in
     --       source
     --       Also, add override for "link" usage in search so that
@@ -235,6 +235,10 @@ local function render_media_file(metadata, output_file)
             CONFIG,
             "static/" .. metadata.static_link
         ),
+        search_display = formatters.generate_absolute_path(
+            CONFIG,
+            output_path .. output_file
+        ),
         file_type = file_utils.FileType.FILE,
         display_name = output_file,
         metadata = metadata,
@@ -267,7 +271,7 @@ local function render_file(output_path, source_path, file_name)
         local output_file = get_output_file_name(file_name, metadata)
 
         if metadata.content_type == CONTENT_TYPE.MEDIA then
-            return render_media_file(metadata, output_file)
+            return render_media_file(metadata, output_path, output_file)
         else
             return render_post_file(
                 source_path,
@@ -421,7 +425,10 @@ local function render_content_dir(output_path, content, parent_dir)
             return entry.file_type ~= file_utils.FileType.DIRECTORY
         end),
         function(entry)
-            return entry.link
+            return {
+                link = entry.link,
+                search_display = entry.search_display or entry.link,
+            }
         end
     )
     write_index_file(index_file_path, links, parent_dir, all_file_links)

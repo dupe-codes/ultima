@@ -44,6 +44,7 @@
             var searchBar = document.getElementById('search-bar');
             var searchResults = document.getElementById('search-results');
             var currentIndex = -1;
+            var currentMatches = []
 
             function filterLinks(query) \{
                 var matches = [];
@@ -54,8 +55,8 @@
                 query = query.toLowerCase();
 
                 for (var i = 0; i < allLinks.length; i++) \{
-                    var link = allLinks[i];
-                    if (link.toLowerCase().includes(query)) \{
+                    var link = allLinks[i]
+                    if (link.search_display.toLowerCase().includes(query)) \{
                         matches.push(link);
                     }
                 }
@@ -81,14 +82,16 @@
                 searchResults.innerHTML = '';
                 searchResults.style.display = matches.length > 0 ? 'block' : 'none';
 
-                matches.forEach(function(link) \{
+                currentMatches = matches;
+
+                matches.forEach(function(item, index) \{
                     var resultItem = document.createElement('div');
                     resultItem.className = 'search-result';
-                    resultItem.textContent = link;
-                    resultItem.innerHTML = highlightText(link, query);
+                    resultItem.setAttribute('data-index', index);
+                    resultItem.innerHTML = query ? highlightText(item.search_display, query) : item.search_display;
 
                     resultItem.addEventListener('click', function() \{
-                        window.location.href = link;
+                        window.location.href = item.link;
                     });
 
                     searchResults.appendChild(resultItem);
@@ -162,7 +165,7 @@
                 if (event.key === 'Enter') \{
                     event.preventDefault();
                     if (currentIndex >= 0 && currentIndex < items.length) \{
-                        var selectedLink = items[currentIndex].textContent.trim();
+                        var selectedLink = currentMatches[currentIndex].link;
                         window.location.href = selectedLink;
                     }
                 }
