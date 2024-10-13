@@ -13,3 +13,6 @@ git commit -m "$msg"
 
 # push compiled deploy directory to deployment branch
 git subtree push --prefix deploy origin deploy
+
+# push all changes to main
+git push

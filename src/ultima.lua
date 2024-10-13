@@ -115,6 +115,7 @@ local function render_post_file(
             content = pandoc_output,
             directory = dir_index_path,
             metadata = metadata,
+            generate_absolute_path = formatters.generate_absolute_path,
         }
     )
 
@@ -124,6 +125,7 @@ local function render_post_file(
             config = CONFIG,
             content = rendered_content,
             metadata = metadata,
+            generate_absolute_path = formatters.generate_absolute_path,
         }
     )
 
@@ -359,7 +361,11 @@ local function write_index_file(file_path, links, parent_dir, all_links)
         file_path,
         template_engine.compile_template_file(
             get_template_path(CONFIG.templates.default),
-            { config = CONFIG, content = index_page }
+            {
+                config = CONFIG,
+                content = index_page,
+                generate_absolute_path = formatters.generate_absolute_path,
+            }
         )
     )
 end

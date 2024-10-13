@@ -3,7 +3,7 @@
     <head>
         <title>{{ config.main.site_name }}</title>
         <link rel="stylesheet"
-            href="{{ config.generator.root_dir .. '/' .. config.generator.output_dir .. '/static/css/main.css' }}">
+            href="{{ generate_absolute_path(config, '/static/css/main.css') }}">
         <!-- <script src="https://kit.fontawesome.com/0387a22d91.js" crossorigin="anonymous"></script> -->
         <link href="https://unpkg.com/mono-icons@1.3.1/iconfont/icons.css" rel="stylesheet">
     </head>
