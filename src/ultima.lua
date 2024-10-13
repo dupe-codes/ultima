@@ -27,12 +27,14 @@ local CONFIG = require("config").load_config(args.env)
 -- END
 
 -- START: rendering constants and config types
---
+
 local CONTENT_TYPE = {
     POST = "post",
     MEDIA = "media",
     GALLERY = "gallery",
 }
+
+local DRAFT_METADATA_FIELD = "draft"
 
 -- END
 
@@ -130,7 +132,7 @@ local function render_post_file(
         lock_files.file_content_changed(LOCK_FILE, source_path, pandoc_output)
     if file_changed then
         file_utils.write_file(output_file_path, templatized_output)
-        print("Wrote rendered file at " .. output_file_path)
+        print("Wrote new rendered file: " .. output_file_path)
 
         local file_size =
             formatters.format_bytes(lfs.attributes(output_file_path, "size"))
@@ -144,7 +146,7 @@ local function render_post_file(
         })
     elseif FORCE_WRITE then
         file_utils.write_file(output_file_path, templatized_output)
-        print("Force wrote unchanged file at " .. output_file_path)
+        print("Force wrote file: " .. output_file_path)
     else
         print(string.format("%s content unchanged; skipping...", source_path))
     end
@@ -182,15 +184,57 @@ local function render_media_file(metadata, output_file)
     --       displayed path is still to the media files place in
     --       the displayed file hierarchy, not its actual path
     --       in the static directory
-    metadata.file_size = "0B"
-    metadata.updated_at = "today"
     assert(
         metadata.static_link,
         "Media files must have static_link in metadata"
     )
-    require "debugger"()
+
+    local static_file_path = CONFIG.generator.static_dir
+        .. "/"
+        .. metadata.static_link
+
+    -- for static content, we determine whether they've changed based on checksums
+    -- only to decide whether we must update their file attributes in the lock
+    -- file. no file writing is needed - the files are already written where they
+    -- need to live!
+    local file_changed, checksum =
+        lock_files.static_content_changed(LOCK_FILE, static_file_path)
+    if file_changed then
+        print(string.format("%s static content changed.", static_file_path))
+        local file_size =
+            formatters.format_bytes(lfs.attributes(static_file_path, "size"))
+        local modified_ts = formatters.unix_ts_to_iso8601(
+            lfs.attributes(static_file_path, "modification")
+        )
+        lock_files.set_file_data(LOCK_FILE, static_file_path, {
+            last_modified_ts = modified_ts,
+            file_size = file_size,
+            checksum = checksum,
+        })
+    else
+        print(string.format("%s static content unchanged.", output_file))
+    end
+
+    local file_data = lock_files.get_file_data(LOCK_FILE, static_file_path)
+    if not file_data then
+        error(
+            string.format(
+                "Missing file data for %s in lock file",
+                static_file_path
+            )
+        )
+    end
+
+    metadata.file_size = file_data.file_size
+    metadata.updated_at = file_data.last_modified_ts
+
+    print(string.format("Adding link to %s to index.", output_file))
+
     return {
-        link = formatters.generate_absolute_path(CONFIG, metadata.static_link),
+        link = formatters.generate_absolute_path(
+            CONFIG,
+            "static/" .. metadata.static_link
+        ),
         file_type = file_utils.FileType.FILE,
         display_name = output_file,
         metadata = metadata,
@@ -214,6 +258,12 @@ local function render_file(output_path, source_path, file_name)
 
     if succeeded and exit_type == "exit" and code == 0 then
         local metadata = read_metadata(source_path)
+
+        if metadata[DRAFT_METADATA_FIELD] then
+            print(file_name .. " is a draft. Skipping...")
+            return nil
+        end
+
         local output_file = get_output_file_name(file_name, metadata)
 
         if metadata.content_type == CONTENT_TYPE.MEDIA then
@@ -322,7 +372,9 @@ local function render_content_dir(output_path, content, parent_dir)
             for _, file in pairs(src_files) do
                 local output_data =
                     render_file(output_path, file.source_path, file.file_name)
-                table.insert(links, output_data)
+                if output_data then
+                    table.insert(links, output_data)
+                end
             end
         else
             -- directory to recursively render
