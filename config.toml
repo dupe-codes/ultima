@@ -1,6 +1,6 @@
 [main]
 site_name       = "dupe.sh"
-site_url        = "https://lobster-app-54zoz.ondigitalocean.app"
+site_url        = "https://dupe.sh"
 description     = "jaunts through the software frontiers"
 
 [generator]
