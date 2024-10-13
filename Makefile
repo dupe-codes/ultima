@@ -19,7 +19,7 @@ build: ## Build the ultima site
 deploy: ## Build & deploy the ultima site to production
 	rm -rf deploy/
 	@source $(CURDIR)/project.env && ./src/ultima.lua -f --env prod
-	git subtree push --prefix deploy origin deploy
+	./scripts/deploy.sh
 
 .PHONY: run
 run: build ## Run the ultima application
