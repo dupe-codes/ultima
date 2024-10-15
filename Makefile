@@ -15,6 +15,10 @@ build-f: ## Force build the ultima site
 build: ## Build the ultima site
 	@source $(CURDIR)/project.env && ./src/ultima.lua
 
+.PHONY: build-deploy
+build-deploy: ## Build the ultima deployment version
+	@source $(CURDIR)/project.env && ./src/ultima.lua -f --env prod
+
 .PHONY: deploy
 deploy: ## Build & deploy the ultima site to production
 	rm -rf deploy/

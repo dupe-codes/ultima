@@ -14,6 +14,8 @@ local template_engine = require "templates.engine"
 local PANDOC_CMD_FMT = "pandoc -t html --lua-filter=%s %s"
 local LOCK_FILE = lock_files.load(constants.LOCK_FILE)
 
+-- TODO: set up logging with LuaLogging package
+
 -- START: parse arguments and set parameters as globals
 
 local parser = argparse("ultima", "the ultimate static site generator")
@@ -21,8 +23,14 @@ parser:flag("-f --force", "Force write rendered files")
 parser:option("-e --env", "The compilation environment", "dev")
 local args = parser:parse()
 
+local ENVIRONMENTS = {
+    DEV = "dev",
+    PROD = "prod",
+}
+
 local FORCE_WRITE = args.force or false
-local CONFIG = require("config").load_config(args.env)
+local ENV = args.env
+local CONFIG = require("config").load_config(ENV)
 
 -- END
 
@@ -265,7 +273,7 @@ local function render_file(output_path, source_path, file_name)
     if succeeded and exit_type == "exit" and code == 0 then
         local metadata = read_metadata(source_path)
 
-        if metadata[DRAFT_METADATA_FIELD] then
+        if metadata[DRAFT_METADATA_FIELD] and ENV == ENVIRONMENTS.PROD then
             print(file_name .. " is a draft. Skipping...")
             return nil
         end
