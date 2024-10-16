@@ -16,3 +16,5 @@ git subtree push --prefix deploy origin deploy
 
 # push all changes to main
 git push
+
+# TODO: poll status of deployment on DigitalOcean app platform?
