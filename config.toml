@@ -6,6 +6,7 @@ description     = "jaunts through the software frontiers"
 [generator]
 input_dir       = "src/content"
 static_dir      = "src/static"
+snippets_dir    = "src/snippets"
 output_dir      = "build"
 deploy_dir      = "deploy"
 
