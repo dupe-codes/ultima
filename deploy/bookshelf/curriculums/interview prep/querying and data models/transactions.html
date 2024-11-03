@@ -29,7 +29,7 @@ guarantees</em>.</p>
 <li><em>atomic</em> = something that cannot be broken down into smaller
 pieces.</li>
 <li>In databases, this describes what happens if a client wants to make
-several faults, but a fault occurs in the middle of them. If a fault
+several writes, but a fault occurs in the middle of them. If a fault
 occurs, a transaction is aborted, and the database discards any writes
 it has made so far.</li>
 <li>If a transaction is aborted, an application can safely retry.</li>

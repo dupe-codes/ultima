@@ -5,7 +5,7 @@ Through transactions, databases provide _safety guarantees_.
 
 - Atomicity
 	- _atomic_ = something that cannot be broken down into smaller pieces.
-	- In databases, this describes what happens if a client wants to make several faults, but a fault occurs in the middle of them. If a fault occurs, a transaction is aborted, and the database discards any writes it has made so far.
+	- In databases, this describes what happens if a client wants to make several writes, but a fault occurs in the middle of them. If a fault occurs, a transaction is aborted, and the database discards any writes it has made so far.
 	- If a transaction is aborted, an application can safely retry.
 - Consistency
 	- There are certain _invariants_ about your data that must always be true.
