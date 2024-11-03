@@ -1,7 +1,7 @@
 
 ### the standard data intensive application building blocks
 
-1. store data (databases)
+1. Store data (databases)
 2. Remember results of expensive compute (caches)
 3. Allow users to search or filter data (search indexes)
 4. Send asynchronous messages to other processes (stream processing/message queues)
@@ -49,6 +49,19 @@
 		4. A system that handles 10,000 requests per second at 1Kb in size must look very different than one for 3 requests per minut at 2 GB in size, even though _they have the same throughput_.
 3. maintainability
 	1. Many different people should be able to work on the system productively
+	2. Three design principles
+		1. Operability
+			1. Good operability means having visibility into system health and having effective ways of managing it.
+		2. Simplicity
+			1. There are several symptoms of complexity:
+				1. explosion of the state space
+				2. tight coupling of modules
+				3. tangled dependencies
+				4. inconsistent naming & terms
+				5. hacks at solving performance problems
+				6. special casing
+			2. One of the best tools for removing accidental complexity is _absraction_.
+		3. Evolvability
 
 ### sources
 

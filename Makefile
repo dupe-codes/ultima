@@ -23,6 +23,7 @@ build-deploy: ## Build the ultima deployment version
 deploy: ## Build & deploy the ultima site to production
 	rm -rf deploy/
 	@source $(CURDIR)/project.env && ./src/ultima.lua -f --env prod
+	@echo ""
 	./scripts/deploy.sh
 
 .PHONY: run

@@ -21,7 +21,7 @@
     <h3 id="the-standard-data-intensive-application-building-blocks">the
 standard data intensive application building blocks</h3>
 <ol type="1">
-<li>store data (databases)</li>
+<li>Store data (databases)</li>
 <li>Remember results of expensive compute (caches)</li>
 <li>Allow users to search or filter data (search indexes)</li>
 <li>Send asynchronous messages to other processes (stream
@@ -114,6 +114,29 @@ even though <em>they have the same throughput</em>.</li>
 <ol type="1">
 <li>Many different people should be able to work on the system
 productively</li>
+<li>Three design principles
+<ol type="1">
+<li>Operability
+<ol type="1">
+<li>Good operability means having visibility into system health and
+having effective ways of managing it.</li>
+</ol></li>
+<li>Simplicity
+<ol type="1">
+<li>There are several symptoms of complexity:
+<ol type="1">
+<li>explosion of the state space</li>
+<li>tight coupling of modules</li>
+<li>tangled dependencies</li>
+<li>inconsistent naming &amp; terms</li>
+<li>hacks at solving performance problems</li>
+<li>special casing</li>
+</ol></li>
+<li>One of the best tools for removing accidental complexity is
+<em>absraction</em>.</li>
+</ol></li>
+<li>Evolvability</li>
+</ol></li>
 </ol></li>
 </ol>
 <h3 id="sources">sources</h3>
