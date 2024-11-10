@@ -1,4 +1,4 @@
-<div class="post-content">
+<div class="post">
 
     <div class="nav-bar">
         <span class="nav-list">
@@ -18,7 +18,18 @@
         {% end }}
     </div>
 
-    {{ content }}
+
+    {% if metadata.font then }}
+        <style>
+            .post-content \{
+                font-family: "{{ metadata.font }}";
+            \}
+        </style>
+    {% end }}
+
+    <div class="post-content">
+        {{ content }}
+    </div>
 
     {% if metadata.discussion_link then }}
         <i class="mi-message"></i>

@@ -43,6 +43,7 @@ local CONTENT_TYPE = {
 }
 
 local DRAFT_METADATA_FIELD = "draft"
+local FONT_METADATA_FIELD = "font"
 
 -- END
 
@@ -276,6 +277,20 @@ local function render_file(output_path, source_path, file_name)
         if metadata[DRAFT_METADATA_FIELD] and ENV == ENVIRONMENTS.PROD then
             print(file_name .. " is a draft. Skipping...")
             return nil
+        end
+
+        if metadata[FONT_METADATA_FIELD] then
+            assert(
+                functions.contains(
+                    constants.SUPPORTED_FONTS,
+                    metadata[FONT_METADATA_FIELD]
+                ),
+                string.format(
+                    "%s metadata set with unsupported font: %s",
+                    file_name,
+                    metadata[FONT_METADATA_FIELD]
+                )
+            )
         end
 
         local output_file = get_output_file_name(file_name, metadata)
