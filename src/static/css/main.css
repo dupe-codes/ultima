@@ -168,3 +168,20 @@ a {
     background-color: #dae1f0;
     border-left: 4px solid #a1b3cc;
 }
+
+.post-content h1 {
+    margin-bottom: 0.5em;
+}
+
+.post-metadata {
+    font-size: 0.9em;
+    color: #6b7280;
+    margin-bottom: 1.5em;
+}
+
+.post-metadata span {
+    display: block;
+    margin-right: 1em;
+    font-style: italic;
+}
+

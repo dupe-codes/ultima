@@ -362,6 +362,7 @@ local function write_index_file(file_path, links, parent_dir, all_links)
             FileType = file_utils.FileType,
             get_default_icon = get_default_icon,
             all_links = json.encode(all_links),
+            description = not parent_dir and CONFIG.main.description or nil,
         }
     )
 

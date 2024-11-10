@@ -1,6 +1,7 @@
-# in-n-out, my brief stint at princeton
-
-@December 30, 2022
+---
+description: a post-mortem of my time as a princeton computer science graduate student
+published: 2022-12-30
+---
 
 In the Fall of 2020, I started a Computer Science master's program at Princeton. By January, I'd decided to step away from it. Because the weeks leading up to and directly after the decision were a whirlwind, I've never committed to writing exactly why I made it. So, here's an attempt at finally doing just that.
 
