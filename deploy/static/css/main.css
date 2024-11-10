@@ -46,7 +46,7 @@ a {
     padding: 20px;
 }
 
-.post-content {
+.post {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
@@ -169,7 +169,7 @@ a {
     border-left: 4px solid #a1b3cc;
 }
 
-.post-content h1 {
+.post h1 {
     margin-bottom: 0.5em;
 }
 
