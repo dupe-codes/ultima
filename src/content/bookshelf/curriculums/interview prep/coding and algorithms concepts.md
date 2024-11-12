@@ -45,3 +45,41 @@
 	3. Hotspots - test cases for most important/expensive logic
 	4. General - 0, 1, many input cases
 	5. Special & edge cases
+
+## dynamic programming notes
+
+- three components of a dp problem: (1) some function or array representing the problem answer at a given state, (2) a transition between states (recurrence relation), and (3) base cases
+
+- don't be afraid of iterating over subproblems; e.g., in longest increasing subsequence, need to consider _all_ numbers before the current index i if adding i to their subsequences is valid
+
+- think about subproblems that either START at the target index, or END at the target index. ENDING seems more common; e.g., dp[i] is the longest increasing subsequence ENDING at index i
+
+## topological sort
+
+```python
+def topological_sort(graph: dict[int, list[int]]) -> list[int]:
+    in_count = {i: 0 for i in range(len(graph.keys()))}
+    for edges in graph.values():
+        for node in edges:
+            in_count[node] += 1
+
+    queue = []
+    for node in graph:
+        if in_count[node] == 0:
+            queue.append(node)
+
+    result = []
+    while queue:
+        next_queue = []
+        for node in queue:
+            result.append(node)
+            end_nodes = graph[node]
+            for end_node in end_nodes:
+                in_count[end_node] -= 1
+                if in_count[end_node] == 0:
+                    next_queue.append(end_node)
+
+        queue = next_queue
+
+    return result
+```
