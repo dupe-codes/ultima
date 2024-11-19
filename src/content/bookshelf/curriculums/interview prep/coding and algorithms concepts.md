@@ -50,6 +50,10 @@
 
 ⭐ := need to practice
 
+## general
+
+- don't be afraid to break a solution down into discrete cases; i.e., sometimes better to have several separate loops through data to represent different problem stages/states instead of cramming all logic into one consolidated loop.
+
 ## arrays
 
 1. sliding window
@@ -97,6 +101,100 @@ you can then check if two strings have the common characters then with `maskA & 
 - think about subproblems that either START at the target index, or END at the target index. ENDING seems more common; e.g., dp[i] is the longest increasing subsequence ENDING at index i
 
 - sometimes you don't need to store the whole `dp` matrix in memory. keeping only the "last X" subproblems needed to compute the current might suffice.
+
+- also possible that multiple passes are necessary to compute optimal solution; e.g., for paths through a matrix visiting adjacent cells, one pass to calculate paths moving "left and up," another for "right and down." Example:
+
+```python
+class Solution:
+	"""
+	Problem: given a matrix of 0s and 1s, find the shortest
+	path from all 1s to their nearest 0s
+	"""
+    def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
+        dp = [row[:] for row in mat]
+        m = len(dp)
+        n = len(dp[0])
+
+        # all paths starting top-left and traversing down & left
+        for row in range(m):
+            for col in range(n):
+                if dp[row][col] != 0:
+                    min_n = inf
+
+                    if row > 0:
+                        min_n = min(min_n, dp[row-1][col])
+                    
+                    if col > 0:
+                        min_n = min(min_n, dp[row][col - 1])
+                    
+                    dp[row][col] = min_n + 1
+        
+        # all paths starting bottom-right and traversing top & left
+        for row in range(m - 1, -1, -1):
+            for col in range(n - 1, -1, -1):
+                if dp[row][col] != 0:
+                    min_n = inf
+                    if row < m - 1:
+                        min_n = min(min_n, dp[row + 1][col])
+                    
+                    if col < n - 1:
+                        min_n = min(min_n, dp[row][col + 1])
+        
+                    dp[row][col] = min(dp[row][col], min_n + 1)
+        
+        return dp
+```
+
+## bfs/dfs
+
+- when you think of shortest path problems through a graph, you should think of BFS.
+
+- sometimes good to have _multiple_ starting nodes; e.g., all nodes with value 0 in a matrix
+
+## quickselect
+
+```python
+class Solution:
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        return self.quick_select(points, k)
+
+    def euclidean(self, point):
+        return point[0]**2 + point[1]**2
+
+    def choose_pivot(self, points, left, right):
+        return points[left + (right - left) // 2]
+    
+    def partition(self, points, left, right):
+        pivot = self.choose_pivot(points, left, right)
+        pivot_d = self.euclidean(pivot)
+
+        while left < right:
+            if self.euclidean(points[left]) >= pivot_d:
+                points[left], points[right] = points[right], points[left]
+                right -= 1
+            else:
+                left += 1
+            
+        if self.euclidean(points[left]) < pivot_d:
+            left += 1
+        
+        return left
+    
+    def quick_select(self, points, k):
+        left = 0
+        right = len(points) - 1
+        pivot = len(points)
+
+        while pivot != k:
+            pivot = self.partition(points, left, right)
+            if pivot < k:
+                left = pivot
+            else:
+                right = pivot - 1
+        
+        return points[:k]
+    
+```
 
 ## sorting algorithms
 
