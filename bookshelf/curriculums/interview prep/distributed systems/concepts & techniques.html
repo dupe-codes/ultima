@@ -16,7 +16,7 @@
         </span>
     </div>
 
-    <h1>main concepts.html</h1>
+    <h1>concepts & techniques.html</h1>
 
     <div class="post-metadata">
         
@@ -33,6 +33,20 @@
 three. But, network partitions are unavoidable. So it is more accurate
 to say CAP is <em>either</em> be consistent or available when network
 partitioned.</p>
+<h2 id="idempotency-key">idempotency key</h2>
+<p>A strategy to resolve “double post” race conditions.
+<code>POST</code> requests to create resources are assigned some
+uniquely identifying key, which is used to constrain the creation of
+database records, either by application logic or a database constraint.
+For example,</p>
+<pre><code>POST /v1/reservations
+{
+    &quot;hotel_id&quot;: 1234,
+    ....
+    &quot;reservation_id&quot;: &quot;fafb4-302a-344a&quot;
+}</code></pre>
+<p>the “reservation_id” field here can be used to ensure only one
+<code>POST</code> request to create a reservation is accepted.</p>
 
     </div>
 
