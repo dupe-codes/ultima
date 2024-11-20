@@ -63,6 +63,27 @@
 			2. One of the best tools for removing accidental complexity is _absraction_.
 		3. Evolvability
 
+### the scaling cube
+
+A useful conceptual model of the dimensions over which an application can be scaled.
+
+1. x-axis: horizontal scaling
+	- scale an application by running multiple identical copies of it.
+2. y-axis: decomposition
+	- scale an application by breaking it apart into logically coherent, separate chunks; i.e., functional decomposition.
+	- microservices are an example pattern of this
+3. z-axis: data partitioning
+	- scale an application by breaking apart the data on which it operates; i.e., database sharding.
+
+
+### performance considerations
+
+- Hard disks and operating system caches are optimized well for sequential data access; thus, designs that implement append only actions on files can be made efficient, even with older magnetic hard drives.
+
+### general ideas & techniques
+
+- Don't be shy to embed data in files or embedded databases hosted right on system worker nodes. This removes the performance penalties and failure modes of network communication; e.g., an event sourcing system can be created where the state machine node holds the command and event lists in files on disk, and tracks state in an embedded SQLite or RocksDB database.
+
 ### sources
 
 1. Designing Data Intensive Applications, Martin Kleppmann
