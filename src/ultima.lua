@@ -259,7 +259,7 @@ end
 local function render_file(output_path, source_path, file_name)
     local pandoc_cmd = string.format(
         PANDOC_CMD_FMT,
-        "src/pandoc/metadata_extractor.lua",
+        "src/pandoc/metadata_processor.lua",
         formatters.shell_escape(source_path)
     )
 

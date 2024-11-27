@@ -45,6 +45,37 @@ local function Meta(meta)
     return meta
 end
 
+local function run_snippet(snippet)
+    local cmd = string.format(
+        "nvim --headless -c 'GenerateSnippet %s' -c 'q' 2>&1",
+        snippet
+    )
+
+    local handle = io.popen(cmd)
+    if not handle then
+        io.stderr:write "Error: Unable to run Neovim command\n"
+        return "<p>Error running snippet</p>"
+    end
+
+    local result = handle:read "*all"
+    handle:close()
+    return "<pre>" .. pandoc.utils.stringify(result) .. "</pre>"
+end
+
+local function CodeBlock(block)
+    local snippet = block.attributes["snippet"]
+    return nil
+    --[[
+    if snippet then
+        local html_output = run_snippet(snippet)
+        return pandoc.RawBlock("html", html_output)
+    else
+        return nil
+    end
+    ]]
+    --
+end
+
 return {
-    { Meta = Meta },
+    { Meta = Meta, CodeBlock = CodeBlock },
 }

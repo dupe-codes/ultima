@@ -292,3 +292,35 @@ def topological_sort(graph: dict[int, list[int]]) -> list[int]:
 
     return result
 ```
+
+## monotonic stack
+
+A monotonic stack is a stack that maintains an additional invariant on its elements: they are all in either increasing or decreasing order (relative to some criterion) based on their arrival time.
+
+The "Trapping Water" problem is a good application of monotonic stacks. In the following solution, we maintain a stack of decreasing heights, representing the possible "left sides" of trenches/holes in which water can be "trapped." As soon as we hit a height that is greater than the top of the stack, we have found the "right side" of a water trapping trench, and process it.
+
+```python
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        # maintain monotonic stack, as soon as elevation >
+        # top of stack, we have "trapped" and process
+
+        result = 0
+        current = 0
+        stack = []
+        while current < len(height):
+            while stack and height[current] > height[stack[-1]]:
+                trapped_bottom = stack.pop()
+                if not stack:
+                    break
+                
+                distance = current - stack[-1] - 1
+                trapped_height = min(height[current], height[stack[-1]]) - height[trapped_bottom]
+                result += distance * trapped_height
+            
+            stack.append(current)
+            current += 1
+        
+        return result
+```
+
