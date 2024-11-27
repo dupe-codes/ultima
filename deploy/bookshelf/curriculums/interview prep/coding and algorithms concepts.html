@@ -332,6 +332,139 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a hr
 <span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>        queue <span class="op">=</span> next_queue</span>
 <span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span></code></pre></div>
+<h2 id="monotonic-stack">monotonic stack</h2>
+<p>A monotonic stack is a stack that maintains an additional invariant
+on its elements: they are all in either increasing or decreasing order
+(relative to some criterion) based on their arrival time.</p>
+<p>The “Trapping Water” problem is a good application of monotonic
+stacks. In the following solution, we maintain a stack of decreasing
+heights, representing the possible “left sides” of trenches/holes in
+which water can be “trapped.” As soon as we hit a height that is greater
+than the top of the stack, we have found the “right side” of a water
+trapping trench, and process it.</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Solution:</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> trap(<span class="va">self</span>, height: List[<span class="bu">int</span>]) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># maintain monotonic stack, as soon as elevation &gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="co"># top of stack, we have &quot;trapped&quot; and process</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        current <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        stack <span class="op">=</span> []</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> current <span class="op">&lt;</span> <span class="bu">len</span>(height):</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">while</span> stack <span class="kw">and</span> height[current] <span class="op">&gt;</span> height[stack[<span class="op">-</span><span class="dv">1</span>]]:</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                trapped_bottom <span class="op">=</span> stack.pop()</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="kw">not</span> stack:</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">break</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>                </span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>                distance <span class="op">=</span> current <span class="op">-</span> stack[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>                trapped_height <span class="op">=</span> <span class="bu">min</span>(height[current], height[stack[<span class="op">-</span><span class="dv">1</span>]]) <span class="op">-</span> height[trapped_bottom]</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>                result <span class="op">+=</span> distance <span class="op">*</span> trapped_height</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>            stack.append(current)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>            current <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> result</span></code></pre></div>
+<h2 id="binary-search">binary search</h2>
+<h3 id="searching-in-rotated-sorted-array">searching in rotated sorted
+array</h3>
+<p>I think the key insight in this question is the fact we can modify
+the form of a standard binary search to leverage new properties of the
+data as given, or to search for a match beyond the default criteria of
+“some target.”</p>
+<p>For reference, here’s is an implementation of canonical binary
+search</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> binary_search(nums, target):</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    start <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    end <span class="op">=</span> <span class="bu">len</span>(nums) <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> start <span class="op">&lt;=</span> end:</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        mid <span class="op">=</span> start <span class="op">+</span> (end <span class="op">-</span> start) <span class="op">//</span> <span class="dv">2</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> nums[mid] <span class="op">==</span> target:</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> mid</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> nums[mid] <span class="op">&gt;</span> target:</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>            end <span class="op">=</span> mid <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>            start <span class="op">=</span> mid <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span></span></code></pre></div>
+<h4 id="leveraging-new-properties-of-the-data">leveraging new properties
+of the data</h4>
+<p>Given a sorted array whose elements have been rotated by some amount
+k, we derive the following property at each step of the canonical binary
+search:</p>
+<p>After partitioning the array at the search point <code>mid</code>, we
+have two subarrays: the subarray to the left of <code>mid</code> and the
+one to the right. One of these two subarrays is guaranteed to be
+sorted.</p>
+<p>We can thus tweak canonical binary search to consider this fact. At
+each step, we determine which subarray is sorted by comparing the
+elements at its boundaries. Then we can decide whether we should search
+within the sorted subarray by check if our target lies within its
+bounds. Elegant.</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Solution:</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> search(<span class="va">self</span>, nums: List[<span class="bu">int</span>], target: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        start <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        end <span class="op">=</span> <span class="bu">len</span>(nums) <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> start <span class="op">&lt;=</span> end:</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>            mid <span class="op">=</span> start <span class="op">+</span> (end <span class="op">-</span> start) <span class="op">//</span> <span class="dv">2</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> nums[mid] <span class="op">==</span> target:</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> mid</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elif</span> nums[mid] <span class="op">&gt;=</span> nums[start]:</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>                <span class="co"># left subarray is sorted</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> target <span class="op">&gt;=</span> nums[start] <span class="kw">and</span> target <span class="op">&lt;</span> nums[mid]:</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>                    <span class="co"># target is guaranteed to be in left subarray</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>                    <span class="co"># if present at all</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>                    end <span class="op">=</span> mid <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>                <span class="cf">else</span>:</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>                    <span class="co"># target is not to the left, try right</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>                    start <span class="op">=</span> mid <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>                <span class="co"># right subarray is the sorted array</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> target <span class="op">&lt;=</span> nums[end] <span class="kw">and</span> target <span class="op">&gt;</span> nums[mid]:</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>                    start <span class="op">=</span> mid <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>                <span class="cf">else</span>:</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>                    end <span class="op">=</span> mid <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span></span></code></pre></div>
+<h4 id="searching-for-elements-beyond-target-criteria">searching for
+elements beyond “target” criteria</h4>
+<p>Another approach to this problem can be derived by recognizing that
+pivoting at the “rotation index” gives us two separate sorted arrays we
+can search through. The rotation index is the index of the smallest
+element in the array. How do we find it? Through binary search,
+comparing the current midpoint to the <em>last element of the
+array</em>. If the current midpoint is <em>greater</em> than the last
+element, then the smallest element must be to its right. If it is
+smaller, then either it is the smallest element or the smaller element
+is to its left.</p>
+<p>This gives us the following binary search implementation. Note that
+we may “pass” the smallest element in the middle of the algorithm. If
+mid IS the smallest element at any point, then we will search to its
+left. That search will then continuously update <code>left</code> until
+it <em>equals</em> the lowest element, because all elements to its left
+are actually greater than the smallest element and thus greater than the
+last element of the array.</p>
+<p>That explanation properly isn’t all too clear… I’ll have to rewrite
+that.</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> binary_search_smallest_element(nums):</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    left <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    right <span class="op">=</span> <span class="bu">len</span>(nums) <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> left <span class="op">&lt;=</span> right:</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        mid <span class="op">=</span> (left <span class="op">+</span> right) <span class="op">//</span> <span class="dv">2</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> nums[mid] <span class="op">&gt;</span> nums[<span class="op">-</span><span class="dv">1</span>]:</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>            left <span class="op">=</span> mid <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>            right <span class="op">=</span> mid <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> left</span></code></pre></div>
 
     </div>
 

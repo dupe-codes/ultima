@@ -324,3 +324,89 @@ class Solution:
         return result
 ```
 
+## binary search
+
+### searching in rotated sorted array
+
+I think the key insight in this question is the fact we can modify the form of a standard binary search to leverage new properties of the data as given, or to search for a match beyond the default criteria of "some target."
+
+For reference, here's is an implementation of canonical binary search
+
+```python
+
+def binary_search(nums, target):
+	start = 0
+	end = len(nums) - 1
+
+	while start <= end:
+		mid = start + (end - start) // 2
+
+		if nums[mid] == target:
+			return mid
+
+		if nums[mid] > target:
+			end = mid - 1
+		else:
+			start = mid + 1
+
+	return -1
+```
+
+#### leveraging new properties of the data
+
+Given a sorted array whose elements have been rotated by some amount k, we derive the following property at each step of the canonical binary search:
+
+After partitioning the array at the search point `mid`, we have two subarrays: the subarray to the left of `mid` and the one to the right. One of these two subarrays is guaranteed to be sorted.
+
+We can thus tweak canonical binary search to consider this fact. At each step, we determine which subarray is sorted by comparing the elements at its boundaries. Then we can decide whether we should search within the sorted subarray by check if our target lies within its bounds. Elegant.
+
+```python
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        start = 0
+        end = len(nums) - 1
+
+        while start <= end:
+            mid = start + (end - start) // 2
+
+            if nums[mid] == target:
+                return mid
+            elif nums[mid] >= nums[start]:
+                # left subarray is sorted
+                if target >= nums[start] and target < nums[mid]:
+                    # target is guaranteed to be in left subarray
+                    # if present at all
+                    end = mid - 1
+                else:
+                    # target is not to the left, try right
+                    start = mid + 1
+            else:
+                # right subarray is the sorted array
+                if target <= nums[end] and target > nums[mid]:
+                    start = mid + 1
+                else:
+                    end = mid - 1
+        
+        return -1
+```
+
+#### searching for elements beyond "target" criteria
+
+Another approach to this problem can be derived by recognizing that pivoting at the "rotation index" gives us two separate sorted arrays we can search through. The rotation index is the index of the smallest element in the array. How do we find it? Through binary search, comparing the current midpoint to the _last element of the array_. If the current midpoint is _greater_ than the last element, then the smallest element must be to its right. If it is smaller, then either it is the smallest element or the smaller element is to its left. 
+
+This gives us the following binary search implementation. Note that we may "pass" the smallest element in the middle of the algorithm. If mid IS the smallest element at any point, then we will search to its left. That search will then continuously update `left` until it _equals_ the lowest element, because all elements to its left are actually greater than the smallest element and thus greater than the last element of the array. 
+
+That explanation properly isn't all too clear... I'll have to rewrite that.
+
+```python
+def binary_search_smallest_element(nums):
+	left = 0
+	right = len(nums) - 1
+	while left <= right:
+		mid = (left + right) // 2
+		if nums[mid] > nums[-1]:
+			left = mid + 1
+		else:
+			right = mid - 1
+	return left
+```
