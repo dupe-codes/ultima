@@ -2,6 +2,7 @@
 tags:
   - blog
 drafted: 2024-11-29
+published: 2024-11-29
 draft: false
 ---
 
