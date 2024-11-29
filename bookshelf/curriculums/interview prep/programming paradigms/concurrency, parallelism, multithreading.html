@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>dupe.sh</title>
+        <link rel="stylesheet"
+            href="https://dupe.sh/static/css/main.css">
+        <!-- <script src="https://kit.fontawesome.com/0387a22d91.js" crossorigin="anonymous"></script> -->
+        <link href="https://unpkg.com/mono-icons@1.3.1/iconfont/icons.css" rel="stylesheet">
+    </head>
+<body>
+    <div class="post">
+
+    <div class="nav-bar">
+        <span class="nav-list">
+            <a href="https://dupe.sh/index.html">~/</a>
+        </span>
+    </div>
+
+    <h1>concurrency, parallelism, multithreading.html</h1>
+
+    <div class="post-metadata">
+        
+            <span>drafted: 2024-11-29</span>
+        
+
+        
+    </div>
+
+
+    
+
+    <div class="post-content">
+        <p>High level notes on concurrent and parallel programming</p>
+<h2 id="processes-vs-threads">Processes vs Threads</h2>
+<p>A <em>thread</em> is an independent sequence of execution. A
+<em>process</em> is a container for at least one thread of execution,
+along with all other resources needed for computation.</p>
+<p>They both operate as constructs for managing parallel computation,
+but at different access levels. Most important to note is access to
+virtual memory.</p>
+<p><em>Processes</em> are each assigned separate sequences of the
+virtual memory address space with which to operate. The operating system
+enforces that one process cannot access the virtual address space of any
+other.</p>
+<p><em>Threads,</em> however, operate <em>within</em> a process, with
+shared access to its memory address space. That means multiple threads
+can access the same memory.</p>
+<h2 id="concurrency-vs-parallelism">Concurrency vs Parallelism</h2>
+<p><em>Concurrency</em> is a program/system property where multiple
+tasks can run in overlapping <em>time periods</em>. They need not
+actually run at the exact same instant.</p>
+<p><em>Parallelism</em> is a behavior that occurs when at least two
+tasks are executing <em>at the exact same instant.</em></p>
+<h2 id="common-concurrent-programming-constructs">Common Concurrent
+Programming Constructs</h2>
+<ol type="1">
+<li>Lock</li>
+<li>Mutex</li>
+<li>Sempahore</li>
+<li>Conditional variable</li>
+<li>Events</li>
+</ol>
+<h2 id="common-concurrent-programming-models">Common Concurrent
+Programming Models</h2>
+<ol type="1">
+<li>Event loops</li>
+<li>Futures &amp; promises</li>
+<li>Actor model</li>
+<li>Multithreading</li>
+</ol>
+<h2 id="resourcesreferences">Resources/References</h2>
+<ol type="1">
+<li><a
+href="https://stackoverflow.com/questions/200469/what-is-the-difference-between-a-process-and-a-thread"
+class="uri">https://stackoverflow.com/questions/200469/what-is-the-difference-between-a-process-and-a-thread</a></li>
+<li><a href="https://wiki.haskell.org/Parallelism_vs._Concurrency"
+class="uri">https://wiki.haskell.org/Parallelism_vs._Concurrency</a></li>
+<li><a href="https://wiki.haskell.org/Parallelism_vs._Concurrency"
+class="uri">https://wiki.haskell.org/Parallelism_vs._Concurrency</a></li>
+<li><a
+href="https://stackoverflow.com/questions/1050222/what-is-the-difference-between-concurrency-and-parallelism"
+class="uri">https://stackoverflow.com/questions/1050222/what-is-the-difference-between-concurrency-and-parallelism</a></li>
+</ol>
+
+    </div>
+
+    
+
+</div>
+
+
+</body>
+</html>
