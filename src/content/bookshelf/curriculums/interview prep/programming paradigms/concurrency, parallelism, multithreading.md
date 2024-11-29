@@ -43,5 +43,4 @@ _Parallelism_ is a behavior that occurs when at least two tasks are executing _a
 
 1. <https://stackoverflow.com/questions/200469/what-is-the-difference-between-a-process-and-a-thread>
 2. <https://wiki.haskell.org/Parallelism_vs._Concurrency>
-3. <https://wiki.haskell.org/Parallelism_vs._Concurrency>
-4. <https://stackoverflow.com/questions/1050222/what-is-the-difference-between-concurrency-and-parallelism>
+3. <https://stackoverflow.com/questions/1050222/what-is-the-difference-between-concurrency-and-parallelism>
