@@ -145,6 +145,44 @@ class Solution:
         return dp
 ```
 
+### max profit job scheduling
+
+```python
+class Job:
+    def __init__(self, start, end, profit):
+        self.start = start
+        self.end = end
+        self.profit = profit
+
+    def __lt__(self, other):
+        return self.start < other.start
+    
+    def __repr__(self):
+        return f"Job(start: {self.start}, end: {self.end}, profit: {self.profit})"
+    
+    def __str__(self):
+        return self.__repr__()
+
+class Solution:
+    def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -> int:
+        jobs = [Job(startTime[i], endTime[i], profit[i]) for i in range(len(startTime))]
+        jobs.sort()
+        start_times = [job.start for job in jobs]
+
+        dp = [-1 for _ in range(len(startTime))]
+        for i in range(len(jobs) - 1, -1, -1):
+            next_schedulable_job = bisect_left(start_times, jobs[i].end)
+            next_profit = 0 if next_schedulable_job == len(jobs) else dp[next_schedulable_job]
+            profit = jobs[i].profit + next_profit
+
+            if i == len(jobs) - 1:
+                dp[i] = profit
+            else:
+                dp[i] = max(profit, dp[i + 1])
+        
+        return dp[0]
+```
+
 ## bfs/dfs
 
 - when you think of shortest path problems through a graph, you should think of BFS.
