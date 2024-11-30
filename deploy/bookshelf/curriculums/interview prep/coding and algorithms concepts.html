@@ -234,6 +234,23 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a hr
 <span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>                dp[i] <span class="op">=</span> <span class="bu">max</span>(profit, dp[i <span class="op">+</span> <span class="dv">1</span>])</span>
 <span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>        </span>
 <span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> dp[<span class="dv">0</span>]</span></code></pre></div>
+<h2 id="identifying-graph-problems">identifying graph problems</h2>
+<ul>
+<li>big hints
+<ul>
+<li>problem presentation with <em>elements</em> that are
+<em>connected</em>. <strong>connectivity</strong></li>
+<li>problems that describe finding the shortest distance (think
+<em>path</em>) between elements</li>
+<li>anything involving <em>states</em> and <em>transitions</em> between
+them</li>
+<li>anything that describes <em>dependencies</em> between elements</li>
+</ul></li>
+</ul>
+<h4 id="account-merging">account merging</h4>
+<p>Whenever we must work with a set of elements (emails) that are
+connected (belong to the same user), we should always consider
+visualizing our input as a graph</p>
 <h2 id="bfsdfs">bfs/dfs</h2>
 <ul>
 <li><p>when you think of shortest path problems through a graph, you

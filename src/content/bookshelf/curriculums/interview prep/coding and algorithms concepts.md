@@ -183,6 +183,18 @@ class Solution:
         return dp[0]
 ```
 
+## identifying graph problems
+
+- big hints
+	- problem presentation with _elements_ that are _connected_. **connectivity**
+	- problems that describe finding the shortest distance (think _path_) between elements
+	- anything involving _states_ and _transitions_ between them
+	- anything that describes _dependencies_ between elements
+
+#### account merging
+
+Whenever we must work with a set of elements (emails) that are connected (belong to the same user), we should always consider visualizing our input as a graph
+
 ## bfs/dfs
 
 - when you think of shortest path problems through a graph, you should think of BFS.
