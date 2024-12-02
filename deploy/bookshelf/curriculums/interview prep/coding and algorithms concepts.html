@@ -257,6 +257,14 @@ visualizing our input as a graph</p>
 should think of BFS.</p></li>
 <li><p>sometimes good to have <em>multiple</em> starting nodes; e.g.,
 all nodes with value 0 in a matrix</p></li>
+<li><p>if you need to process a tree level-by-level, think BFS. A good
+example is the <a
+href="https://leetcode.com/problems/binary-tree-right-side-view/editorial/">Binary
+Tree Right Side View</a> problem. It’s possible to solve with DFS, but
+the solution is trickier. With a BFS approach, we can confidently “find”
+the right most element of each level to “view” by processing the BFS
+queue; the last element inserted into the queue for a level is the
+element we “view!”</p></li>
 </ul>
 <h2 id="quickselect">quickselect</h2>
 <div class="sourceCode" id="cb4"><pre
@@ -456,7 +464,7 @@ sorted.</p>
 <p>We can thus tweak canonical binary search to consider this fact. At
 each step, we determine which subarray is sorted by comparing the
 elements at its boundaries. Then we can decide whether we should search
-within the sorted subarray by check if our target lies within its
+within the sorted subarray by checking if our target lies within those
 bounds. Elegant.</p>
 <div class="sourceCode" id="cb11"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Solution:</span>
@@ -517,6 +525,42 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a h
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>            right <span class="op">=</span> mid <span class="op">-</span> <span class="dv">1</span></span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> left</span></code></pre></div>
+<h2 id="calculator-questions">“calculator” questions</h2>
+<p>quite the troublesome instantiation of a parse and apply logic
+problem…</p>
+<p>prompt: implement a basic calculator that handles the operators
++,-,*,/</p>
+<pre><code>class Solution:
+    def calculate(self, s: str) -&gt; int:
+        def evaluate(operator, x, y = 0):
+            if operator == &quot;+&quot;:
+                return x
+            if operator == &quot;-&quot;:
+                return -x
+            if operator == &quot;*&quot;:
+                return x * y
+            return int(x / y)
+        
+        stack = []
+        curr = 0
+        previous_operator = &quot;+&quot;
+        s += &quot;@&quot;
+        
+        for c in s:
+            if c == &quot; &quot;:
+                continue
+            if c.isdigit():
+                curr = curr * 10 + int(c)
+            else:
+                if previous_operator in &quot;*/&quot;:
+                    stack.append(evaluate(previous_operator, stack.pop(), curr))
+                else:
+                    stack.append(evaluate(previous_operator, curr))
+                
+                curr = 0
+                previous_operator = c
+
+        return sum(stack)</code></pre>
 
     </div>
 

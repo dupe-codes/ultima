@@ -201,6 +201,8 @@ Whenever we must work with a set of elements (emails) that are connected (belong
 
 - sometimes good to have _multiple_ starting nodes; e.g., all nodes with value 0 in a matrix
 
+- if you need to process a tree level-by-level, think BFS. A good example is the [Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/editorial/) problem. It's possible to solve with DFS, but the solution is trickier. With a BFS approach, we can confidently "find" the right most element of each level to "view" by processing the BFS queue; the last element inserted into the queue for a level is the element we "view!"
+
 ## quickselect
 
 ```python
@@ -408,7 +410,7 @@ Given a sorted array whose elements have been rotated by some amount k, we deriv
 
 After partitioning the array at the search point `mid`, we have two subarrays: the subarray to the left of `mid` and the one to the right. One of these two subarrays is guaranteed to be sorted.
 
-We can thus tweak canonical binary search to consider this fact. At each step, we determine which subarray is sorted by comparing the elements at its boundaries. Then we can decide whether we should search within the sorted subarray by check if our target lies within its bounds. Elegant.
+We can thus tweak canonical binary search to consider this fact. At each step, we determine which subarray is sorted by comparing the elements at its boundaries. Then we can decide whether we should search within the sorted subarray by checking if our target lies within those bounds. Elegant.
 
 ```python
 class Solution:
@@ -459,4 +461,44 @@ def binary_search_smallest_element(nums):
 		else:
 			right = mid - 1
 	return left
+```
+
+## "calculator" questions
+
+quite the troublesome instantiation of a parse and apply logic problem...
+
+prompt: implement a basic calculator that handles the operators +,-,\*,/
+
+```
+class Solution:
+    def calculate(self, s: str) -> int:
+        def evaluate(operator, x, y = 0):
+            if operator == "+":
+                return x
+            if operator == "-":
+                return -x
+            if operator == "*":
+                return x * y
+            return int(x / y)
+        
+        stack = []
+        curr = 0
+        previous_operator = "+"
+        s += "@"
+        
+        for c in s:
+            if c == " ":
+                continue
+            if c.isdigit():
+                curr = curr * 10 + int(c)
+            else:
+                if previous_operator in "*/":
+                    stack.append(evaluate(previous_operator, stack.pop(), curr))
+                else:
+                    stack.append(evaluate(previous_operator, curr))
+                
+                curr = 0
+                previous_operator = c
+
+        return sum(stack)
 ```
