@@ -6,8 +6,7 @@ published: 2024-11-29
 draft: false
 ---
 
-High level notes on concurrent and parallel programming
-
+High level notes on concurrent and parallel programming.
 ## Processes vs Threads
 
 A _thread_ is an independent sequence of execution. A _process_ is a container for at least one thread of execution, along with all other resources needed for computation. 

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>dupe.sh</title>
+        <link rel="stylesheet"
+            href="https://dupe.sh/static/css/main.css">
+        <!-- <script src="https://kit.fontawesome.com/0387a22d91.js" crossorigin="anonymous"></script> -->
+        <link href="https://unpkg.com/mono-icons@1.3.1/iconfont/icons.css" rel="stylesheet">
+    </head>
+<body>
+    <div class="post">
+
+    <div class="nav-bar">
+        <span class="nav-list">
+            <a href="https://dupe.sh/index.html">~/</a>
+        </span>
+    </div>
+
+    <h1>rust cheatsheet.html</h1>
+
+    <div class="post-metadata">
+        
+            <span>drafted: 2024-12-03</span>
+        
+
+        
+            <span>published: 2024-12-03</span>
+        
+    </div>
+
+
+    
+
+    <div class="post-content">
+        <h2 id="ownership">Ownership</h2>
+<h3 id="rules">Rules</h3>
+<ul>
+<li>Each value in Rust has an <em>owner</em>.</li>
+<li>There can only be one owner at a time.</li>
+<li>When the owner goes out of scope, the value will be dropped.</li>
+</ul>
+<p>Types that implement the <code>Copy</code> trait are never moved;
+their values are always cloned. This trait is defined on integers, for
+example, since they’re data size is known and they live on the
+stack.</p>
+<p>Types that implement the <code>Drop</code> trait <em>cannot</em>
+implement <code>Copy</code>.</p>
+<h3 id="borrowing">Borrowing</h3>
+<p>Giving ownership to parameters in function calls while desiring to
+continue use of the passed in data after the call ends is common. Rust
+provides <em>references</em> as a way to pass data to functions without
+giving them full ownership. It’s like a pointer to the memory location
+where the data exists, but owned by some other variable. It is
+guaranteed to point to a valid value of its type.</p>
+<p>By default, references are immutable. They can be made mutable with
+the <code>mut</code> keyword. This comes with rules that will always be
+enforced:</p>
+<ol type="1">
+<li>There can be one or more immutable <code>&amp;T</code> references to
+a value.</li>
+<li>If there is any <code>mutable &amp;T</code> reference to a value, it
+must be the <em>only</em> reference.</li>
+</ol>
+<p>Note that a references scope lasts from the point it is introduced to
+the point it is last used. Thus the following is valid:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode rust"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">mut</span> s <span class="op">=</span> <span class="dt">String</span><span class="pp">::</span>from(<span class="st">&quot;hello&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> r1 <span class="op">=</span> <span class="op">&amp;</span>s<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> r2 <span class="op">=</span> <span class="op">&amp;</span>s<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="pp">println!</span>(<span class="st">&quot;{r1} and {r2}&quot;</span>)<span class="op">;</span> </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> r3 <span class="op">=</span> <span class="op">&amp;</span><span class="kw">mut</span> s<span class="op">;</span>  </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="pp">println!</span>(<span class="st">&quot;{r3}&quot;</span>)<span class="op">;</span></span></code></pre></div>
+<p>A third rule of references:</p>
+<ul>
+<li>References must <em>always</em> be valid.</li>
+</ul>
+<p>This prevents dangling references like would otherwise happen in the
+following:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode rust"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> reference_to_nothing <span class="op">=</span> dangle()<span class="op">;</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> dangle() <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="dt">String</span> <span class="op">{</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> s <span class="op">=</span> <span class="dt">String</span><span class="pp">::</span>from(<span class="st">&quot;hello&quot;</span>)<span class="op">;</span> </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">&amp;</span>s </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h2 id="resources">Resources</h2>
+<ol type="1">
+<li><a href="https://doc.rust-lang.org/book"
+class="uri">https://doc.rust-lang.org/book</a></li>
+</ol>
+
+    </div>
+
+    
+
+</div>
+
+
+</body>
+</html>
