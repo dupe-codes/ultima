@@ -1,3 +1,37 @@
+## time & space complexities
+
+#### strings
+
+- creating a substring: `O(n)` time
+
+## libraries
+
+### requests
+
+### functools
+
+Useful tools for working with functions
+
+#### cache
+
+A decorator that can be used to memoize the results of a function:
+
+```python
+def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+	@cache
+	def dp(i):
+		if i < 0:
+			return True
+
+		for word in wordDict:
+			if s[i - len(word) + 1 : i + 1] == word and dp(i - len(word)):
+				return True
+
+		return False
+
+	return dp(len(s) - 1)
+```
+
 ## gotchas
 
 #### truthiness
