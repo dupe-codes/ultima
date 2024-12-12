@@ -463,6 +463,26 @@ def binary_search_smallest_element(nums):
 	return left
 ```
 
+### searching for closest element to target
+
+How about searching a sorted list for the _closest_ element to the target such that `element <= target`?
+
+```python
+def binary_search_closest(values, target):
+	left = 0
+	right = len(values)
+	while left < right:
+		mid = left + (right - left) // 2
+		if values[mid] <= target:
+			left = mid + 1
+		else:
+			right = mid
+	
+	return None if right == 0 else values[right - 1]
+```
+
+One way to think of this: it will lift `left` up until it points just beyond the last element <= the target, and then whittle right down until it is equal to `left`; thus, the closest element is one before `right`, or isn't present if `right` points to the start of the list.
+
 ## "calculator" questions
 
 quite the troublesome instantiation of a parse and apply logic problem...

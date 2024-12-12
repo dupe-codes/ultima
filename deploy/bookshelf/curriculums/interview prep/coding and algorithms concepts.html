@@ -525,6 +525,27 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a h
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>            right <span class="op">=</span> mid <span class="op">-</span> <span class="dv">1</span></span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> left</span></code></pre></div>
+<h3 id="searching-for-closest-element-to-target">searching for closest
+element to target</h3>
+<p>How about searching a sorted list for the <em>closest</em> element to
+the target such that <code>element &lt;= target</code>?</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> binary_search_closest(values, target):</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    left <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    right <span class="op">=</span> <span class="bu">len</span>(values)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> left <span class="op">&lt;</span> right:</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        mid <span class="op">=</span> left <span class="op">+</span> (right <span class="op">-</span> left) <span class="op">//</span> <span class="dv">2</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> values[mid] <span class="op">&lt;=</span> target:</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>            left <span class="op">=</span> mid <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>            right <span class="op">=</span> mid</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">None</span> <span class="cf">if</span> right <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> values[right <span class="op">-</span> <span class="dv">1</span>]</span></code></pre></div>
+<p>One way to think of this: it will lift <code>left</code> up until it
+points just beyond the last element &lt;= the target, and then whittle
+right down until it is equal to <code>left</code>; thus, the closest
+element is one before <code>right</code>, or isn’t present if
+<code>right</code> points to the start of the list.</p>
 <h2 id="calculator-questions">“calculator” questions</h2>
 <p>quite the troublesome instantiation of a parse and apply logic
 problem…</p>
