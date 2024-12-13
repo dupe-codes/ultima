@@ -6,6 +6,93 @@
 
 ## libraries
 
+### csv
+
+Standard library module for reading/write CSV files
+
+```python
+# example usage
+
+# standard reading line by line
+with open('example.csv', mode='r') as file:
+    reader = csv.reader(file)
+    for row in reader:
+        print(row)
+
+# read with dict reader to auto parse header row
+with open('example.csv', mode='r', newline='') as file:
+    reader = csv.DictReader(file)
+	headers = reader.fieldnames
+    for row in reader:
+        print(row)  # row is a dictionary with header names as keys
+
+# write out data
+data = [
+    ["Name", "Age", "City"],
+    ["Alice", 30, "New York"],
+    ["Bob", 25, "San Francisco"]
+]
+with open('output.csv', mode='w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerows(data)
+```
+
+### datetime
+
+A useful library for parsing formatted timestamp strings.
+
+```python
+# example usage
+from datetime import datetime, timedelta
+
+ts = datetime.fromisoformat('2019-01-04T16:41:24+02:00')
+
+# compute new ts
+ts_before = ts - timedelta(minutes=5)
+
+# example of implementing a 5 minute sliding window
+# through a stream of timestamped "logs"
+#
+# GOAL: find "servers" with >= 3 error logs over any
+#       5 minute time window
+
+def parse_logs(logs: list[str]) -> Iterator[tuple[datetime, str, str]]:
+	"""
+	Assume log format: [2024-12-13T10:30:00Z] server1 INFO "Service started"
+	"""
+    for log in logs:
+        split_log = log.split(" ")
+        ts_str = split_log[0]
+        server = split_log[1]
+        severity = split_log[2]
+        yield (
+            datetime.fromisoformat(ts_str[1 : len(ts_str) - 1]),
+            server,
+            severity,
+        )
+
+
+def find_servers_with_recurring_errors(
+    logs: list[str], error_window_minutes: int = 5, error_threshold: int = 3
+) -> list[str]:
+    server_logs: dict[str, Deque[datetime]] = defaultdict(Deque)
+    errored_servers: set[str] = set()
+
+    for ts, server, severity in parse_logs(logs):
+        curr_errors = server_logs[server]
+
+        if severity == "ERROR":
+            curr_errors.append(ts)
+
+        window_start = ts - timedelta(minutes=error_window_minutes)
+        while curr_errors and curr_errors[0] < window_start:
+            curr_errors.popleft()
+
+        if len(curr_errors) >= error_threshold:
+            errored_servers.add(server)
+
+    return sorted(list(errored_servers))
+```
 ### requests
 
 ### functools
