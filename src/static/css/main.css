@@ -68,6 +68,7 @@ a {
     width: 100%;
     border-collapse: collapse;
     margin: 10px 0;
+    table-layout: fixed;
 }
 
 .file-index-table thead th {
@@ -76,10 +77,22 @@ a {
     padding: 10px;
 }
 
+.file-index-table thead th:first-child {
+    width: 50%;
+}
+
+.file-index-table thead th:nth-child(2),
+.file-index-table thead th:nth-child(3) {
+    width: 25%;
+}
+
 .file-index-table tbody td {
     border-bottom: 1px solid #eee;
     padding: 10px;
     vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
     word-break: break-word;
 }
 
@@ -202,6 +215,7 @@ a {
     margin-bottom: 5px;
 }
 
+/* Responsive media queries */
 @media (max-width: 768px) {
     body {
         font-size: 18px; /* Larger base font size for mobile */
@@ -211,20 +225,22 @@ a {
         padding: 15px;
     }
 
+    /* Adjust table columns for medium screens */
     .file-index-table {
-        display: block;
-        overflow-x: auto;
+        table-layout: fixed;
     }
 
-    .file-index-table thead th,
-    .file-index-table tbody td {
-        padding: 12px 8px;
+    .file-index-table thead th:first-child {
+        width: 60%;
     }
 
-    /* Hide less important columns on mobile */
-    .file-index-table th:nth-child(3),
-    .file-index-table td:nth-child(3) {
-        display: none;
+    .file-index-table thead th:nth-child(2),
+    .file-index-table thead th:nth-child(3) {
+        width: 20%;
+    }
+
+    .file-index-table td {
+        font-size: 0.9em;
     }
 
     .post h1 {
@@ -244,16 +260,38 @@ a {
 
 @media (max-width: 480px) {
     body {
-        font-size: 20px; /* Even larger for smaller screens */
+        font-size: 18px;
     }
 
-    .file-index-table th:nth-child(2),
-    .file-index-table td:nth-child(2) {
-        display: none; /* Hide size column on very small screens */
+    /* Make the table scrollable horizontally on very small screens */
+    .file-index-table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin-bottom: 15px;
+        position: relative;
     }
 
-    .file-index-table td:first-child {
-        padding: 14px 8px;
+    .file-index-table {
+        min-width: 480px; /* Ensure table doesn't shrink too much */
+    }
+
+    .file-index-table td, 
+    .file-index-table th {
+        padding: 12px 8px;
+        font-size: 0.9em;
+    }
+
+    /* Adjust column widths for small screens */
+    .file-index-table thead th:first-child {
+        width: 50%;
+    }
+
+    .file-index-table thead th:nth-child(2) {
+        width: 15%;
+    }
+
+    .file-index-table thead th:nth-child(3) {
+        width: 35%;
     }
 
     .nav-bar {

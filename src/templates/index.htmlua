@@ -11,33 +11,35 @@
         <div id="search-results" class="search-dropdown"></div>
     </div>
 
-    <table class="file-index-table">
-        <thead>
-            <tr>
-                <th>name</th>
-                <th>size</th>
-                <th>last modified at</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for _, link in ipairs(links) do }}
+    <div class="file-index-table-wrapper">
+        <table class="file-index-table">
+            <thead>
                 <tr>
-                    <td>
-                        {% local icon = link.metadata.icon or get_default_icon(link.file_type) }}
-                        <i class="{{icon}}"></i>
-                        <a href="{{ link.link }}"
-                           title="{{ link.metadata.description or '' }}">{{ link.display_name }}</a>
-                    </td>
-                    <td>
-                        {{ link.metadata.file_size or "-" }}
-                    </td>
-                    <td>
-                        {{ link.metadata.updated_at or "-" }}
-                    </td>
+                    <th>name</th>
+                    <th>size</th>
+                    <th>last modified at</th>
                 </tr>
-            {% end }}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for _, link in ipairs(links) do }}
+                    <tr>
+                        <td>
+                            {% local icon = link.metadata.icon or get_default_icon(link.file_type) }}
+                            <i class="{{icon}}"></i>
+                            <a href="{{ link.link }}"
+                               title="{{ link.metadata.description or '' }}">{{ link.display_name }}</a>
+                        </td>
+                        <td>
+                            {{ link.metadata.file_size or "-" }}
+                        </td>
+                        <td>
+                            {{ link.metadata.updated_at or "-" }}
+                        </td>
+                    </tr>
+                {% end }}
+            </tbody>
+        </table>
+    </div>
 </div>
 
 
