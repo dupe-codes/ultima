@@ -5,7 +5,6 @@
     font-weight: normal;
     font-style: normal;
 }
-
 @font-face {
     font-family: 'drafting_monoregular';
     src: url('fonts/draftingmono-regular-webfont.woff2') format('woff2'),
@@ -13,7 +12,6 @@
     font-weight: normal;
     font-style: normal;
 }
-
 @font-face {
     font-family: 'berkeley_mono_regular';
     src: url('fonts/BerkeleyMono-Regular.woff2') format('woff2'),
@@ -21,7 +19,6 @@
     font-weight: normal;
     font-style: normal;
 }
-
 @font-face {
     font-family: 'eb_garamond12_regular';
     src: url('fonts/ebgaramond12-regular-webfont.woff2') format('woff2'),
@@ -30,10 +27,20 @@
     font-style: normal;
 }
 
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
 body {
     font-family: 'berkeley_mono_regular', monospace;
     background-color: #f0f4fc;
     font-size: 16px;
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
 }
 
 a {
@@ -44,6 +51,7 @@ a {
     max-width: 850px;
     margin: 0 auto;
     padding: 20px;
+    width: 100%;
 }
 
 .post {
@@ -53,6 +61,7 @@ a {
     line-height: 1.6;
     font-size: 16px;
     color: #333333;
+    width: 100%;
 }
 
 .file-index-table {
@@ -71,6 +80,7 @@ a {
     border-bottom: 1px solid #eee;
     padding: 10px;
     vertical-align: middle;
+    word-break: break-word;
 }
 
 .file-index-table tbody tr:hover {
@@ -80,6 +90,7 @@ a {
 .file-index-table td a {
     text-decoration: none;
     word-wrap: break-word;
+    display: inline-block;
 }
 
 .file-index-table td a:hover {
@@ -99,16 +110,19 @@ a {
     color: #333333;
     padding: 8px 12px;
     position: relative;
+    flex-wrap: wrap;
 }
 
 .nav-list {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .nav-list a {
     margin-right: 10px;
     text-decoration: none;
+    margin-bottom: 5px;
 }
 
 .nav-list a:hover {
@@ -119,25 +133,25 @@ a {
     margin-right: 0;
 }
 
-/* search dropdown */
-
 .search-container {
     position: relative;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
+    width: 100%;
 }
 
 #search-bar {
-    width: 95%;
-    padding: 10px;
+    width: 100%;
+    padding: 12px;
     font-size: 16px;
-    border: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
     background-color: #f0f4fc;
 }
 
 .search-dropdown {
     width: 100%;
     position: absolute;
-    top: 40px;
+    top: 45px;
     left: 0;
     background: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -146,10 +160,11 @@ a {
     overflow-y: auto;
     display: none;
     background-color: #f0f4fc;
+    border-radius: 4px;
 }
 
 .search-result {
-    padding: 10px;
+    padding: 12px;
     cursor: pointer;
     border-bottom: 1px solid #eee;
     font-size: 14px;
@@ -171,6 +186,7 @@ a {
 
 .post h1 {
     margin-bottom: 0.5em;
+    font-size: 1.8em;
 }
 
 .post-metadata {
@@ -183,5 +199,73 @@ a {
     display: block;
     margin-right: 1em;
     font-style: italic;
+    margin-bottom: 5px;
 }
 
+@media (max-width: 768px) {
+    body {
+        font-size: 18px; /* Larger base font size for mobile */
+    }
+
+    .file-index, .post {
+        padding: 15px;
+    }
+
+    .file-index-table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .file-index-table thead th,
+    .file-index-table tbody td {
+        padding: 12px 8px;
+    }
+
+    /* Hide less important columns on mobile */
+    .file-index-table th:nth-child(3),
+    .file-index-table td:nth-child(3) {
+        display: none;
+    }
+
+    .post h1 {
+        font-size: 1.6em;
+    }
+
+    #search-bar {
+        padding: 14px;
+        font-size: 18px;
+    }
+
+    .search-result {
+        padding: 14px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 20px; /* Even larger for smaller screens */
+    }
+
+    .file-index-table th:nth-child(2),
+    .file-index-table td:nth-child(2) {
+        display: none; /* Hide size column on very small screens */
+    }
+
+    .file-index-table td:first-child {
+        padding: 14px 8px;
+    }
+
+    .nav-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-list {
+        margin-top: 8px;
+    }
+
+    .post h1 {
+        font-size: 1.5em;
+    }
+}
