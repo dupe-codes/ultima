@@ -5,6 +5,7 @@ add: ## Add a lua dependency to the local project, usage: make add package=packa
 
 .PHONY: install
 install: ## Install project dependencies
+	sudo pacman -Sy pandoc
 	luarocks install --tree lua_modules --deps-only ultima-dev-1.rockspec
 
 .PHONY: build-f
