@@ -399,6 +399,7 @@ local function render_content_dir(output_path, content, parent_dir)
     --       in post frontmatter configs
     local content_metadata = {}
     local links = {}
+
     for dir, src_files in pairs(content) do
         if dir == "" then
             -- list of files in the current directory to render
