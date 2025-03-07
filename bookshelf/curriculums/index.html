@@ -20,70 +20,72 @@
         <div id="search-results" class="search-dropdown"></div>
     </div>
 
-    <table class="file-index-table">
-        <thead>
-            <tr>
-                <th>name</th>
-                <th>size</th>
-                <th>last modified at</th>
-            </tr>
-        </thead>
-        <tbody>
-            
+    <div class="file-index-table-wrapper">
+        <table class="file-index-table">
+            <thead>
                 <tr>
-                    <td>
-                        
-                        <i class="mi-folder"></i>
-                        <a href="https://dupe.sh/bookshelf/index.html"
-                           title="">..</a>
-                    </td>
-                    <td>
-                        -
-                    </td>
-                    <td>
-                        -
-                    </td>
+                    <th>name</th>
+                    <th>size</th>
+                    <th>last modified at</th>
                 </tr>
-            
-                <tr>
-                    <td>
-                        
-                        <i class="mi-folder"></i>
-                        <a href="interview prep/index.html"
-                           title="">interview prep/</a>
-                    </td>
-                    <td>
-                        -
-                    </td>
-                    <td>
-                        2025-03-07T22:21:34Z
-                    </td>
-                </tr>
-            
-                <tr>
-                    <td>
-                        
-                        <i class="mi-document"></i>
-                        <a href="https://dupe.sh/bookshelf/curriculums/deep systems programming.html"
-                           title="">deep systems programming.html</a>
-                    </td>
-                    <td>
-                        818.00 B
-                    </td>
-                    <td>
-                        2024-10-05T18:37:40Z
-                    </td>
-                </tr>
-            
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                
+                    <tr>
+                        <td>
+                            
+                            <i class="mi-folder"></i>
+                            <a href="https://dupe.sh/bookshelf/index.html"
+                               title="">..</a>
+                        </td>
+                        <td>
+                            -
+                        </td>
+                        <td>
+                            -
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td>
+                            
+                            <i class="mi-folder"></i>
+                            <a href="interview prep/index.html"
+                               title="">interview prep/</a>
+                        </td>
+                        <td>
+                            -
+                        </td>
+                        <td>
+                            2025-03-07T22:38:51Z
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td>
+                            
+                            <i class="mi-document"></i>
+                            <a href="https://dupe.sh/bookshelf/curriculums/deep systems programming.html"
+                               title="">deep systems programming.html</a>
+                        </td>
+                        <td>
+                            818.00 B
+                        </td>
+                        <td>
+                            2024-10-05T18:37:40Z
+                        </td>
+                    </tr>
+                
+            </tbody>
+        </table>
+    </div>
 </div>
 
 
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var allLinks = JSON.parse('[{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/distributed systems/concepts & techniques.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/distributed systems/concepts & techniques.html"},{"link":"https://dupe.sh/static/images/blue_sky.png","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/case studies/blue_sky.png"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/domain specific/authorization & authentication.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/domain specific/authorization & authentication.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/programming paradigms/concurrency, parallelism, multithreading.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/programming paradigms/concurrency, parallelism, multithreading.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/querying and data models/transactions.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/querying and data models/transactions.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/storing data/db data structures.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/storing data/db data structures.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/storing data/embedded databases.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/storing data/embedded databases.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/storing data/replication.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/storing data/replication.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/caching/in-memory KV stores.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/caching/in-memory KV stores.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/about.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/about.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/python programming cheatsheet.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/python programming cheatsheet.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/coding and algorithms concepts.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/coding and algorithms concepts.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/systems design core concepts.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/systems design core concepts.html"},{"link":"https://dupe.sh/bookshelf/curriculums/deep systems programming.html","search_display":"https://dupe.sh/bookshelf/curriculums/deep systems programming.html"}]');
+            var allLinks = JSON.parse('[{"link":"https://dupe.sh/static/images/blue_sky.png","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/case studies/blue_sky.png"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/domain specific/authorization & authentication.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/domain specific/authorization & authentication.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/storing data/db data structures.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/storing data/db data structures.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/storing data/embedded databases.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/storing data/embedded databases.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/storing data/replication.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/storing data/replication.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/caching/in-memory KV stores.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/caching/in-memory KV stores.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/distributed systems/concepts & techniques.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/distributed systems/concepts & techniques.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/programming paradigms/concurrency, parallelism, multithreading.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/programming paradigms/concurrency, parallelism, multithreading.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/querying and data models/transactions.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/querying and data models/transactions.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/about.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/about.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/python programming cheatsheet.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/python programming cheatsheet.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/coding and algorithms concepts.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/coding and algorithms concepts.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/systems design core concepts.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/systems design core concepts.html"},{"link":"https://dupe.sh/bookshelf/curriculums/deep systems programming.html","search_display":"https://dupe.sh/bookshelf/curriculums/deep systems programming.html"}]');
 
             var searchBar = document.getElementById('search-bar');
             var searchResults = document.getElementById('search-results');
