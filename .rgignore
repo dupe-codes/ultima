@@ -1,0 +1,3 @@
+# should be included in git, but don't want to show up when fuzzy
+# searching
+deploy/
