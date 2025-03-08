@@ -32,9 +32,15 @@ function M.strip_output_dir(file_path, output_dir)
     return file_path:gsub("^" .. output_dir .. "/", "")
 end
 
+function M.strip_input_dir(filepath, input_dir)
+    return filepath:gsub("^" .. input_dir .. "/", "")
+end
+
 function M.generate_absolute_path(config, target)
     -- strip redundant output dir if already included in target path
     target = M.strip_output_dir(target, config.generator.output_dir)
+    -- strip out input_dir if still present
+    target = M.strip_input_dir(target, config.generator.input_dir)
     if config.env == "dev" then
         return config.generator.root_dir
             .. "/"

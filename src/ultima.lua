@@ -1,6 +1,8 @@
 #!/usr/bin/env lua
 
 local argparse = require "argparse"
+local date = require "date"
+local inspect = require "inspect"
 local json = require "dkjson"
 local lfs = require "lfs"
 
@@ -44,6 +46,7 @@ local CONTENT_TYPE = {
 
 local DRAFT_METADATA_FIELD = "draft"
 local FONT_METADATA_FIELD = "font"
+local DEFAULT_RECENTLY_UPDATED_THRESHOLD = 7
 
 -- END
 
@@ -90,7 +93,8 @@ end
 
 local function get_output_file_name(file_name, metadata)
     if
-        not metadata.content_type
+        not metadata
+        or not metadata.content_type
         or metadata.content_type ~= CONTENT_TYPE.MEDIA
     then
         return file_name:gsub("%.md$", ".html")
@@ -338,6 +342,32 @@ local function get_default_icon(file_type)
     end
 end
 
+local function generate_recently_updated_list()
+    local curr_ts = date(true)
+    local threshold = CONFIG.main.recently_updated_threshold
+        or DEFAULT_RECENTLY_UPDATED_THRESHOLD
+
+    local result = {}
+    for filepath, metadata in pairs(LOCK_FILE.files) do
+        local modified_ts = date(metadata.last_modified_ts)
+        if date.diff(curr_ts, modified_ts):spandays() <= threshold then
+            local filename_with_ext =
+                filepath:match("([^/]+)$"):gsub("%.md$", ".html")
+            local filename = filename_with_ext:match "(.+)%..+$"
+
+            table.insert(result, {
+                link = formatters.generate_absolute_path(
+                    CONFIG,
+                    get_output_file_name(filepath)
+                ),
+                display_name = filename,
+            })
+        end
+    end
+
+    return result
+end
+
 local function write_index_file(file_path, links, parent_dir, all_links)
     local stripped_path =
         formatters.strip_output_dir(file_path, CONFIG.generator.output_dir)
@@ -367,6 +397,10 @@ local function write_index_file(file_path, links, parent_dir, all_links)
 
     table.sort(links, sort_file_links)
 
+    if not parent_dir then
+        print(inspect(generate_recently_updated_list()))
+    end
+
     local index_page = template_engine.compile_template_file(
         get_template_path(CONFIG.templates.index_page),
         {
@@ -378,6 +412,9 @@ local function write_index_file(file_path, links, parent_dir, all_links)
             get_default_icon = get_default_icon,
             all_links = json.encode(all_links),
             description = not parent_dir and CONFIG.main.description or nil,
+            recently_updated = not parent_dir
+                    and generate_recently_updated_list()
+                or nil,
         }
     )
 
@@ -403,7 +440,7 @@ local function render_content_dir(output_path, content, parent_dir)
     for dir, src_files in pairs(content) do
         if dir == "" then
             -- list of files in the current directory to render
-            -- TODO: run in parallel
+            -- TODO: run in parallel with coroutines
             for _, file in pairs(src_files) do
                 local output_data =
                     render_file(output_path, file.source_path, file.file_name)
@@ -516,7 +553,6 @@ local function main()
         CONFIG.generator.static_dir,
         CONFIG.generator.output_dir .. "/static"
     )
-
     generate_xml_feed(CONFIG.generator.output_dir, content_data)
 end
 

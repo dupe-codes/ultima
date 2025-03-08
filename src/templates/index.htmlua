@@ -6,6 +6,20 @@
         <p> {{ description }} </p>
     {% end }}
 
+    {% if recently_updated then }}
+        <div class="recently-updated">
+            <h3>Recently Updated</h3>
+            <ul class="recently-updated-list">
+                {% for _, item in ipairs(recently_updated) do }}
+                    <li>
+                        <i class="mi-clock"></i>
+                        <a href="{{ item.link }}">{{ item.display_name }}</a>
+                    </li>
+                {% end }}
+            </ul>
+        </div>
+    {% end }}
+
     <div class="search-container">
         <input type="text" id="search-bar" placeholder="/ to search..." />
         <div id="search-results" class="search-dropdown"></div>
