@@ -63,11 +63,31 @@ function M.write_file(output_file_path, output)
 end
 
 function M.make_dir_if_not_exists(dir)
-    local output_dir_exists = lfs.attributes(dir)
-    if not output_dir_exists then
-        local success, err = lfs.mkdir(dir)
-        if not success then
-            print("failed to make directory " .. dir .. ": " .. inspect(err))
+    -- split the path by directory separator
+    local path_parts = {}
+    for part in string.gmatch(dir, "[^/]+") do
+        table.insert(path_parts, part)
+    end
+
+    local current_path = ""
+    for _, part in ipairs(path_parts) do
+        if current_path == "" then
+            current_path = part
+        else
+            current_path = current_path .. "/" .. part
+        end
+
+        local dir_exists = lfs.attributes(current_path, "mode") == "directory"
+        if not dir_exists then
+            local success, err = lfs.mkdir(current_path)
+            if not success then
+                error(
+                    "Failed to make directory "
+                        .. current_path
+                        .. ": "
+                        .. tostring(err)
+                )
+            end
         end
     end
 end

@@ -1,0 +1,18 @@
+[main]
+site_name                       = "dupe.sh"
+site_url                        = "https://dupe.sh"
+description                     = "jaunts through the software frontiers"
+recently_updated_threshold      = 7
+
+[generator]
+input_dir       = "content"
+static_dir      = "static"
+snippets_dir    = "snippets"
+lock_file       = "dupe_sh.lock"
+
+[templates]
+dir             = "templates"
+default         = "page.htmlua"
+index_page      = "index.htmlua"
+post            = "post.htmlua"
+feed            = "feed.xmlua"

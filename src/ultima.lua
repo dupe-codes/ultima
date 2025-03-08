@@ -14,13 +14,15 @@ local lock_files = require "lock_files"
 local template_engine = require "templates.engine"
 
 local PANDOC_CMD_FMT = "pandoc -t html --lua-filter=%s %s"
-local LOCK_FILE = lock_files.load(constants.LOCK_FILE)
 
 -- TODO: set up logging with LuaLogging package
 
 -- START: parse arguments and set parameters as globals
 
 local parser = argparse("ultima", "the ultimate static site generator")
+-- TODO: remove "dupe_sh" default
+--       and configure choices from subdirs present in the sites directory
+parser:argument("site", "Name of the site to build", "dupe_sh")
 parser:flag("-f --force", "Force write rendered files")
 parser:option("-e --env", "The compilation environment", "dev")
 local args = parser:parse()
@@ -31,8 +33,10 @@ local ENVIRONMENTS = {
 }
 
 local FORCE_WRITE = args.force or false
+local SITE = args.site
 local ENV = args.env
-local CONFIG = require("config").load_config(ENV)
+local CONFIG = require("config").load_config(SITE, ENV)
+local LOCK_FILE = lock_files.load(CONFIG.generator.lock_file)
 
 -- END
 
@@ -462,6 +466,7 @@ local function render_content_dir(output_path, content, parent_dir)
                 content_metadata
             )
 
+            -- FIXME: is this correct? should be relative to input directory path...
             local subdir_index_file = dir .. "/index.html"
             -- TODO: support directories in lock file, only change
             --       updated_at if any file in a directory has changed; or, maybe
@@ -544,7 +549,7 @@ local function main()
     local output_path = CONFIG.generator.output_dir .. "/"
     local content_data = render_content_dir(output_path, content_root)
 
-    lock_files.write(LOCK_FILE, constants.LOCK_FILE)
+    lock_files.write(LOCK_FILE, CONFIG.generator.lock_file)
     compile_static_assets(
         CONFIG.generator.static_dir,
         CONFIG.generator.output_dir .. "/static"
