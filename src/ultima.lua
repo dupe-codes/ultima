@@ -397,10 +397,6 @@ local function write_index_file(file_path, links, parent_dir, all_links)
 
     table.sort(links, sort_file_links)
 
-    if not parent_dir then
-        print(inspect(generate_recently_updated_list()))
-    end
-
     local index_page = template_engine.compile_template_file(
         get_template_path(CONFIG.templates.index_page),
         {

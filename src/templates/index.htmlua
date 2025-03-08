@@ -6,9 +6,14 @@
         <p> {{ description }} </p>
     {% end }}
 
+    <div class="search-container">
+        <input type="text" id="search-bar" placeholder="/ to search..." />
+        <div id="search-results" class="search-dropdown"></div>
+    </div>
+
     {% if recently_updated then }}
         <div class="recently-updated">
-            <h3>Recently Updated</h3>
+            <p>recently updated</p>
             <ul class="recently-updated-list">
                 {% for _, item in ipairs(recently_updated) do }}
                     <li>
@@ -19,11 +24,6 @@
             </ul>
         </div>
     {% end }}
-
-    <div class="search-container">
-        <input type="text" id="search-bar" placeholder="/ to search..." />
-        <div id="search-results" class="search-dropdown"></div>
-    </div>
 
     <div class="file-index-table-wrapper">
         <table class="file-index-table">
@@ -54,6 +54,7 @@
             </tbody>
         </table>
     </div>
+
 </div>
 
 
