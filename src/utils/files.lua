@@ -92,4 +92,18 @@ function M.make_dir_if_not_exists(dir)
     end
 end
 
+function M.get_all_subdirs_in_target(target_dir)
+    local result = {}
+    for file in lfs.dir(target_dir) do
+        if file ~= "." and file ~= ".." then
+            local full_path = target_dir .. "/" .. file
+            local attributes = lfs.attributes(full_path)
+            if attributes.mode == "directory" then
+                table.insert(result, file)
+            end
+        end
+    end
+    return result
+end
+
 return M

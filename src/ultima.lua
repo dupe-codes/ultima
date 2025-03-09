@@ -20,9 +20,9 @@ local PANDOC_CMD_FMT = "pandoc -t html --lua-filter=%s %s"
 -- START: parse arguments and set parameters as globals
 
 local parser = argparse("ultima", "the ultimate static site generator")
--- TODO: remove "dupe_sh" default
---       and configure choices from subdirs present in the sites directory
-parser:argument("site", "Name of the site to build", "dupe_sh")
+parser
+    :argument("site", "Name of the site to build")
+    :choices(file_utils.get_all_subdirs_in_target(constants.SITES_DIR))
 parser:flag("-f --force", "Force write rendered files")
 parser:option("-e --env", "The compilation environment", "dev")
 local args = parser:parse()

@@ -2,19 +2,35 @@
 
 set -e
 
-printf "\033[0;32mDeploying updates to GitHub...\033[0m\n"
+# Get the site name from first argument
+SITE=$1
 
-msg="build: rebuilding site $(date)"
-if [ -n "$*" ]; then
-    msg="$*"
+if [ -z "$SITE" ]; then
+    printf "\033[0;31mError: Site name is required\033[0m\n"
+    echo "Usage: $0 <site-name>"
+    exit 1
 fi
+
+printf "\033[0;32mDeploying updates for site \"%s\" to GitHub...\033[0m\n" "$SITE"
+
+# Create commit message
+msg="build: rebuilding site $SITE $(date)"
+if [ -n "$2" ]; then
+    msg="$2"
+fi
+
+# Add and commit changes
 git add .
 git commit -m "$msg"
 
-# push compiled deploy directory to deployment branch
-git subtree push --prefix deploy origin deploy
+# Push compiled deploy directory to site-specific deployment branch
+printf "\033[0;32mPushing %s to deploy-%s branch...\033[0m\n" "deploy/$SITE" "$SITE"
+git subtree push --prefix "deploy/$SITE" origin "deploy-$SITE"
 
-# push all changes to main
+# Push all changes to main
+printf "\033[0;32mPushing changes to main branch...\033[0m\n"
 git push
+
+printf "\033[0;32mDeployment for site \"%s\" completed successfully!\033[0m\n" "$SITE"
 
 # TODO: poll status of deployment on DigitalOcean app platform?
