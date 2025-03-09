@@ -13,11 +13,13 @@
 
     {% if recently_updated then }}
         <div class="recently-updated">
-            <p>recently updated</p>
+            <div class="recently-updated-header">
+                <i class="mi-clock"></i>
+                <p>recently updated</p>
+            </div>
             <ul class="recently-updated-list">
                 {% for _, item in ipairs(recently_updated) do }}
                     <li>
-                        <i class="mi-clock"></i>
                         <a href="{{ item.link }}">{{ item.display_name }}</a>
                     </li>
                 {% end }}

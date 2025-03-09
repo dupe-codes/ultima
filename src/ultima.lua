@@ -369,7 +369,7 @@ local function generate_recently_updated_list()
         end
     end
 
-    return result
+    return #result > 0 and result or nil
 end
 
 local function write_index_file(file_path, links, parent_dir, all_links)
