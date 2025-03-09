@@ -46,6 +46,7 @@ deploy: ## Build & deploy a specific site to production, usage: make deploy site
 	rm -rf deploy/$(site)
 	@echo ""
 	@echo "Building $(site) for production..."
+	@echo ""
 	@source $(CURDIR)/project.env && ./src/ultima.lua -f --env prod $(site)
 	@echo ""
 	@./scripts/deploy.sh $(site)

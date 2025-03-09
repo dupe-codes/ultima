@@ -24,13 +24,16 @@ git add .
 git commit -m "$msg"
 
 # Push compiled deploy directory to site-specific deployment branch
+echo ""
 printf "\033[0;32mPushing %s to deploy-%s branch...\033[0m\n" "deploy/$SITE" "$SITE"
 git subtree push --prefix "deploy/$SITE" origin "deploy-$SITE"
 
 # Push all changes to main
+echo ""
 printf "\033[0;32mPushing changes to main branch...\033[0m\n"
 git push
 
+echo ""
 printf "\033[0;32mDeployment for site \"%s\" completed successfully!\033[0m\n" "$SITE"
 
 # TODO: poll status of deployment on DigitalOcean app platform?
