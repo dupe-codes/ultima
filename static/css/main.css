@@ -159,6 +159,22 @@ a {
     font-size: 0.8em;
 }
 
+.recently-updated-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.recently-updated-header p {
+    margin: 0;
+    font-size: 0.8em;
+}
+
+.recently-updated-header i {
+    color: #4a6baf;
+}
+
 .recently-updated-list {
     list-style-type: none;
     padding: 0;
