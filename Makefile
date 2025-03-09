@@ -44,9 +44,11 @@ deploy: ## Build & deploy a specific site to production, usage: make deploy site
 		exit 1; \
 	fi
 	rm -rf deploy/$(site)
+	@echo ""
+	@echo "Building $(site) for production..."
 	@source $(CURDIR)/project.env && ./src/ultima.lua -f --env prod $(site)
 	@echo ""
-	./scripts/deploy.sh $(site)
+	@./scripts/deploy.sh $(site)
 
 .PHONY: run
 run: ## Run a specific site, usage: make run site=site-name

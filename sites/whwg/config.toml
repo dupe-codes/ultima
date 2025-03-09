@@ -1,0 +1,18 @@
+[main]
+site_name                       = "what have we gained"
+site_url                        = "https://whathavewegained.com"
+description                     = "a dark fantasy world of blood magic, dual souls, totalitarianism, and destiny"
+recently_updated_threshold      = 7
+
+[generator]
+input_dir       = "content"
+static_dir      = "static"
+snippets_dir    = "snippets"
+lock_file       = "whwg.lock"
+
+[templates]
+dir             = "templates"
+default         = "page.htmlua"
+index_page      = "index.htmlua"
+post            = "post.htmlua"
+feed            = "feed.xmlua"

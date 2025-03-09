@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+
+<channel>
+  <title>{{ config.main.site_name }}</title>
+  <link>{{ config.main.site_url }}</link>
+  <description>{{ config.main.description }}</description>
+
+  {% for _, item in ipairs(feed) do }}
+    <item>
+      <title>{{ item.title }}</title>
+      <pubDate>{{ item.publish_date }}</pubDate>
+      <link>{{ item.link }}</link>
+      <description>{{ item.description }}</description>
+    </item>
+  {% end }}
+</channel>
+
+</rss>
