@@ -1,0 +1,18 @@
+[main]
+site_name                       = "rorschach.me"
+site_url                        = "https://rorschach.me"
+description                     = "look into the ink and see what stares back"
+recently_updated_threshold      = 7
+
+[generator]
+input_dir       = "content"
+static_dir      = "static"
+snippets_dir    = "snippets"
+lock_file       = "rorschach.lock"
+
+[templates]
+dir             = "templates"
+default         = "page.htmlua"
+index_page      = "index.htmlua"
+post            = "post.htmlua"
+feed            = "feed.xmlua"
