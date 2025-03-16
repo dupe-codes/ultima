@@ -22,6 +22,7 @@ build-all: $(SITES) ## Build all sites
 
 .PHONY: $(SITES)
 $(SITES): ## Build a specific site
+	@echo ""
 	@echo "Building site: $@"
 	@source $(CURDIR)/project.env && ./src/ultima.lua $@
 

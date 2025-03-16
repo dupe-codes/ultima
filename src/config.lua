@@ -30,7 +30,8 @@ function M.load_config(site, env)
         .. "/"
         .. site
 
-    config.generator.lock_file = prepend_with_sites_dir(site, config.generator.lock_file)
+    config.generator.lock_file =
+        prepend_with_sites_dir(site, config.generator.lock_file)
     config.generator.input_dir =
         prepend_with_sites_dir(site, config.generator.input_dir)
     config.generator.snippets_dir =
