@@ -34,44 +34,135 @@
     <div class="file-gallery">
         
             <div class="file-item">
-                <a href="https://dupe.sh/index.html" title="">
-                    
+                
+                
+                
+
+                
+                    <a href="https://dupe.sh/index.html" title="">
                         
                         <i class="mi-folder"></i>
-                    
-                    <div class="file-name">..</div>
-                </a>
+                        <div class="file-name">..</div>
+                    </a>
+                
             </div>
         
             <div class="file-item">
-                <a href="https://dupe.sh/manuscripts/in-n-out, my brief stint at princeton.html" title="a post-mortem of my time as a princeton computer science graduate student">
-                    
+                
+                
+                
+
+                
+                    <a href="https://dupe.sh/manuscripts/in-n-out, my brief stint at princeton.html"
+                       title="size: 5.65 KiB
+updated: 2024-11-10T20:30:49Z"
+                       onclick="event.preventDefault(); openModal('https://dupe.sh/manuscripts/in-n-out, my brief stint at princeton.html', 'in-n-out, my brief stint at princeton.html');">
                         
-                        <i class="mi-document"></i>
-                    
-                    <div class="file-name">in-n-out, my brief stint at princeton.html</div>
-                </a>
+                            
+                            <i class="mi-document"></i>
+                        
+                        <div class="file-name">in-n-out, my brief stint at princeton.html</div>
+                    </a>
+                
             </div>
         
             <div class="file-item">
-                <a href="https://dupe.sh/manuscripts/off on a coding adventure.html" title="recurse center sabbatical">
-                    
+                
+                
+                
+
+                
+                    <a href="https://dupe.sh/manuscripts/off on a coding adventure.html"
+                       title="size: 1.09 KiB
+updated: 2024-11-10T20:43:13Z"
+                       onclick="event.preventDefault(); openModal('https://dupe.sh/manuscripts/off on a coding adventure.html', 'off on a coding adventure.html');">
                         
-                        <i class="mi-document"></i>
-                    
-                    <div class="file-name">off on a coding adventure.html</div>
-                </a>
+                            
+                            <i class="mi-document"></i>
+                        
+                        <div class="file-name">off on a coding adventure.html</div>
+                    </a>
+                
             </div>
         
     </div>
 
-
 </div>
+
+<div id="preview-modal" class="modal hidden">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="modal-title-group">
+                <span class="modal-filename" id="modal-filename"></span>
+                <a id="modal-open-link" href="#" target="_blank" class="modal-open-button">
+                    <i class="mi-expand"></i>
+                </a>
+            </div>
+            <span class="modal-close" id="modal-close">&times;</span>
+        </div>
+
+        <div class="modal-body" id="modal-body">
+            <!-- Content will be dynamically injected here -->
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var modal = document.getElementById('preview-modal');
+        var modalBody = document.getElementById('modal-body');
+        var modalClose = document.getElementById('modal-close');
+        var modalFilename = document.getElementById('modal-filename');
+
+        function openModal(link, filename) {
+            modalFilename.textContent = filename;
+            modalBody.innerHTML = '';
+
+            var openLink = document.getElementById('modal-open-link');
+            openLink.href = link;
+
+            if (link.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
+                var img = document.createElement('img');
+                img.src = link;
+                modalBody.appendChild(img);
+            } else {
+                var iframe = document.createElement('iframe');
+                iframe.src = link;
+                modalBody.appendChild(iframe);
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        // Close modal on click
+        modalClose.addEventListener('click', function() {
+            modal.classList.add('hidden');
+        });
+
+        // Close modal if user clicks outside content
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+            }
+        });
+
+        // Optional: Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Escape") {
+                modal.classList.add('hidden');
+            }
+        });
+
+        // Expose openModal globally (for now)
+        window.openModal = openModal;
+    });
+</script>
+
 
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var allLinks = JSON.parse('[{"search_display":"https://dupe.sh/manuscripts/in-n-out, my brief stint at princeton.html","link":"https://dupe.sh/manuscripts/in-n-out, my brief stint at princeton.html"},{"search_display":"https://dupe.sh/manuscripts/off on a coding adventure.html","link":"https://dupe.sh/manuscripts/off on a coding adventure.html"}]');
+            var allLinks = JSON.parse('[{"link":"https://dupe.sh/manuscripts/in-n-out, my brief stint at princeton.html","search_display":"https://dupe.sh/manuscripts/in-n-out, my brief stint at princeton.html"},{"link":"https://dupe.sh/manuscripts/off on a coding adventure.html","search_display":"https://dupe.sh/manuscripts/off on a coding adventure.html"}]');
 
             var searchBar = document.getElementById('search-bar');
             var searchResults = document.getElementById('search-results');

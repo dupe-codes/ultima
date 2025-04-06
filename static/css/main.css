@@ -477,6 +477,7 @@ a {
     margin: 20px 0;
     align-items: center;
     justify-content: flex-start;
+    padding-bottom: 10px;
 }
 
 .view-button {
@@ -484,7 +485,6 @@ a {
     background-color: #e0ecfa;
     color: #3498db;
     border: none;
-    border-radius: 6px;
     text-decoration: none;
     font-size: 14px;
     transition: background-color 0.2s ease, color 0.2s ease;
@@ -498,4 +498,105 @@ a {
 .view-button.active {
     background-color: #3498db;
     color: #ffffff;
+}
+
+/* gallery view file modal */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 800px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    background: #f5f5f5;
+    padding: 8px 12px;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+}
+
+.modal-title-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    overflow: hidden;
+}
+
+.modal-filename {
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.modal-open-button {
+    font-size: 18px;
+    color: #3498db;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.modal-open-button:hover {
+    color: #2471a3;
+}
+
+.modal-close {
+    cursor: pointer;
+    font-size: 24px;
+    color: #999;
+    margin-left: 12px;
+}
+
+.modal-close:hover {
+    color: #666;
+}
+
+.modal-body {
+    padding: 16px;
+    background: #fff;
+    overflow: auto;
+    max-height: 80vh;
+}
+
+.modal-body img {
+    width: 100%;
+    height: auto;
+    border: none;
+    max-height: 70vh;
+    object-fit: contain;
+}
+
+.modal-body iframe {
+    width: 100%;
+    height: 80vh;
+    border: none;
 }

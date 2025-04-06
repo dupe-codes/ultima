@@ -34,33 +34,115 @@
     <div class="file-gallery">
         
             <div class="file-item">
-                <a href="https://dupe.sh/bookshelf/curriculums/interview prep/index.html" title="">
-                    
+                
+                
+                
+
+                
+                    <a href="https://dupe.sh/bookshelf/curriculums/interview prep/index.html" title="">
                         
                         <i class="mi-folder"></i>
-                    
-                    <div class="file-name">..</div>
-                </a>
+                        <div class="file-name">..</div>
+                    </a>
+                
             </div>
         
             <div class="file-item">
-                <a href="https://dupe.sh/static/images/blue_sky.png" title="">
-                    
-                        <img src="https://dupe.sh/static/images/blue_sky.png" alt="blue_sky.png" class="file-icon" />
-                    
-                    <div class="file-name">blue_sky.png</div>
-                </a>
+                
+                
+                
+
+                
+                    <a href="https://dupe.sh/static/images/blue_sky.png"
+                       title="size: 275.68 KiB
+updated: 2024-11-20T21:15:12Z"
+                       onclick="event.preventDefault(); openModal('https://dupe.sh/static/images/blue_sky.png', 'blue_sky.png');">
+                        
+                            <img src="https://dupe.sh/static/images/blue_sky.png" alt="blue_sky.png" class="file-icon" />
+                        
+                        <div class="file-name">blue_sky.png</div>
+                    </a>
+                
             </div>
         
     </div>
 
-
 </div>
+
+<div id="preview-modal" class="modal hidden">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="modal-title-group">
+                <span class="modal-filename" id="modal-filename"></span>
+                <a id="modal-open-link" href="#" target="_blank" class="modal-open-button">
+                    <i class="mi-expand"></i>
+                </a>
+            </div>
+            <span class="modal-close" id="modal-close">&times;</span>
+        </div>
+
+        <div class="modal-body" id="modal-body">
+            <!-- Content will be dynamically injected here -->
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var modal = document.getElementById('preview-modal');
+        var modalBody = document.getElementById('modal-body');
+        var modalClose = document.getElementById('modal-close');
+        var modalFilename = document.getElementById('modal-filename');
+
+        function openModal(link, filename) {
+            modalFilename.textContent = filename;
+            modalBody.innerHTML = '';
+
+            var openLink = document.getElementById('modal-open-link');
+            openLink.href = link;
+
+            if (link.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
+                var img = document.createElement('img');
+                img.src = link;
+                modalBody.appendChild(img);
+            } else {
+                var iframe = document.createElement('iframe');
+                iframe.src = link;
+                modalBody.appendChild(iframe);
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        // Close modal on click
+        modalClose.addEventListener('click', function() {
+            modal.classList.add('hidden');
+        });
+
+        // Close modal if user clicks outside content
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+            }
+        });
+
+        // Optional: Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Escape") {
+                modal.classList.add('hidden');
+            }
+        });
+
+        // Expose openModal globally (for now)
+        window.openModal = openModal;
+    });
+</script>
+
 
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var allLinks = JSON.parse('[{"search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/case studies/blue_sky.png","link":"https://dupe.sh/static/images/blue_sky.png"}]');
+            var allLinks = JSON.parse('[{"link":"https://dupe.sh/static/images/blue_sky.png","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/case studies/blue_sky.png"}]');
 
             var searchBar = document.getElementById('search-bar');
             var searchResults = document.getElementById('search-results');
