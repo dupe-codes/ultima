@@ -39,14 +39,19 @@
     <div class="file-gallery">
         {% for _, link in ipairs(links) do }}
             <div class="file-item">
-                {% local icon = link.metadata.icon or get_default_icon(link.file_type) }}
                 <a href="{{ link.link }}" title="{{ link.metadata.description or '' }}">
-                    <i class="{{ icon }}"></i>
+                    {% if link.metadata.content_type == "media" then }}
+                        <img src="{{ link.link }}" alt="{{ link.display_name }}" class="file-icon" />
+                    {% else }}
+                        {% local icon = link.metadata.icon or get_default_icon(link.file_type) }}
+                        <i class="{{ icon }}"></i>
+                    {% end }}
                     <div class="file-name">{{ link.display_name }}</div>
                 </a>
             </div>
         {% end }}
     </div>
+
 
 </div>
 
