@@ -3,7 +3,7 @@
     <h1>{{ dir_name }}</h1>
 
     {% if description then }}
-        <p> {{ description }} </p>
+        <p>{{ description }}</p>
     {% end }}
 
     <div class="search-container">
@@ -36,34 +36,16 @@
         </a>
     </div>
 
-    <div class="file-index-table-wrapper">
-        <table class="file-index-table">
-            <thead>
-                <tr>
-                    <th>name</th>
-                    <th>size</th>
-                    <th>last modified at</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for _, link in ipairs(links) do }}
-                    <tr>
-                        <td>
-                            {% local icon = link.metadata.icon or get_default_icon(link.file_type) }}
-                            <i class="{{icon}}"></i>
-                            <a href="{{ link.link }}"
-                               title="{{ link.metadata.description or '' }}">{{ link.display_name }}</a>
-                        </td>
-                        <td>
-                            {{ link.metadata.file_size or "-" }}
-                        </td>
-                        <td>
-                            {{ link.metadata.updated_at or "-" }}
-                        </td>
-                    </tr>
-                {% end }}
-            </tbody>
-        </table>
+    <div class="file-gallery">
+        {% for _, link in ipairs(links) do }}
+            <div class="file-item">
+                {% local icon = link.metadata.icon or get_default_icon(link.file_type) }}
+                <a href="{{ link.link }}" title="{{ link.metadata.description or '' }}">
+                    <i class="{{ icon }}"></i>
+                    <div class="file-name">{{ link.display_name }}</div>
+                </a>
+            </div>
+        {% end }}
     </div>
 
 </div>
@@ -205,3 +187,4 @@
         });
     </script>
 {% end }}
+

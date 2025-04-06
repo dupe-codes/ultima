@@ -411,6 +411,7 @@ local function write_index_file(file_path, links, parent_dir, all_links)
             FileType = file_utils.FileType,
             get_default_icon = get_default_icon,
             all_links = json.encode(all_links),
+            is_table_view = true,
             description = not parent_dir and CONFIG.main.description or nil,
             recently_updated = not parent_dir
                     and generate_recently_updated_list()
@@ -425,6 +426,38 @@ local function write_index_file(file_path, links, parent_dir, all_links)
             {
                 config = CONFIG,
                 content = index_page,
+                generate_absolute_path = formatters.generate_absolute_path,
+            }
+        )
+    )
+
+    -- also compile gallery view to toggle to
+    -- TODO: clean up
+    local gallery_page = template_engine.compile_template_file(
+        get_template_path "gallery.htmlua",
+        {
+            config = CONFIG,
+            dir_name = current_dir_path,
+            links = links,
+            ipairs = ipairs,
+            FileType = file_utils.FileType,
+            get_default_icon = get_default_icon,
+            all_links = json.encode(all_links),
+            is_table_view = false,
+            description = not parent_dir and CONFIG.main.description or nil,
+            recently_updated = not parent_dir
+                    and generate_recently_updated_list()
+                or nil,
+        }
+    )
+
+    file_utils.write_file(
+        file_path:gsub("index%.html$", "gallery.html"),
+        template_engine.compile_template_file(
+            get_template_path(CONFIG.templates.default),
+            {
+                config = CONFIG,
+                content = gallery_page,
                 generate_absolute_path = formatters.generate_absolute_path,
             }
         )
