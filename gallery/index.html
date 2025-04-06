@@ -22,6 +22,15 @@
 
     
 
+    <div class="view-toggle">
+        <a href="index.html" class="view-button active">
+            <i class="mi-table"></i> table
+        </a>
+        <a href="gallery.html" class="view-button ">
+            <i class="mi-grid"></i> gallery
+        </a>
+    </div>
+
     <div class="file-index-table-wrapper">
         <table class="file-index-table">
             <thead>
@@ -85,10 +94,9 @@
 </div>
 
 
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var allLinks = JSON.parse('[{"link":"https://dupe.sh/static/images/sea-turtle.jpeg","search_display":"https://dupe.sh/gallery/sea-turtle.jpeg"},{"link":"https://dupe.sh/static/images/clothing-studies.jpeg","search_display":"https://dupe.sh/gallery/clothing-studies.jpeg"}]');
+            var allLinks = JSON.parse('[{"search_display":"https://dupe.sh/gallery/sea-turtle.jpeg","link":"https://dupe.sh/static/images/sea-turtle.jpeg"},{"search_display":"https://dupe.sh/gallery/clothing-studies.jpeg","link":"https://dupe.sh/static/images/clothing-studies.jpeg"}]');
 
             var searchBar = document.getElementById('search-bar');
             var searchResults = document.getElementById('search-results');
