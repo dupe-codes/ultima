@@ -433,6 +433,8 @@ local function write_index_file(file_path, links, parent_dir, all_links)
 
     -- also compile gallery view to toggle to
     -- TODO: clean up
+    --       for rendering templates, make a DEFAULT_RENDER_ENV table
+    --       providing lua functions commonly used by templates
     local gallery_page = template_engine.compile_template_file(
         get_template_path "gallery.htmlua",
         {
