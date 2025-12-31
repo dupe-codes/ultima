@@ -41,15 +41,9 @@ function M.generate_absolute_path(config, target)
     target = M.strip_output_dir(target, config.generator.output_dir)
     -- strip out input_dir if still present
     target = M.strip_input_dir(target, config.generator.input_dir)
-    if config.env == "dev" then
-        return config.generator.root_dir
-            .. "/"
-            .. config.generator.output_dir
-            .. "/"
-            .. target
-    else
-        return config.generator.root_dir .. "/" .. target
-    end
+    -- In dev mode, paths are relative to server root (output directory)
+    -- In production, paths use the full site URL
+    return config.generator.root_dir .. "/" .. target
 end
 
 return M

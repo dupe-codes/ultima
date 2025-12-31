@@ -1,0 +1,521 @@
+{
+  "title": "Grade vs Drawing Hours",
+  "chart": "scatter",
+  "xKey": "drawingHours",
+  "yKey": "gradeNum",
+  "xLabel": "Drawing Hours",
+  "yLabel": "Grade",
+  "groupKey": "grade",
+  "dataPoints": [
+    {
+      "date": "2025-01-01",
+      "drawingHours": 2,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-01-03",
+      "drawingHours": 0.5,
+      "grade": "C",
+      "gradeNum": 3
+    },
+    {
+      "date": "2025-01-04",
+      "drawingHours": 2.5,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-01-05",
+      "drawingHours": 2.5,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-01-30",
+      "drawingHours": 2,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-01-31",
+      "drawingHours": 0.5,
+      "grade": "D",
+      "gradeNum": 2
+    },
+    {
+      "date": "2025-02-07",
+      "drawingHours": 1,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-02-09",
+      "drawingHours": 3.5,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-02-25",
+      "drawingHours": 2,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-02-27",
+      "drawingHours": 1.5,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-03-02",
+      "drawingHours": 5,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-03-06",
+      "drawingHours": 0.5,
+      "grade": "C",
+      "gradeNum": 3
+    },
+    {
+      "date": "2025-03-11",
+      "drawingHours": 1,
+      "grade": "C",
+      "gradeNum": 3
+    },
+    {
+      "date": "2025-03-19",
+      "drawingHours": 1.5,
+      "grade": "D",
+      "gradeNum": 2
+    },
+    {
+      "date": "2025-03-20",
+      "drawingHours": 2.5,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-04-01",
+      "drawingHours": 2,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-04-07",
+      "drawingHours": 1.5,
+      "grade": "C",
+      "gradeNum": 3
+    },
+    {
+      "date": "2025-04-10",
+      "drawingHours": 0.75,
+      "grade": "C",
+      "gradeNum": 3
+    },
+    {
+      "date": "2025-04-13",
+      "drawingHours": 2.5,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-04-16",
+      "drawingHours": 1,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-04-18",
+      "drawingHours": 0.5,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-04-19",
+      "drawingHours": 4,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-04-25",
+      "drawingHours": 1,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-05-01",
+      "drawingHours": 1.5,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-05-02",
+      "drawingHours": 1,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-05-07",
+      "drawingHours": 4,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-05-09",
+      "drawingHours": 1.5,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-05-11",
+      "drawingHours": 6,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-05-14",
+      "drawingHours": 2,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-05-15",
+      "drawingHours": 1,
+      "grade": "C",
+      "gradeNum": 3
+    },
+    {
+      "date": "2025-05-27",
+      "drawingHours": 0.5,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-05-28",
+      "drawingHours": 1,
+      "grade": "C",
+      "gradeNum": 3
+    },
+    {
+      "date": "2025-06-01",
+      "drawingHours": 3,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-06-05",
+      "drawingHours": 1,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-06-12",
+      "drawingHours": 1,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-06-23",
+      "drawingHours": 0.5,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-06-25",
+      "drawingHours": 2,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-06-26",
+      "drawingHours": 0.5,
+      "grade": "C",
+      "gradeNum": 3
+    },
+    {
+      "date": "2025-07-22",
+      "drawingHours": 3,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-07-23",
+      "drawingHours": 0.75,
+      "grade": "F",
+      "gradeNum": 1
+    },
+    {
+      "date": "2025-07-28",
+      "drawingHours": 1,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-08-01",
+      "drawingHours": 1.5,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-08-02",
+      "drawingHours": 3,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-08-18",
+      "drawingHours": 1.25,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-08-21",
+      "drawingHours": 1.25,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-08-24",
+      "drawingHours": 1.5,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-08-25",
+      "drawingHours": 1.25,
+      "grade": "C",
+      "gradeNum": 3
+    },
+    {
+      "date": "2025-08-27",
+      "drawingHours": 2,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-08-30",
+      "drawingHours": 2,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-09-01",
+      "drawingHours": 1.5,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-09-03",
+      "drawingHours": 1.5,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-09-05",
+      "drawingHours": 1,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-09-10",
+      "drawingHours": 1,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-09-22",
+      "drawingHours": 0.25,
+      "grade": "D",
+      "gradeNum": 2
+    },
+    {
+      "date": "2025-09-25",
+      "drawingHours": 1,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-09-29",
+      "drawingHours": 2.5,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-10-06",
+      "drawingHours": 1,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-10-12",
+      "drawingHours": 1.5,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-10-17",
+      "drawingHours": 2.5,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-10-19",
+      "drawingHours": 2.5,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-10-21",
+      "drawingHours": 2,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-10-22",
+      "drawingHours": 1,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-10-25",
+      "drawingHours": 2,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-10-26",
+      "drawingHours": 2.5,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-11-03",
+      "drawingHours": 1.25,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-11-04",
+      "drawingHours": 1.5,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-11-06",
+      "drawingHours": 1,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-11-15",
+      "drawingHours": 1,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-11-16",
+      "drawingHours": 2.5,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-11-18",
+      "drawingHours": 1.5,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-11-24",
+      "drawingHours": 1,
+      "grade": "C",
+      "gradeNum": 3
+    },
+    {
+      "date": "2025-11-25",
+      "drawingHours": 0,
+      "grade": "C",
+      "gradeNum": 3
+    },
+    {
+      "date": "2025-11-29",
+      "drawingHours": 4.5,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-12-05",
+      "drawingHours": 2.75,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-12-07",
+      "drawingHours": 4,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-12-10",
+      "drawingHours": 0.25,
+      "grade": "C",
+      "gradeNum": 3
+    },
+    {
+      "date": "2025-12-14",
+      "drawingHours": 3,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-12-15",
+      "drawingHours": 3,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-12-19",
+      "drawingHours": 1,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-12-21",
+      "drawingHours": 1,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-12-23",
+      "drawingHours": 2,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-12-24",
+      "drawingHours": 2.5,
+      "grade": "B",
+      "gradeNum": 4
+    },
+    {
+      "date": "2025-12-25",
+      "drawingHours": 5,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-12-28",
+      "drawingHours": 3,
+      "grade": "A",
+      "gradeNum": 5
+    },
+    {
+      "date": "2025-12-29",
+      "drawingHours": 1.5,
+      "grade": "B",
+      "gradeNum": 4
+    }
+  ]
+}

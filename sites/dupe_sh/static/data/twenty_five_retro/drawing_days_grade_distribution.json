@@ -1,0 +1,14 @@
+{
+  "title": "Grade Distribution on Drawing Days",
+  "chart": "bar",
+  "xKey": "gradeCounts",
+  "yLabel": "Days",
+  "subtitle": "85 graded days",
+  "gradeCounts": {
+    "A": 40,
+    "B": 29,
+    "C": 12,
+    "D": 3,
+    "F": 1
+  }
+}

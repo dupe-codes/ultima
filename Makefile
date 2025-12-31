@@ -54,13 +54,14 @@ deploy: ## Build & deploy a specific site to production, usage: make deploy site
 	@./scripts/deploy.sh $(site)
 
 .PHONY: run
-run: ## Run a specific site, usage: make run site=site-name
+run: ## Run a specific site with local server, usage: make run site=site-name
 	@if [ -z "$(site)" ]; then \
 		echo "Error: site parameter is required. Usage: make run site=site-name"; \
 		exit 1; \
 	fi
 	@source $(CURDIR)/project.env && ./src/ultima.lua $(site)
-	xdg-open build/$(site)/index.html
+	@echo "Starting local server at http://localhost:8000"
+	@cd build/$(site) && python3 -m http.server 8000
 
 .PHONY: clean
 clean: ## Clean compiled artifacts

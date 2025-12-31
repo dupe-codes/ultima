@@ -291,6 +291,31 @@ a {
     margin-bottom: 5px;
 }
 
+.post-content img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 1.5em auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.post-content .chart-container,
+.post-content .chart {
+    max-width: 100%;
+    margin: 1.5em auto;
+    padding: 1em;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.post-content .chart-error {
+    color: #c0392b;
+    font-style: italic;
+    text-align: center;
+    padding: 2em;
+}
+
 .file-index h1 {
     font-size: 1.4em;
     line-height: 1.3;
