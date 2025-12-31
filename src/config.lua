@@ -1,6 +1,7 @@
 local inspect = require "inspect"
 local lfs = require "lfs"
 local toml = require "toml"
+local file_utils = require "utils.files"
 
 local constants = require "utils.constants"
 
@@ -12,7 +13,12 @@ end
 
 function M.load_config(site, env)
     local config_file = prepend_with_sites_dir(site, "config.toml")
-    local decode_succeeded, config = pcall(toml.decodeFromFile, config_file)
+    local content = file_utils.read_file(config_file)
+    if not content then
+        print("Failed to read config file: " .. config_file)
+        return 1
+    end
+    local decode_succeeded, config = pcall(toml.parse, content)
     if not decode_succeeded then
         print("Failed to load config! Error: " .. inspect(config))
         return 1
