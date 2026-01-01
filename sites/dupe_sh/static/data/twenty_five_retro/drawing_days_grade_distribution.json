@@ -3,12 +3,21 @@
   "chart": "bar",
   "xKey": "gradeCounts",
   "yLabel": "Days",
-  "subtitle": "85 graded days",
-  "gradeCounts": {
-    "A": 40,
-    "B": 29,
-    "C": 12,
-    "D": 3,
-    "F": 1
-  }
+  "subtitle": "251 graded days",
+    "gradeCounts": {
+          "A+": 6,
+              "A": 40,
+                  "A-": 63,
+                      "B+": 61,
+                          "B": 29,
+                              "B-": 28,
+                                  "C+": 2,
+                                      "C": 12,
+                                          "C-": 5,
+                                              "D+": 0,
+                                                  "D": 3,
+                                                      "D-": 1,
+                                                          "F": 1
+                                                            }
+
 }

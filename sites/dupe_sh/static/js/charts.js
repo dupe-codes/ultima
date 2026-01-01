@@ -154,10 +154,10 @@ const ChartRenderer = {
           y: {
             title: { display: true, text: data.yLabel },
             min: 0,
-            max: 6,
-            ticks: {
-              callback: v => ['', 'F', 'D', 'C', 'B', 'A'][v] || ''
-            }
+            max: data.yMax,
+            ticks: data.yTickLabels ? {
+              callback: v => data.yTickLabels[v] || ''
+            } : undefined
           }
         }
       }
