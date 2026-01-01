@@ -1,7 +1,7 @@
 [main]
 site_name                       = "dupe.sh"
 site_url                        = "https://dupe.sh"
-description                     = "jaunts through the software frontiers"
+description                     = "jaunts through the software and artistic frontiers"
 recently_updated_threshold      = 7
 
 [generator]
