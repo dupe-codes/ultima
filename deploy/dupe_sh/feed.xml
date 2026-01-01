@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+
+<channel>
+  <title>dupe.sh</title>
+  <link>https://dupe.sh</link>
+  <description>jaunts through the software frontiers</description>
+
+  
+    <item>
+      <title>off on a coding adventure.html</title>
+      <pubDate>Thu, 01 Jan 2026 19:45:55</pubDate>
+      <link>https://dupe.sh/manuscripts/off on a coding adventure.html</link>
+      <description>recurse center sabbatical</description>
+    </item>
+  
+</channel>
+
+</rss>
