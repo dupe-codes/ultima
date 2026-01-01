@@ -20,16 +20,22 @@
  */
 
 const ChartRenderer = {
-  colors: [
-    'rgba(142, 124, 195, 0.8)',
-    'rgba(52, 152, 219, 0.8)',
-    'rgba(46, 204, 113, 0.8)',
-    'rgba(241, 196, 15, 0.8)',
-    'rgba(231, 76, 60, 0.8)',
-    'rgba(155, 89, 182, 0.8)',
-    'rgba(26, 188, 156, 0.8)',
-    'rgba(230, 126, 34, 0.8)',
-  ],
+  // Read colors from CSS variables, with fallbacks
+  getColors() {
+    const style = getComputedStyle(document.documentElement);
+    const getColor = (name, fallback) => style.getPropertyValue(name).trim() || fallback;
+
+    return [
+      getColor('--color-chart-1', '#8e7cc3'),
+      getColor('--color-chart-2', '#3498db'),
+      getColor('--color-chart-3', '#2ecc71'),
+      getColor('--color-chart-4', '#f1c40f'),
+      getColor('--color-chart-5', '#e74c3c'),
+      getColor('--color-chart-6', '#9b59b6'),
+      getColor('--color-chart-7', '#1abc9c'),
+      getColor('--color-chart-8', '#e67e22'),
+    ];
+  },
 
   init() {
     document.querySelectorAll('.chart[data-src]').forEach(el => this.render(el));
@@ -91,9 +97,9 @@ const ChartRenderer = {
           label: data.yLabel || 'Value',
           data: values,
           backgroundColor: type === 'line'
-            ? 'rgba(142, 124, 195, 0.3)'
-            : this.colors.slice(0, labels.length),
-          borderColor: 'rgba(142, 124, 195, 1)',
+            ? this.getColors()[0] + '4d'  // Add alpha for fill
+            : this.getColors().slice(0, labels.length),
+          borderColor: this.getColors()[0],
           borderWidth: type === 'line' ? 2 : 1,
           fill: type === 'line',
           tension: type === 'line' ? 0.3 : 0
@@ -131,10 +137,11 @@ const ChartRenderer = {
       groups[group].push({ x: p[data.xKey], y: p[data.yKey] });
     });
 
+    const colors = this.getColors();
     const datasets = Object.keys(groups).map((group, i) => ({
       label: group,
       data: groups[group],
-      backgroundColor: this.colors[i % this.colors.length],
+      backgroundColor: colors[i % colors.length],
       pointRadius: 6
     }));
 

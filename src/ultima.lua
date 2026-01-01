@@ -545,6 +545,18 @@ local function compile_static_assets(static_dir, output_dir)
     file_utils.copy_directory(static_dir, output_dir)
 end
 
+local function copy_shared_static_assets(output_dir)
+    -- Copy all shared static assets from src/static to output directory
+    -- Site-specific files are copied first, so they take precedence
+    local shared_static_dir = "src/static"
+    local dest_static_dir = output_dir .. "/static"
+
+    if lfs.attributes(shared_static_dir, "mode") == "directory" then
+        print "Copying shared static assets"
+        file_utils.copy_directory(shared_static_dir, dest_static_dir)
+    end
+end
+
 local function generate_xml_feed(output_dir, content_data)
     local feed_items = {}
     for _, content in ipairs(content_data) do
@@ -585,6 +597,8 @@ local function main()
     local content_data = render_content_dir(output_path, content_root)
 
     lock_files.write(LOCK_FILE, CONFIG.generator.lock_file)
+    -- Copy shared assets first, then site-specific assets overwrite them
+    copy_shared_static_assets(CONFIG.generator.output_dir)
     compile_static_assets(
         CONFIG.generator.static_dir,
         CONFIG.generator.output_dir .. "/static"

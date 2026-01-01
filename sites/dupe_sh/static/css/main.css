@@ -27,6 +27,8 @@
     font-style: normal;
 }
 
+/* Colors are defined in colors.css (site-specific) or colors-default.css (fallback) */
+
 html {
     box-sizing: border-box;
 }
@@ -36,7 +38,8 @@ html {
 
 body {
     font-family: 'berkeley_mono_regular', monospace;
-    background-color: #f0f4fc;
+    background-color: var(--color-bg);
+    color: var(--color-text);
     font-size: 16px;
     margin: 0;
     padding: 0;
@@ -44,7 +47,7 @@ body {
 }
 
 a {
-    color: #3498db;
+    color: var(--color-primary);
 }
 
 .file-index {
@@ -304,13 +307,13 @@ a {
     max-width: 100%;
     margin: 1.5em auto;
     padding: 1em;
-    background: #fff;
+    background: var(--color-bg-card);
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-lg);
 }
 
 .post-content .chart-error {
-    color: #c0392b;
+    color: var(--color-error);
     font-style: italic;
     text-align: center;
     padding: 2em;
