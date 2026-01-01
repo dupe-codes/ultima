@@ -51,19 +51,25 @@ function M.set_file_data(lock_file, target_file, data)
     end
 end
 
-function M.file_content_changed(lock_file, file_path, content)
+function M.file_content_changed(lock_file, file_path, content, metadata)
     if not lock_file or not lock_file.files then
         error "Given incorrectly typed lock_file"
     end
 
     local lock_file_attrs = lock_file.files[file_path]
     local content_checksum = md5.sumhexa(content)
+    local metadata_checksum = metadata and md5.sumhexa(json.encode(metadata)) or nil
 
     if not lock_file_attrs or not lock_file_attrs.checksum then
-        return true, content_checksum
+        return true, content_checksum, metadata_checksum
     end
 
-    return content_checksum ~= lock_file_attrs.checksum, content_checksum
+    local content_changed = content_checksum ~= lock_file_attrs.checksum
+    local metadata_changed = metadata_checksum
+        and lock_file_attrs.metadata_checksum
+        and metadata_checksum ~= lock_file_attrs.metadata_checksum
+
+    return content_changed or metadata_changed, content_checksum, metadata_checksum
 end
 
 function M.static_content_changed(lock_file, file_path)

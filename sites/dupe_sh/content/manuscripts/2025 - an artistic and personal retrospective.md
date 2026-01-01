@@ -5,7 +5,6 @@ font: eb_garamond12_regular
 tags:
   - blog
 drafted: 2025-12-31
-published:
 draft: true
 ---
 

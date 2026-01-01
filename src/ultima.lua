@@ -147,8 +147,8 @@ local function render_post_file(
     )
 
     local output_file_path = output_path .. output_file
-    local file_changed, checksum =
-        lock_files.file_content_changed(LOCK_FILE, source_path, pandoc_output)
+    local file_changed, checksum, metadata_checksum =
+        lock_files.file_content_changed(LOCK_FILE, source_path, pandoc_output, metadata)
     if file_changed then
         file_utils.write_file(output_file_path, templatized_output)
         print("Wrote new rendered file: " .. output_file_path)
@@ -162,12 +162,19 @@ local function render_post_file(
             last_modified_ts = modified_ts,
             file_size = file_size,
             checksum = checksum,
+            metadata_checksum = metadata_checksum,
         })
     elseif FORCE_WRITE then
         file_utils.write_file(output_file_path, templatized_output)
         print("Force wrote file: " .. output_file_path)
     else
         print(string.format("%s content unchanged; skipping...", source_path))
+        -- Update metadata_checksum if missing (for existing files without it)
+        local existing_data = lock_files.get_file_data(LOCK_FILE, source_path)
+        if existing_data and not existing_data.metadata_checksum and metadata_checksum then
+            existing_data.metadata_checksum = metadata_checksum
+            lock_files.set_file_data(LOCK_FILE, source_path, existing_data)
+        end
     end
 
     local file_data = lock_files.get_file_data(LOCK_FILE, source_path)
@@ -346,33 +353,37 @@ local function get_default_icon(file_type)
     end
 end
 
-local function generate_recently_updated_list()
+local function generate_recently_updated_list(all_content)
     local curr_ts = date(true)
     local threshold = CONFIG.main.recently_updated_threshold
         or DEFAULT_RECENTLY_UPDATED_THRESHOLD
 
     local result = {}
-    for filepath, metadata in pairs(LOCK_FILE.files) do
-        local modified_ts = date(metadata.last_modified_ts)
-        if date.diff(curr_ts, modified_ts):spandays() <= threshold then
-            local filename_with_ext =
-                filepath:match("([^/]+)$"):gsub("%.md$", ".html")
-            local filename = filename_with_ext:match "(.+)%..+$"
+    for _, entry in ipairs(all_content) do
+        -- Skip directories, drafts, and entries without metadata
+        if
+            entry.file_type == file_utils.FileType.FILE
+            and entry.metadata
+            and not entry.metadata.draft
+            and entry.metadata.updated_at
+        then
+            local modified_ts = date(entry.metadata.updated_at)
+            if date.diff(curr_ts, modified_ts):spandays() <= threshold then
+                local filename = entry.display_name:match "(.+)%..+$"
+                    or entry.display_name
 
-            table.insert(result, {
-                link = formatters.generate_absolute_path(
-                    CONFIG,
-                    get_output_file_name(filepath)
-                ),
-                display_name = filename,
-            })
+                table.insert(result, {
+                    link = entry.link,
+                    display_name = filename,
+                })
+            end
         end
     end
 
     return #result > 0 and result or nil
 end
 
-local function write_index_file(file_path, links, parent_dir, all_links)
+local function write_index_file(file_path, links, parent_dir, all_links, all_content)
     local stripped_path =
         formatters.strip_output_dir(file_path, CONFIG.generator.output_dir)
     local current_dir_path = stripped_path:match "(.*/)[^/]+$" or ""
@@ -414,7 +425,7 @@ local function write_index_file(file_path, links, parent_dir, all_links)
             is_table_view = true,
             description = not parent_dir and CONFIG.main.description or nil,
             recently_updated = not parent_dir
-                    and generate_recently_updated_list()
+                    and generate_recently_updated_list(all_content)
                 or nil,
         }
     )
@@ -448,7 +459,7 @@ local function write_index_file(file_path, links, parent_dir, all_links)
             is_table_view = false,
             description = not parent_dir and CONFIG.main.description or nil,
             recently_updated = not parent_dir
-                    and generate_recently_updated_list()
+                    and generate_recently_updated_list(all_content)
                 or nil,
         }
     )
@@ -535,7 +546,7 @@ local function render_content_dir(output_path, content, parent_dir)
             }
         end
     )
-    write_index_file(index_file_path, links, parent_dir, all_file_links)
+    write_index_file(index_file_path, links, parent_dir, all_file_links, content_metadata)
     return content_metadata
 end
 
