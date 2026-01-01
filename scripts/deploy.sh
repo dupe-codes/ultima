@@ -24,9 +24,11 @@ git add .
 git commit -m "$msg"
 
 # Push compiled deploy directory to site-specific deployment branch
+# Use subtree split + force push to handle diverged histories
+# (safe because deploy branches only contain build artifacts)
 echo ""
 printf "\033[0;32mPushing %s to deploy-%s branch...\033[0m\n" "deploy/$SITE" "$SITE"
-git subtree push --prefix "deploy/$SITE" origin "deploy-$SITE"
+git push origin "$(git subtree split --prefix "deploy/$SITE")":"deploy-$SITE" --force
 
 # Push all changes to main
 echo ""
