@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>dupe.sh</title>
+        <link rel="stylesheet"
+            href="https://dupe.sh/static/css/colors.css">
+        <link rel="stylesheet"
+            href="https://dupe.sh/static/css/main.css">
+        <!-- <script src="https://kit.fontawesome.com/0387a22d91.js" crossorigin="anonymous"></script> -->
+        <link href="https://unpkg.com/mono-icons@1.3.1/iconfont/icons.css" rel="stylesheet">
+        <!-- TODO: change this to be conditionally added, only if the post has charts = true in its metadata or something -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+<body>
+    <div class="file-index">
+
+    <h1>dupe.sh/</h1>
+
+    
+        <p> jaunts through the software frontiers </p>
+    
+
+    <div class="search-container">
+        <input type="text" id="search-bar" placeholder="/ to search..." />
+        <div id="search-results" class="search-dropdown"></div>
+    </div>
+
+    
+        <div class="recently-updated">
+            <div class="recently-updated-header">
+                <i class="mi-clock"></i>
+                <p>recently updated</p>
+            </div>
+            <ul class="recently-updated-list">
+                
+                    <li>
+                        <a href="https://dupe.sh/links.html">links</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://dupe.sh/manuscripts/2025 - an artistic and personal retrospective.html">2025 - an artistic and personal retrospective</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+    <div class="view-toggle">
+        <a href="index.html" class="view-button active">
+            <i class="mi-table"></i> table
+        </a>
+        <a href="gallery.html" class="view-button ">
+            <i class="mi-grid"></i> gallery
+        </a>
+    </div>
+
+    <div class="file-index-table-wrapper">
+        <table class="file-index-table">
+            <thead>
+                <tr>
+                    <th>name</th>
+                    <th>size</th>
+                    <th>last modified at</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                    <tr>
+                        <td>
+                            
+                            <i class="mi-folder"></i>
+                            <a href="bookshelf/index.html"
+                               title="">bookshelf/</a>
+                        </td>
+                        <td>
+                            -
+                        </td>
+                        <td>
+                            2026-01-01T19:09:08Z
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td>
+                            
+                            <i class="mi-folder"></i>
+                            <a href="gallery/index.html"
+                               title="">gallery/</a>
+                        </td>
+                        <td>
+                            -
+                        </td>
+                        <td>
+                            2026-01-01T19:09:07Z
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td>
+                            
+                            <i class="mi-folder"></i>
+                            <a href="manuscripts/index.html"
+                               title="">manuscripts/</a>
+                        </td>
+                        <td>
+                            -
+                        </td>
+                        <td>
+                            2026-01-01T19:09:07Z
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td>
+                            
+                            <i class="mi-folder"></i>
+                            <a href="workshop/index.html"
+                               title="">workshop/</a>
+                        </td>
+                        <td>
+                            -
+                        </td>
+                        <td>
+                            2026-01-01T19:09:07Z
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td>
+                            
+                            <i class="mi-inbox"></i>
+                            <a href="https://dupe.sh/feed.xml"
+                               title="">feed.xml</a>
+                        </td>
+                        <td>
+                            -
+                        </td>
+                        <td>
+                            -
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td>
+                            
+                            <i class="mi-document"></i>
+                            <a href="https://dupe.sh/about.html"
+                               title="">about.html</a>
+                        </td>
+                        <td>
+                            1.87 KiB
+                        </td>
+                        <td>
+                            2024-10-05T17:56:46Z
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td>
+                            
+                            <i class="mi-document"></i>
+                            <a href="https://dupe.sh/links.html"
+                               title="">links.html</a>
+                        </td>
+                        <td>
+                            1.72 KiB
+                        </td>
+                        <td>
+                            2025-12-31T21:01:20Z
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td>
+                            
+                            <i class="mi-document"></i>
+                            <a href="https://dupe.sh/now.html"
+                               title="">now.html</a>
+                        </td>
+                        <td>
+                            2.84 KiB
+                        </td>
+                        <td>
+                            2024-10-05T17:56:46Z
+                        </td>
+                    </tr>
+                
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var allLinks = JSON.parse('[{"link":"https://dupe.sh/static/images/clothing-studies.jpeg","search_display":"https://dupe.sh/gallery/clothing-studies.jpeg"},{"link":"https://dupe.sh/static/images/sea-turtle.jpeg","search_display":"https://dupe.sh/gallery/sea-turtle.jpeg"},{"link":"https://dupe.sh/manuscripts/in-n-out, my brief stint at princeton.html","search_display":"https://dupe.sh/manuscripts/in-n-out, my brief stint at princeton.html"},{"link":"https://dupe.sh/manuscripts/off on a coding adventure.html","search_display":"https://dupe.sh/manuscripts/off on a coding adventure.html"},{"link":"https://dupe.sh/bookshelf/on programming/ocaml-notes.html","search_display":"https://dupe.sh/bookshelf/on programming/ocaml-notes.html"},{"link":"https://dupe.sh/bookshelf/on programming/rules-of-programming.html","search_display":"https://dupe.sh/bookshelf/on programming/rules-of-programming.html"},{"link":"https://dupe.sh/bookshelf/on programming/rust cheatsheet.html","search_display":"https://dupe.sh/bookshelf/on programming/rust cheatsheet.html"},{"link":"https://dupe.sh/bookshelf/on programming/tuples.html","search_display":"https://dupe.sh/bookshelf/on programming/tuples.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/programming paradigms/concurrency, parallelism, multithreading.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/programming paradigms/concurrency, parallelism, multithreading.html"},{"link":"https://dupe.sh/static/images/blue_sky.png","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/case studies/blue_sky.png"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/caching/in-memory KV stores.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/caching/in-memory KV stores.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/distributed systems/concepts & techniques.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/distributed systems/concepts & techniques.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/querying and data models/transactions.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/querying and data models/transactions.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/domain specific/authorization & authentication.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/domain specific/authorization & authentication.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/storing data/db data structures.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/storing data/db data structures.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/storing data/embedded databases.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/storing data/embedded databases.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/storing data/replication.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/storing data/replication.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/about.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/about.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/coding and algorithms concepts.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/coding and algorithms concepts.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/python programming cheatsheet.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/python programming cheatsheet.html"},{"link":"https://dupe.sh/bookshelf/curriculums/interview prep/systems design core concepts.html","search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/systems design core concepts.html"},{"link":"https://dupe.sh/bookshelf/curriculums/deep systems programming.html","search_display":"https://dupe.sh/bookshelf/curriculums/deep systems programming.html"},{"link":"https://dupe.sh/bookshelf/snippets.html","search_display":"https://dupe.sh/bookshelf/snippets.html"},{"link":"https://dupe.sh/about.html","search_display":"https://dupe.sh/about.html"},{"link":"https://dupe.sh/links.html","search_display":"https://dupe.sh/links.html"},{"link":"https://dupe.sh/now.html","search_display":"https://dupe.sh/now.html"}]');
+
+            var searchBar = document.getElementById('search-bar');
+            var searchResults = document.getElementById('search-results');
+            var currentIndex = -1;
+            var currentMatches = []
+
+            function filterLinks(query) {
+                var matches = [];
+                if (query.trim() === '') {
+                    return allLinks;
+                }
+
+                query = query.toLowerCase();
+
+                for (var i = 0; i < allLinks.length; i++) {
+                    var link = allLinks[i]
+                    if (link.search_display.toLowerCase().includes(query)) {
+                        matches.push(link);
+                    }
+                }
+                return matches;
+            }
+
+            function highlightText(text, query) {
+                var index = text.toLowerCase().indexOf(query.toLowerCase());
+                if (index === -1) {
+                    return text;
+                }
+
+                // Split text into three parts: before match, match, after match
+                var beforeMatch = text.substring(0, index);
+                var matchText = text.substring(index, index + query.length);
+                var afterMatch = text.substring(index + query.length);
+
+                // Return a concatenation of parts with <span> for highlighting the match
+                return `${beforeMatch}<span class="highlight">${matchText}</span>${afterMatch}`;
+            }
+
+            function renderSearchResults(matches, query) {
+                searchResults.innerHTML = '';
+                searchResults.style.display = matches.length > 0 ? 'block' : 'none';
+
+                currentMatches = matches;
+
+                matches.forEach(function(item, index) {
+                    var resultItem = document.createElement('div');
+                    resultItem.className = 'search-result';
+                    resultItem.setAttribute('data-index', index);
+                    resultItem.innerHTML = query ? highlightText(item.search_display, query) : item.search_display;
+
+                    resultItem.addEventListener('click', function() {
+                        window.location.href = item.link;
+                    });
+
+                    searchResults.appendChild(resultItem);
+                });
+
+                if (matches.length > 0) {
+                    currentIndex = 0;
+                    highlightResult(currentIndex);
+                } else {
+                    currentIndex = -1;
+                }
+            }
+
+            function highlightResult(index) {
+                var items = searchResults.getElementsByClassName('search-result');
+                for (var i = 0; i < items.length; i++) {
+                    items[i].classList.remove('highlighted');
+                }
+
+                if (index >= 0 && index < items.length) {
+                    items[index].classList.add('highlighted');
+                    items[index].scrollIntoView({ block: 'nearest' });
+                }
+            }
+
+            searchBar.addEventListener('input', function() {
+                var query = searchBar.value;
+                var matches = filterLinks(query);
+                renderSearchResults(matches, query);
+            });
+
+            searchBar.addEventListener('focus', function() {
+                renderSearchResults(allLinks, '');
+            });
+
+            document.addEventListener('keydown', function(event) {
+                if (event.key === '/' && !event.ctrlKey && !event.altKey && !event.metaKey) {
+                    event.preventDefault();
+                    searchBar.focus();
+                }
+            });
+
+            searchResults.addEventListener('mousedown', function(event) {
+                event.preventDefault();
+            });
+
+            searchBar.addEventListener('blur', function() {
+                searchResults.style.display = 'none';
+                searchBar.value = '';
+            });
+
+            searchBar.addEventListener('keydown', function(event) {
+                var items = searchResults.getElementsByClassName('search-result');
+
+                if (event.key === 'ArrowDown') {
+                    event.preventDefault();
+                    if (currentIndex < items.length - 1) {
+                        currentIndex++;
+                        highlightResult(currentIndex);
+                    }
+                }
+
+                if (event.key === 'ArrowUp') {
+                    event.preventDefault();
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                        highlightResult(currentIndex);
+                    }
+                }
+
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    if (currentIndex >= 0 && currentIndex < items.length) {
+                        var selectedLink = currentMatches[currentIndex].link;
+                        window.location.href = selectedLink;
+                    }
+                }
+            });
+        });
+    </script>
+
+
+    <script src="https://dupe.sh/static/js/charts.js"></script>
+</body>
+</html>
