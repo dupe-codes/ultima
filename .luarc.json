@@ -1,6 +1,0 @@
-{
-    "diagnostics.globals": [
-        "pandoc",
-        "PANDOC_STATE"
-    ]
-}
