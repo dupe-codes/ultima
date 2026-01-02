@@ -746,36 +746,7 @@ a {
     color: var(--color-text);
 }
 
-/* Remark42 theme overrides to match site theme */
+/* Remark42 container styling */
 #remark42 {
-    /* Base colors */
-    --background-color: var(--color-bg);
-    --color-background: var(--color-bg);
-    --primary-color: var(--color-primary);
-
-    /* Text colors */
-    --color-text: var(--color-text);
-    --font-color: var(--color-text);
-    --color-gray: var(--color-text-muted);
-
-    /* Links */
-    --color-link: var(--color-primary);
-    --color-hover: var(--color-primary-hover, var(--color-primary));
-
-    /* Borders */
-    --color-border: var(--color-border);
-    --border-color: var(--color-border);
-
-    /* Input styling */
-    --input-background-color: var(--color-bg);
-    --input-border-color: var(--color-border);
-    --input-placeholder-color: var(--color-text-muted);
-
-    /* Button styling */
-    --button-color: var(--color-primary);
-    --button-background-color: var(--color-bg);
-    --button-border-color: var(--color-primary);
-
-    /* Font */
-    --font: 'berkeley_mono_regular', monospace;
+    /* Remark42 renders in a cross-origin iframe, so we can only style the container */
 }

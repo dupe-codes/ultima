@@ -1,0 +1,20 @@
+/* dupe_sh theme - Blue */
+@import '/static/remark-base.css';
+
+:root {
+    /* Ultima theme variables */
+    --ultima-bg: #f0f4fc;
+    --ultima-text: #333333;
+    --ultima-text-muted: #6b7280;
+    --ultima-primary: #3498db;
+    --ultima-primary-dark: #2471a3;
+    --ultima-border: #dae1f0;
+    --ultima-bg-highlight: #dae1f0;
+
+    /* Remark42 CSS variables for hover/focus states */
+    --primary-color: 52, 152, 219;  /* #3498db in RGB for rgba() */
+    --color9: #2471a3;              /* toolbar hover */
+    --color15: #3498db;             /* textarea focus border */
+    --color33: #3498db;             /* secondary button hover, link hover */
+    --color47: rgba(52, 152, 219, 0.2);  /* textarea focus box-shadow */
+}

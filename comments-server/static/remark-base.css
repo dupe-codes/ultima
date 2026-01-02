@@ -1,0 +1,216 @@
+/* Import original Remark42 styles */
+@import '/web-orig/remark.css';
+
+/* Load the custom font from comments server */
+@font-face {
+    font-family: 'berkeley_mono_regular';
+    src: url('/static/BerkeleyMono-Regular.woff2') format('woff2'),
+         url('/static/BerkeleyMono-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Base font and background for everything */
+body {
+    font-family: 'berkeley_mono_regular', ui-monospace, SFMono-Regular, monospace !important;
+    padding: 0 !important;
+    background-color: var(--ultima-bg) !important;
+    color: var(--ultima-text) !important;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: 'berkeley_mono_regular', ui-monospace, SFMono-Regular, monospace !important;
+}
+
+/* Root container */
+.root {
+    color: var(--ultima-text) !important;
+}
+
+/* Links */
+a {
+    color: var(--ultima-primary) !important;
+}
+
+a:hover {
+    color: var(--ultima-primary-dark) !important;
+}
+
+/* Comment form */
+.comment-form {
+    background-color: var(--ultima-bg) !important;
+    border-color: var(--ultima-border) !important;
+}
+
+.comment-form_theme_light {
+    background-color: var(--ultima-bg) !important;
+    border-color: var(--ultima-border) !important;
+}
+
+/* Textarea */
+.comment-form__field {
+    background-color: var(--ultima-bg) !important;
+    color: var(--ultima-text) !important;
+    border: 1px solid var(--ultima-border) !important;
+    border-radius: 0 !important;
+}
+
+/* Control panel (toolbar area) */
+.comment-form__control-panel {
+    background-color: var(--ultima-bg-highlight) !important;
+}
+
+/* Actions area (buttons) */
+.comment-form__actions {
+    background-color: var(--ultima-bg-highlight) !important;
+}
+
+/* All buttons - remove border radius */
+.button,
+.C_A {
+    border-radius: 0 !important;
+}
+
+/* Primary button (Send) */
+.button_kind_primary {
+    background-color: var(--ultima-primary) !important;
+    border-radius: 0 !important;
+}
+
+/* Secondary button (Preview) */
+.button_kind_secondary {
+    background-color: var(--ultima-bg) !important;
+    color: var(--ultima-text) !important;
+    border-radius: 0 !important;
+}
+
+/* Reply button */
+.C_A.C_G {
+    color: var(--ultima-primary) !important;
+}
+
+/* Comment text */
+.comment__text,
+.raw-content {
+    font-family: 'berkeley_mono_regular', ui-monospace, SFMono-Regular, monospace !important;
+}
+
+/* Username */
+.comment__username {
+    font-family: 'berkeley_mono_regular', ui-monospace, SFMono-Regular, monospace !important;
+    color: var(--ultima-text-muted) !important;
+}
+
+/* Timestamp */
+.comment__time {
+    font-family: 'berkeley_mono_regular', ui-monospace, SFMono-Regular, monospace !important;
+    color: var(--ultima-text-muted) !important;
+}
+
+/* Auth panel */
+.auth-panel {
+    font-family: 'berkeley_mono_regular', ui-monospace, SFMono-Regular, monospace !important;
+}
+
+/* Sort picker */
+.sort-picker,
+.select {
+    font-family: 'berkeley_mono_regular', ui-monospace, SFMono-Regular, monospace !important;
+}
+
+/* Markdown help text */
+.comment-form__markdown,
+.comment-form__rss {
+    font-family: 'berkeley_mono_regular', ui-monospace, SFMono-Regular, monospace !important;
+    color: var(--ultima-text-muted) !important;
+}
+
+.comment-form__markdown-link {
+    color: var(--ultima-primary) !important;
+}
+
+.comment-form__markdown-link:hover {
+    color: var(--ultima-primary-dark) !important;
+}
+
+/* Copyright */
+.root__copyright {
+    font-family: 'berkeley_mono_regular', ui-monospace, SFMono-Regular, monospace !important;
+    color: var(--ultima-text-muted) !important;
+}
+
+.root__copyright-link {
+    color: var(--ultima-text-muted) !important;
+}
+
+/* ===========================================
+   Sign In Flow
+   =========================================== */
+
+/* Auth container */
+.auth {
+    font-family: 'berkeley_mono_regular', ui-monospace, SFMono-Regular, monospace !important;
+}
+
+/* Sign In button */
+.auth-button {
+    font-family: 'berkeley_mono_regular', ui-monospace, SFMono-Regular, monospace !important;
+    background-color: var(--ultima-bg-highlight) !important;
+    color: var(--ultima-text) !important;
+    border: 1px solid var(--ultima-border) !important;
+    border-radius: 0 !important;
+}
+
+/* Dropdown panel */
+.auth-dropdown {
+    background-color: var(--ultima-bg) !important;
+    border: 1px solid var(--ultima-border) !important;
+    border-radius: 0 !important;
+}
+
+/* Auth form */
+.auth-form {
+    font-family: 'berkeley_mono_regular', ui-monospace, SFMono-Regular, monospace !important;
+}
+
+/* Form titles */
+.auth-form-title {
+    font-family: 'berkeley_mono_regular', ui-monospace, SFMono-Regular, monospace !important;
+    color: var(--ultima-text) !important;
+}
+
+/* OAuth buttons container */
+.oauth {
+    font-family: 'berkeley_mono_regular', ui-monospace, SFMono-Regular, monospace !important;
+}
+
+/* OAuth button (GitHub, etc) */
+.oauth-button {
+    border-radius: 0 !important;
+    background-color: var(--ultima-bg-highlight) !important;
+}
+
+/* Divider ("or") */
+.auth-divider {
+    color: var(--ultima-text-muted) !important;
+}
+
+/* Username input */
+.auth-input-username {
+    font-family: 'berkeley_mono_regular', ui-monospace, SFMono-Regular, monospace !important;
+    background-color: var(--ultima-bg) !important;
+    color: var(--ultima-text) !important;
+    border: 1px solid var(--ultima-border) !important;
+    border-radius: 0 !important;
+}
+
+/* Submit button */
+.auth-submit {
+    font-family: 'berkeley_mono_regular', ui-monospace, SFMono-Regular, monospace !important;
+    background-color: var(--ultima-primary) !important;
+    color: white !important;
+    border-radius: 0 !important;
+}

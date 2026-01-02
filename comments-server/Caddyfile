@@ -15,10 +15,45 @@
         defer
     }
 
+    # Serve site-specific CSS based on Referer header containing site_id
+    @dupe_sh {
+        header_regexp Referer site_id=dupe_sh
+        path /web/remark.css
+    }
+    route @dupe_sh {
+        header Content-Type "text/css; charset=utf-8"
+        root * /srv/static
+        rewrite * /theme-dupe_sh.css
+        file_server
+    }
+
+    @rorschach {
+        header_regexp Referer site_id=rorschach
+        path /web/remark.css
+    }
+    route @rorschach {
+        header Content-Type "text/css; charset=utf-8"
+        root * /srv/static
+        rewrite * /theme-rorschach.css
+        file_server
+    }
+
+    @whwg {
+        header_regexp Referer site_id=whwg
+        path /web/remark.css
+    }
+    route @whwg {
+        header Content-Type "text/css; charset=utf-8"
+        root * /srv/static
+        rewrite * /theme-whwg.css
+        file_server
+    }
+
+    # Default theme fallback for unknown sites
     route /web/remark.css {
         header Content-Type "text/css; charset=utf-8"
         root * /srv/static
-        rewrite * /remark-custom.css
+        rewrite * /theme-default.css
         file_server
     }
 

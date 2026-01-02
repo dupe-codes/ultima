@@ -19,7 +19,7 @@ feed            = "feed.xmlua"
 
 [comments]
 enabled         = true
-remark_url      = "http://localhost:8080"
+remark_url      = "http://localhost:8081"
 site_id         = "dupe_sh"
 theme           = "light"
 locale          = "en"

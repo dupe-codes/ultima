@@ -1,0 +1,20 @@
+/* whwg theme - Lavender/Purple */
+@import '/static/remark-base.css';
+
+:root {
+    /* Ultima theme variables */
+    --ultima-bg: #f3eefc;
+    --ultima-text: #333333;
+    --ultima-text-muted: #6b7280;
+    --ultima-primary: #8c62c7;
+    --ultima-primary-dark: #4a437d;
+    --ultima-border: #eae4f8;
+    --ultima-bg-highlight: #eae4f8;
+
+    /* Remark42 CSS variables for hover/focus states */
+    --primary-color: 140, 98, 199;  /* #8c62c7 in RGB for rgba() */
+    --color9: #4a437d;              /* toolbar hover */
+    --color15: #8c62c7;             /* textarea focus border */
+    --color33: #8c62c7;             /* secondary button hover, link hover */
+    --color47: rgba(140, 98, 199, 0.2);  /* textarea focus box-shadow */
+}

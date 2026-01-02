@@ -52,8 +52,7 @@
                     site_id: '{{ config.comments.site_id }}',
                     url: '{{ config.main.site_url }}{{ link }}',
                     theme: '{{ config.comments.theme or "light" }}',
-                    locale: '{{ config.comments.locale or "en" }}',
-                    simple_view: true
+                    locale: '{{ config.comments.locale or "en" }}'
                 };
             </script>
             <script>
