@@ -7,3 +7,7 @@ doc/
 build/
 
 .obsidian/
+
+# Comments server secrets and data
+comments-server/.env
+comments-server/data/

@@ -1,0 +1,7 @@
+/* Import original Remark42 last-comments styles */
+@import '/web-orig/last-comments.css';
+
+/* Custom overrides */
+body {
+    font-family: 'berkeley_mono_regular', ui-monospace, monospace;
+}

@@ -1,0 +1,61 @@
+services:
+  remark42:
+    image: umputun/remark42:latest
+    container_name: remark42
+    restart: unless-stopped
+    environment:
+      - REMARK_URL=${REMARK_URL}
+      - SECRET=${SECRET}
+      - SITE=${SITE_ID}
+      - ADMIN_SHARED_ID=${ADMIN_SHARED_ID}
+      # Auth providers (uncomment and configure as needed)
+      - AUTH_GITHUB_CID=${AUTH_GITHUB_CID:-}
+      - AUTH_GITHUB_CSEC=${AUTH_GITHUB_CSEC:-}
+      # Anonymous comments (disable in production if unwanted)
+      - AUTH_ANON=${AUTH_ANON:-true}
+      # Email auth (optional)
+      - AUTH_EMAIL_ENABLE=${AUTH_EMAIL_ENABLE:-false}
+      - SMTP_HOST=${SMTP_HOST:-}
+      - SMTP_PORT=${SMTP_PORT:-}
+      - SMTP_USERNAME=${SMTP_USERNAME:-}
+      - SMTP_PASSWORD=${SMTP_PASSWORD:-}
+      - SMTP_TLS=${SMTP_TLS:-true}
+      - AUTH_EMAIL_FROM=${AUTH_EMAIL_FROM:-}
+      # Notifications (optional)
+      - NOTIFY_TYPE=${NOTIFY_TYPE:-none}
+      - NOTIFY_TELEGRAM_TOKEN=${NOTIFY_TELEGRAM_TOKEN:-}
+      - NOTIFY_TELEGRAM_CHAN=${NOTIFY_TELEGRAM_CHAN:-}
+      # Moderation
+      - ADMIN_SHARED_EMAIL=${ADMIN_SHARED_EMAIL:-}
+      # Rate limiting
+      - MAX_COMMENT_SIZE=2048
+      - LOW_SCORE=-5
+      - CRITICAL_SCORE=-10
+    volumes:
+      - ./data:/srv/var:Z
+    ports:
+      - "127.0.0.1:8080:8080"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+      - "8443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro,Z
+      - ./static:/srv/static:ro,Z
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - remark42
+
+volumes:
+  caddy_data:
+  caddy_config:

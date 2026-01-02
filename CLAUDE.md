@@ -43,8 +43,9 @@ Output to build/ (dev) or deploy/ (prod)
   - `ultima.lua` - Main entry point (CLI args, orchestration)
   - `config.lua` - TOML configuration loader
   - `lock_files.lua` - Change tracking/cache system
-  - `templates/engine.lua` - Custom templating engine
+  - `template_engine.lua` - Custom templating engine
   - `pandoc/processor.lua` - Pandoc filter for frontmatter
+  - `templates/` - Shared default templates (fallback for sites)
   - `utils/` - File I/O, formatters, functional utilities
 
 - `sites/{site}/` - Site-specific content
@@ -59,7 +60,7 @@ Output to build/ (dev) or deploy/ (prod)
 Templates use `.htmlua` extension with custom syntax (all expressions end with `}}`):
 - `{{ expression }}` - Variable/expression output
 - `{% lua code }}` - Lua control flow (if/for/end)
-- Escaping: `\{` for literal braces
+- Escaping: `\{` for literal opening braces (closing braces `}` don't need escaping)
 
 Template context includes: `config`, `content`, `metadata`, `title`, `links`, `generate_absolute_path()`
 
@@ -87,3 +88,9 @@ Each site deploys via git subtree to a separate branch (`deploy-{site}`). The ma
 - Lock files track file checksums to avoid unnecessary rewrites; use `-f` flag to force rebuild
 - `content_type: "media"` references static files instead of rendering markdown
 - `draft: true` hides content in production builds
+
+## Documentation Conventions
+
+- Use first person plural ("we", "our") rather than second person ("you", "your")
+- Keep documentation concise and focused on implementation details
+- Place project documentation in `docs/` directory

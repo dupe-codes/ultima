@@ -42,4 +42,28 @@
         <a href="{{ metadata.discussion_link }}">discuss</a>
     {% end }}
 
+    {% if config.comments and config.comments.enabled and metadata.comments ~= false then }}
+        <div class="comments-section">
+            <h2>Comments</h2>
+            <div id="remark42"></div>
+            <script>
+                var remark_config = \{
+                    host: '{{ config.comments.remark_url }}',
+                    site_id: '{{ config.comments.site_id }}',
+                    url: '{{ config.main.site_url }}{{ link }}',
+                    theme: '{{ config.comments.theme or "light" }}',
+                    locale: '{{ config.comments.locale or "en" }}',
+                    simple_view: true
+                };
+            </script>
+            <script>
+                !function(e,n)\{for(var o=0;o<e.length;o++)\{
+                var r=n.createElement("script"),c=".js",d=n.head||n.body;
+                "noModule"in r?(r.type="module",c=".mjs"):r.async=!0,
+                r.defer=!0,r.src=remark_config.host+"/web/"+e[o]+c,
+                d.appendChild(r)}}(["embed"],document);
+            </script>
+        </div>
+    {% end }}
+
 </div>
