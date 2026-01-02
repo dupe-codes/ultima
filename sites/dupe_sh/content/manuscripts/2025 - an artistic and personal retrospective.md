@@ -2,6 +2,7 @@
 publish: true
 description: reflecting on 2025, the most terrible of years, the most wonderful of years.
 font: eb_garamond12_regular
+font_size: 22px
 tags:
   - blog
 drafted: 2025-12-31

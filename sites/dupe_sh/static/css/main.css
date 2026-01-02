@@ -27,7 +27,7 @@
     font-style: normal;
 }
 
-/* Colors are defined in colors.css (site-specific) or colors-default.css (fallback) */
+/* Theme variables are defined in theme.css (site-specific or default fallback) */
 
 html {
     box-sizing: border-box;
@@ -40,7 +40,7 @@ body {
     font-family: 'berkeley_mono_regular', monospace;
     background-color: var(--color-bg);
     color: var(--color-text);
-    font-size: 16px;
+    font-size: var(--font-size-base);
     margin: 0;
     padding: 0;
     line-height: 1.5;
@@ -61,9 +61,9 @@ a {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    line-height: 1.6;
-    font-size: 16px;
-    color: #333333;
+    line-height: var(--line-height-post);
+    font-size: var(--font-size-post);
+    color: var(--color-text);
     width: 100%;
 }
 
@@ -278,12 +278,12 @@ a {
 
 .post h1 {
     margin-bottom: 0.5em;
-    font-size: 1.8em;
+    font-size: var(--font-size-post-h1);
 }
 
 .post-metadata {
-    font-size: 0.9em;
-    color: #6b7280;
+    font-size: var(--font-size-post-metadata);
+    color: var(--color-text-muted);
     margin-bottom: 1.5em;
 }
 

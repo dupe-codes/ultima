@@ -19,10 +19,15 @@
     </div>
 
 
-    {% if metadata.font then }}
+    {% if metadata.font or metadata.font_size then }}
         <style>
             .post-content \{
+                {% if metadata.font then }}
                 font-family: "{{ metadata.font }}";
+                {% end }}
+                {% if metadata.font_size then }}
+                font-size: {{ metadata.font_size }};
+                {% end }}
             \}
         </style>
     {% end }}

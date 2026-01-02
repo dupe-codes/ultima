@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{ config.main.site_name }}</title>
         <link rel="stylesheet"
-            href="{{ generate_absolute_path(config, 'static/css/colors.css') }}">
+            href="{{ generate_absolute_path(config, 'static/css/theme.css') }}">
         <link rel="stylesheet"
             href="{{ generate_absolute_path(config, 'static/css/main.css') }}">
         <!-- <script src="https://kit.fontawesome.com/0387a22d91.js" crossorigin="anonymous"></script> -->
