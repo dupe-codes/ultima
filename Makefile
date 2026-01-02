@@ -53,6 +53,14 @@ deploy: ## Build & deploy a specific site to production, usage: make deploy site
 	@echo ""
 	@./scripts/deploy.sh $(site)
 
+.PHONY: deploy-all
+deploy-all: ## Build & deploy all sites to production
+	@for site in $(SITES); do \
+		echo ""; \
+		echo "=== Deploying $$site ==="; \
+		$(MAKE) deploy site=$$site; \
+	done
+
 .PHONY: run
 run: ## Run a specific site with local server, usage: make run site=site-name
 	@if [ -z "$(site)" ]; then \
