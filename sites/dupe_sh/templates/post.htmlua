@@ -3,6 +3,7 @@
     <div class="nav-bar">
         <span class="nav-list">
             <a href="{{ generate_absolute_path(config, 'index.html') }}">~/</a>
+            <a href="{{ directory }}">../</a>
         </span>
     </div>
 

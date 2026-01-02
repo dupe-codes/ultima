@@ -119,10 +119,10 @@ local function render_post_file(
     pandoc_output,
     metadata
 )
-    local dir_index_path = CONFIG.generator.root_dir
-        .. "/"
-        .. output_path
-        .. "index.html"
+    local dir_index_path = formatters.generate_absolute_path(
+        CONFIG,
+        output_path .. "index.html"
+    )
 
     local rendered_content = template_engine.compile_template_file(
         get_template_path(CONFIG.templates.post),
