@@ -65,7 +65,8 @@ local function find_content(content_dir)
         [""] = {},
     }
     for file in lfs.dir(content_dir) do
-        if file ~= "." and file ~= ".." then
+        -- Skip hidden files/directories (starting with .)
+        if file ~= "." and file ~= ".." and not file:match("^%.") then
             local full_path = content_dir .. "/" .. file
             local attributes = lfs.attributes(full_path)
             if attributes.mode == "directory" then
@@ -274,7 +275,7 @@ end
 local function render_file(output_path, source_path, file_name)
     local pandoc_cmd = string.format(
         PANDOC_CMD_FMT,
-        "src/pandoc/metadata_processor.lua",
+        "src/pandoc/processor.lua",
         formatters.shell_escape(source_path)
     )
 

@@ -44,7 +44,7 @@ Output to build/ (dev) or deploy/ (prod)
   - `config.lua` - TOML configuration loader
   - `lock_files.lua` - Change tracking/cache system
   - `templates/engine.lua` - Custom templating engine
-  - `pandoc/metadata_processor.lua` - Pandoc filter for frontmatter
+  - `pandoc/processor.lua` - Pandoc filter for frontmatter
   - `utils/` - File I/O, formatters, functional utilities
 
 - `sites/{site}/` - Site-specific content
