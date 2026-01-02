@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>dupe.sh</title>
+        <link rel="stylesheet"
+            href="https://dupe.sh/static/css/theme.css">
+        <link rel="stylesheet"
+            href="https://dupe.sh/static/css/main.css">
+        <!-- <script src="https://kit.fontawesome.com/0387a22d91.js" crossorigin="anonymous"></script> -->
+        <link href="https://unpkg.com/mono-icons@1.3.1/iconfont/icons.css" rel="stylesheet">
+        <!-- TODO: change this to be conditionally added, only if the post has charts = true in its metadata or something -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+<body>
+    <div class="post">
+
+    <div class="nav-bar">
+        <span class="nav-list">
+            <a href="https://dupe.sh/index.html">~/</a>
+        </span>
+    </div>
+
+    <h1>transactions.html</h1>
+
+    <div class="post-metadata">
+        
+
+        
+    </div>
+
+
+    
+
+    <div class="post-content">
+        <p>A <em>transaction</em> is a way to group several reads or writes of
+data into a logical unit. It succeeds (commit) or fails (rollback,
+abort). Through transactions, databases provide <em>safety
+guarantees</em>.</p>
+<h2 id="acid">ACID</h2>
+<ul>
+<li>Atomicity
+<ul>
+<li><em>atomic</em> = something that cannot be broken down into smaller
+pieces.</li>
+<li>In databases, this describes what happens if a client wants to make
+several writes, but a fault occurs in the middle of them. If a fault
+occurs, a transaction is aborted, and the database discards any writes
+it has made so far.</li>
+<li>If a transaction is aborted, an application can safely retry.</li>
+</ul></li>
+<li>Consistency
+<ul>
+<li>There are certain <em>invariants</em> about your data that must
+always be true.</li>
+<li>If a database starts with these true, and a transactions writes
+preserve the validity, the invariants will always be satisfied.</li>
+<li>The application must define its transactions correctly.</li>
+</ul></li>
+<li>Isolation
+<ul>
+<li>Concurrency problems (race conditions) can occur if multiple clients
+access the same database records.</li>
+<li>Concurrently running transactions are isolated from each other: they
+can’t step on each other’s toes.</li>
+<li><em>Serializability</em> means each transaction can pretend it is
+the only transaction running at the time. When concurrent transactions
+are committed, the results are the same as if they had been run
+serially.</li>
+<li>Serializable isolation carries a performance penalty.</li>
+</ul></li>
+<li>Durability
+<ul>
+<li>Once a transaction is committed, any data it wrote will not be lost,
+even if there is a hardware fault or database crash.</li>
+</ul></li>
+</ul>
+<h2 id="implementing-acid">Implementing ACID</h2>
+<ul>
+<li>Atomicity can be implemented using a log for crash recovery, and
+isolation with a lock on each database object.</li>
+</ul>
+<h2 id="classes-of-db-concurrency-issues">Classes of DB concurrency
+issues</h2>
+<ol type="1">
+<li>Dirty reads: when one transaction is able to see data written by
+another <em>that has not yet been committed</em>.</li>
+<li>Dirty writes: when one transaction overwrites an uncommitted value
+from a concurrent, uncommitted, transaction.</li>
+<li>Read skew: when a transaction reads different values for the same
+data during its execution because other concurrent transactions have
+modified it.</li>
+<li>Lost update: occurs if an application reads some value from the DB,
+modifies it, and writes back the modified value. If two transactions do
+this concurrently, one of the modifications can be lost.
+<ul>
+<li>some databases provide atomic update operations to solve this</li>
+</ul></li>
+<li>Write skew: caused by updates to separate records in a database that
+none-the-less cause a conflict. Occurs if two transactions read the same
+objects, and then update some of those objects. General case of dirty
+write or read skew.</li>
+<li>Phantoms: another specific type of write skew, where a write in one
+transaction changes the result of a search query in another
+transaction.</li>
+</ol>
+<h2 id="isolation-levels">Isolation Levels</h2>
+<h4 id="read-committed">Read Committed</h4>
+<p>Default setting in many databases (e.g., PostgreSQL)</p>
+<p>Two guarantees:</p>
+<ol type="1">
+<li>When reading, you will only see committed data (no <em>dirty
+reads</em>).</li>
+<li>When writing, you will only overwrite data that has been committed
+(no <em>dirty writes</em>).</li>
+</ol>
+<p>Dirty writes are most commonly prevented with <em>row-level
+locks</em>.</p>
+<p>Dirty reads are prevented by remembering both the old committed value
+and the new value set by an in progress transaction. Reads are given the
+remembered old value until the writing transaction is committed.</p>
+<h4 id="snapshot-isolation">Snapshot Isolation</h4>
+<p>Read committed guarantees + no <em>read skew.</em></p>
+<p>Each transaction reads from a consistent snapshot of the database. It
+sees all data as it existed in the DB at the start of the
+transaction.</p>
+<h4 id="serializable-isolation">Serializable Isolation</h4>
+<h2 id="sources">Sources</h2>
+<ol type="1">
+<li>Designing Data Intensive Applications, Martin Kleppmann</li>
+</ol>
+
+    </div>
+
+    
+
+</div>
+
+    <script src="https://dupe.sh/static/js/charts.js"></script>
+</body>
+</html>
