@@ -1,0 +1,96 @@
+# Remark42 Comment Server
+# Replace {$REMARK_DOMAIN} with your actual domain (e.g., comments.dupe.sh)
+# Or set the REMARK_DOMAIN environment variable
+
+{
+    auto_https off
+}
+
+:80 {
+    # CORS headers applied to ALL responses (including redirects)
+    header {
+        Access-Control-Allow-Origin "*"
+        Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+        Access-Control-Allow-Headers "Content-Type, Authorization"
+        defer
+    }
+
+    # Serve site-specific CSS based on Referer header containing site_id
+    @dupe_sh {
+        header_regexp Referer site_id=dupe_sh
+        path /web/remark.css
+    }
+    route @dupe_sh {
+        header Content-Type "text/css; charset=utf-8"
+        root * /srv/static
+        rewrite * /theme-dupe_sh.css
+        file_server
+    }
+
+    @rorschach {
+        header_regexp Referer site_id=rorschach
+        path /web/remark.css
+    }
+    route @rorschach {
+        header Content-Type "text/css; charset=utf-8"
+        root * /srv/static
+        rewrite * /theme-rorschach.css
+        file_server
+    }
+
+    @whwg {
+        header_regexp Referer site_id=whwg
+        path /web/remark.css
+    }
+    route @whwg {
+        header Content-Type "text/css; charset=utf-8"
+        root * /srv/static
+        rewrite * /theme-whwg.css
+        file_server
+    }
+
+    # Default theme fallback for unknown sites
+    route /web/remark.css {
+        header Content-Type "text/css; charset=utf-8"
+        root * /srv/static
+        rewrite * /theme-default.css
+        file_server
+    }
+
+    route /web/last-comments.css {
+        header Content-Type "text/css; charset=utf-8"
+        root * /srv/static
+        rewrite * /last-comments-custom.css
+        file_server
+    }
+
+    route /web-orig/*.css {
+        uri replace /web-orig/ /web/
+        reverse_proxy remark42:8080 {
+            header_down Content-Type "text/css; charset=utf-8"
+            header_down -X-Content-Type-Options
+        }
+    }
+
+    route /web-orig/* {
+        uri replace /web-orig/ /web/
+        reverse_proxy remark42:8080
+    }
+
+    route /static/* {
+        root * /srv
+        file_server
+    }
+
+    reverse_proxy remark42:8080 {
+        # Override CSP to allow fonts from any source
+        header_down Content-Security-Policy "default-src 'none'; base-uri 'none'; form-action 'none'; connect-src 'self'; frame-src 'self' mailto:; img-src *; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src * data:; object-src 'none'; frame-ancestors *;"
+    }
+
+    log {
+        output file /data/access.log {
+            roll_size 10mb
+            roll_keep 3
+        }
+    }
+}

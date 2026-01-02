@@ -1,0 +1,20 @@
+/* rorschach theme - Dusty Rose/Maroon */
+@import '/static/remark-base.css';
+
+:root {
+    /* Ultima theme variables */
+    --ultima-bg: #f1e5e5;
+    --ultima-text: #2a2a2e;
+    --ultima-text-muted: #6b7280;
+    --ultima-primary: #8c4848;
+    --ultima-primary-dark: #6d3636;
+    --ultima-border: #e0d4d4;
+    --ultima-bg-highlight: #e0d4d4;
+
+    /* Remark42 CSS variables for hover/focus states */
+    --primary-color: 140, 72, 72;  /* #8c4848 in RGB for rgba() */
+    --color9: #6d3636;             /* toolbar hover */
+    --color15: #8c4848;            /* textarea focus border */
+    --color33: #8c4848;            /* secondary button hover, link hover */
+    --color47: rgba(140, 72, 72, 0.2);  /* textarea focus box-shadow */
+}

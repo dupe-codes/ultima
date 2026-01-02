@@ -1,0 +1,163 @@
+/* Import original Remark42 styles */
+@import '/web-orig/remark.css';
+
+/* Load the custom font from comments server */
+@font-face {
+    font-family: 'berkeley_mono_regular';
+    src: url('/static/BerkeleyMono-Regular.woff2') format('woff2'),
+         url('/static/BerkeleyMono-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Custom overrides to match Ultima site themes */
+
+/* Color variables matching dupe_sh theme.css */
+:root {
+    --ultima-bg: #f0f4fc;
+    --ultima-text: #333333;
+    --ultima-text-muted: #6b7280;
+    --ultima-primary: #3498db;
+    --ultima-primary-dark: #2471a3;
+    --ultima-border: #dae1f0;
+    --ultima-bg-highlight: #dae1f0;
+}
+
+/* Base font and background for everything */
+body {
+    font-family: 'berkeley_mono_regular', ui-monospace, SFMono-Regular, monospace !important;
+    padding: 0 !important;
+    background-color: var(--ultima-bg) !important;
+    color: var(--ultima-text) !important;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: 'berkeley_mono_regular', ui-monospace, SFMono-Regular, monospace !important;
+}
+
+/* Root container */
+.root {
+    color: var(--ultima-text) !important;
+}
+
+/* Links */
+a {
+    color: var(--ultima-primary) !important;
+}
+
+a:hover {
+    color: var(--ultima-primary-dark) !important;
+}
+
+/* Comment form */
+.comment-form {
+    background-color: var(--ultima-bg) !important;
+    border-color: var(--ultima-border) !important;
+}
+
+.comment-form_theme_light {
+    background-color: var(--ultima-bg) !important;
+    border-color: var(--ultima-border) !important;
+}
+
+/* Textarea */
+.comment-form__field {
+    background-color: var(--ultima-bg) !important;
+    color: var(--ultima-text) !important;
+    border: 1px solid var(--ultima-border) !important;
+    border-radius: 0 !important;
+}
+
+/* Control panel (toolbar area) */
+.comment-form__control-panel {
+    background-color: var(--ultima-bg-highlight) !important;
+}
+
+/* Actions area (buttons) */
+.comment-form__actions {
+    background-color: var(--ultima-bg-highlight) !important;
+}
+
+/* All buttons - remove border radius */
+.button,
+.C_A {
+    border-radius: 0 !important;
+}
+
+/* Primary button (Send) */
+.button_kind_primary {
+    background-color: var(--ultima-primary) !important;
+    border-radius: 0 !important;
+}
+
+.button_kind_primary:hover {
+    background-color: var(--ultima-primary-dark) !important;
+}
+
+/* Secondary button (Preview) */
+.button_kind_secondary {
+    background-color: var(--ultima-bg) !important;
+    color: var(--ultima-text) !important;
+    border-radius: 0 !important;
+}
+
+.button_kind_secondary:hover {
+    box-shadow: inset 0 0 0 2px var(--ultima-primary) !important;
+}
+
+/* Reply button */
+.C_A.C_G {
+    color: var(--ultima-primary) !important;
+}
+
+.C_A.C_G:hover {
+    background-color: var(--ultima-bg-highlight) !important;
+}
+
+/* Comment text */
+.comment__text,
+.raw-content {
+    font-family: 'berkeley_mono_regular', ui-monospace, SFMono-Regular, monospace !important;
+}
+
+/* Username */
+.comment__username {
+    font-family: 'berkeley_mono_regular', ui-monospace, SFMono-Regular, monospace !important;
+    color: var(--ultima-text-muted) !important;
+}
+
+/* Timestamp */
+.comment__time {
+    font-family: 'berkeley_mono_regular', ui-monospace, SFMono-Regular, monospace !important;
+    color: var(--ultima-text-muted) !important;
+}
+
+/* Auth panel */
+.auth-panel {
+    font-family: 'berkeley_mono_regular', ui-monospace, SFMono-Regular, monospace !important;
+}
+
+/* Sort picker */
+.sort-picker,
+.select {
+    font-family: 'berkeley_mono_regular', ui-monospace, SFMono-Regular, monospace !important;
+}
+
+/* Markdown help text */
+.comment-form__markdown,
+.comment-form__rss {
+    font-family: 'berkeley_mono_regular', ui-monospace, SFMono-Regular, monospace !important;
+}
+
+/* Copyright */
+.root__copyright {
+    font-family: 'berkeley_mono_regular', ui-monospace, SFMono-Regular, monospace !important;
+    color: var(--ultima-text-muted) !important;
+}
+
+.root__copyright-link {
+    color: var(--ultima-text-muted) !important;
+}

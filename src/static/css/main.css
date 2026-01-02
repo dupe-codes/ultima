@@ -732,3 +732,21 @@ a {
         min-width: auto;
     }
 }
+
+/* Comments Section (Remark42) */
+.comments-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.comments-section h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+    color: var(--color-text);
+}
+
+/* Remark42 container styling */
+#remark42 {
+    /* Remark42 renders in a cross-origin iframe, so we can only style the container */
+}

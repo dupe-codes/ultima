@@ -16,3 +16,10 @@ default         = "page.htmlua"
 index_page      = "index.htmlua"
 post            = "post.htmlua"
 feed            = "feed.xmlua"
+
+[comments]
+enabled         = true
+remark_url      = "http://localhost:8081"
+site_id         = "rorschach"
+theme           = "light"
+locale          = "en"

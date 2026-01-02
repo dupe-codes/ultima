@@ -1,0 +1,20 @@
+/* Default theme - neutral grey */
+@import '/static/remark-base.css';
+
+:root {
+    /* Ultima theme variables */
+    --ultima-bg: #f5f5f5;
+    --ultima-text: #333333;
+    --ultima-text-muted: #6b7280;
+    --ultima-primary: #555555;
+    --ultima-primary-dark: #333333;
+    --ultima-border: #e0e0e0;
+    --ultima-bg-highlight: #e8e8e8;
+
+    /* Remark42 CSS variables for hover/focus states */
+    --primary-color: 85, 85, 85;  /* #555555 in RGB for rgba() */
+    --color9: #333333;            /* toolbar hover */
+    --color15: #555555;           /* textarea focus border */
+    --color33: #555555;           /* secondary button hover, link hover */
+    --color47: rgba(85, 85, 85, 0.2);  /* textarea focus box-shadow */
+}
