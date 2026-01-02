@@ -1,0 +1,44 @@
+<div class="file-index">
+
+    <h1>{{ dir_name }}</h1>
+
+    {% if description then }}
+        <p>{{ description }}</p>
+    {% end }}
+
+    <div class="view-toggle">
+        <a href="index.html" class="view-button">
+            <i class="mi-table"></i> table
+        </a>
+        <a href="gallery.html" class="view-button">
+            <i class="mi-grid"></i> gallery
+        </a>
+        <a href="timeline.html" class="view-button active">
+            <i class="mi-calendar"></i> timeline
+        </a>
+    </div>
+
+    {% if timeline then }}
+        <div class="timeline">
+            {% for _, group in ipairs(timeline) do }}
+                <div class="timeline-group">
+                    <h2 class="timeline-month">{{ group.label }}</h2>
+                    <ul class="timeline-entries">
+                        {% for _, entry in ipairs(group.entries) do }}
+                            <li class="timeline-entry">
+                                <span class="timeline-date">{{ entry.published }}</span>
+                                <a href="{{ entry.link }}">{{ entry.display_name }}</a>
+                                {% if entry.description then }}
+                                    <span class="timeline-description">{{ entry.description }}</span>
+                                {% end }}
+                            </li>
+                        {% end }}
+                    </ul>
+                </div>
+            {% end }}
+        </div>
+    {% else }}
+        <p class="timeline-empty">No published content yet.</p>
+    {% end }}
+
+</div>

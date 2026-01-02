@@ -457,6 +457,51 @@ local function generate_recently_updated_list(all_content)
     return #result > 0 and result or nil
 end
 
+local function generate_timeline_data(all_content)
+    local entries = {}
+    for _, entry in ipairs(all_content) do
+        if
+            entry.file_type == file_utils.FileType.FILE
+            and entry.metadata
+            and not entry.metadata.draft
+            and entry.metadata.published
+        then
+            local filename = entry.display_name:match "(.+)%..+$"
+                or entry.display_name
+            table.insert(entries, {
+                link = entry.link,
+                display_name = filename,
+                published = entry.metadata.published,
+                description = entry.metadata.description,
+            })
+        end
+    end
+
+    table.sort(entries, function(a, b)
+        return a.published > b.published
+    end)
+
+    local grouped = {}
+    local current_group = nil
+    for _, entry in ipairs(entries) do
+        -- expect YYYY-MM-DD format
+        local year_month = entry.published:match("^(%d%d%d%d%-%d%d)")
+        if year_month then
+            if not current_group or current_group.year_month ~= year_month then
+                current_group = {
+                    year_month = year_month,
+                    label = date(entry.published):fmt("%B %Y"),
+                    entries = {},
+                }
+                table.insert(grouped, current_group)
+            end
+            table.insert(current_group.entries, entry)
+        end
+    end
+
+    return #grouped > 0 and grouped or nil
+end
+
 local function write_index_file(file_path, links, parent_dir, all_links, all_content)
     local stripped_path =
         formatters.strip_output_dir(file_path, CONFIG.generator.output_dir)
@@ -486,6 +531,7 @@ local function write_index_file(file_path, links, parent_dir, all_links, all_con
 
     table.sort(links, sort_file_links)
 
+    local is_root = not parent_dir
     local index_page = template_engine.compile_template_file(
         get_template_path(CONFIG.templates.index_page),
         {
@@ -497,8 +543,9 @@ local function write_index_file(file_path, links, parent_dir, all_links, all_con
             get_default_icon = get_default_icon,
             all_links = json.encode(all_links),
             is_table_view = true,
-            description = not parent_dir and CONFIG.main.description or nil,
-            recently_updated = not parent_dir
+            is_root = is_root,
+            description = is_root and CONFIG.main.description or nil,
+            recently_updated = is_root
                     and generate_recently_updated_list(all_content)
                 or nil,
         }
@@ -531,8 +578,9 @@ local function write_index_file(file_path, links, parent_dir, all_links, all_con
             get_default_icon = get_default_icon,
             all_links = json.encode(all_links),
             is_table_view = false,
-            description = not parent_dir and CONFIG.main.description or nil,
-            recently_updated = not parent_dir
+            is_root = is_root,
+            description = is_root and CONFIG.main.description or nil,
+            recently_updated = is_root
                     and generate_recently_updated_list(all_content)
                 or nil,
         }
@@ -549,6 +597,33 @@ local function write_index_file(file_path, links, parent_dir, all_links, all_con
             }
         )
     )
+
+    -- Generate timeline view only at site root
+    if not parent_dir then
+        local timeline_data = generate_timeline_data(all_content)
+        local timeline_page = template_engine.compile_template_file(
+            get_template_path "timeline.htmlua",
+            {
+                config = CONFIG,
+                dir_name = current_dir_path,
+                timeline = timeline_data,
+                ipairs = ipairs,
+                description = CONFIG.main.description,
+            }
+        )
+
+        file_utils.write_file(
+            file_path:gsub("index%.html$", "timeline.html"),
+            template_engine.compile_template_file(
+                get_template_path(CONFIG.templates.default),
+                {
+                    config = CONFIG,
+                    content = timeline_page,
+                    generate_absolute_path = formatters.generate_absolute_path,
+                }
+            )
+        )
+    end
 end
 
 local function render_content_dir(output_path, content, parent_dir, source_path)

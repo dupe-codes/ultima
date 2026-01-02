@@ -34,6 +34,11 @@
         <a href="gallery.html" class="view-button {% if not is_table_view then }}active{% end }}">
             <i class="mi-grid"></i> gallery
         </a>
+        {% if is_root then }}
+        <a href="timeline.html" class="view-button">
+            <i class="mi-calendar"></i> timeline
+        </a>
+        {% end }}
     </div>
 
     <div class="file-index-table-wrapper">
