@@ -5,6 +5,7 @@ local date = require "date"
 local inspect = require "inspect"
 local json = require "dkjson"
 local lfs = require "lfs"
+local toml = require "toml"
 
 local constants = require "utils.constants"
 local file_utils = require "utils.files"
@@ -49,6 +50,10 @@ local CONTENT_TYPE = {
     GALLERY = "gallery",
 }
 
+local IGNORED_FILES = {
+    "index.toml",
+}
+
 local DRAFT_METADATA_FIELD = "draft"
 local FONT_METADATA_FIELD = "font"
 local DEFAULT_RECENTLY_UPDATED_THRESHOLD = 7
@@ -75,7 +80,6 @@ local function get_template_path(tmpl_name)
     return site_template
 end
 
--- Quick check if frontmatter contains toc: true
 local function has_toc_enabled(source_path)
     local file = io.open(source_path, "r")
     if not file then
@@ -100,13 +104,27 @@ local function has_toc_enabled(source_path)
     return false
 end
 
+local function should_ignore_file(file_name)
+    if file_name == "." or file_name == ".." then
+        return true
+    end
+    if file_name:match("^%.") then
+        return true
+    end
+    for _, ignored in ipairs(IGNORED_FILES) do
+        if file_name == ignored then
+            return true
+        end
+    end
+    return false
+end
+
 local function find_content(content_dir)
     local result = {
         [""] = {},
     }
     for file in lfs.dir(content_dir) do
-        -- Skip hidden files/directories (starting with .)
-        if file ~= "." and file ~= ".." and not file:match("^%.") then
+        if not should_ignore_file(file) then
             local full_path = content_dir .. "/" .. file
             local attributes = lfs.attributes(full_path)
             if attributes.mode == "directory" then
@@ -120,6 +138,19 @@ local function find_content(content_dir)
         end
     end
     return result
+end
+
+local function load_directory_config(content_dir)
+    local config_path = content_dir .. "/index.toml"
+    local attr = lfs.attributes(config_path, "mode")
+    if attr == "file" then
+        local content = file_utils.read_file(config_path)
+        local ok, config = pcall(toml.parse, content)
+        if ok then
+            return config
+        end
+    end
+    return {}
 end
 
 local function read_metadata(source_path)
@@ -210,6 +241,7 @@ local function render_post_file(
         print("Force wrote file: " .. output_file_path)
     else
         print(string.format("%s content unchanged; skipping...", source_path))
+
         -- Update metadata_checksum if missing (for existing files without it)
         local existing_data = lock_files.get_file_data(LOCK_FILE, source_path)
         if existing_data and not existing_data.metadata_checksum and metadata_checksum then
@@ -519,7 +551,7 @@ local function write_index_file(file_path, links, parent_dir, all_links, all_con
     )
 end
 
-local function render_content_dir(output_path, content, parent_dir)
+local function render_content_dir(output_path, content, parent_dir, source_path)
     -- TODO: expose file icon and display name as properties
     --       in post frontmatter configs
     local content_metadata = {}
@@ -539,11 +571,20 @@ local function render_content_dir(output_path, content, parent_dir)
         else
             -- directory to recursively render
             local nested_dir = output_path .. dir .. "/"
+            local nested_source = source_path .. dir .. "/"
             file_utils.make_dir_if_not_exists(nested_dir)
+
+            -- Load directory config (index.toml) for the subdirectory
+            local dir_config = load_directory_config(nested_source)
+            local default_view = dir_config.default_view or "table"
+            local index_file = (default_view == "gallery")
+                and "gallery.html" or "index.html"
+
             local subdir_content = render_content_dir(
                 output_path .. dir .. "/",
                 src_files,
-                output_path
+                output_path,
+                nested_source
             )
             -- copy all metadata from subdir to metadata table
             table.move(
@@ -566,7 +607,7 @@ local function render_content_dir(output_path, content, parent_dir)
                 ),
             }
             table.insert(links, {
-                link = dir .. "/index.html",
+                link = dir .. "/" .. index_file,
                 file_type = file_utils.FileType.DIRECTORY,
                 display_name = dir .. "/",
                 metadata = subdir_metadata,
@@ -647,7 +688,8 @@ local function main()
 
     file_utils.make_dir_if_not_exists(CONFIG.generator.output_dir)
     local output_path = CONFIG.generator.output_dir .. "/"
-    local content_data = render_content_dir(output_path, content_root)
+    local source_path = CONFIG.generator.input_dir .. "/"
+    local content_data = render_content_dir(output_path, content_root, nil, source_path)
 
     lock_files.write(LOCK_FILE, CONFIG.generator.lock_file)
     -- Copy shared assets first, then site-specific assets overwrite them

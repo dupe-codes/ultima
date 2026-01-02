@@ -1,28 +1,28 @@
 @font-face {
     font-family: 'departure_monoregular';
-    src: url('fonts/departuremono-regular-webfont.woff2') format('woff2'),
-         url('fonts/departuremono-regular-webfont.woff') format('woff');
+    src: url('../fonts/departuremono-regular-webfont.woff2') format('woff2'),
+         url('../fonts/departuremono-regular-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'drafting_monoregular';
-    src: url('fonts/draftingmono-regular-webfont.woff2') format('woff2'),
-         url('fonts/draftingmono-regular-webfont.woff') format('woff');
+    src: url('../fonts/draftingmono-regular-webfont.woff2') format('woff2'),
+         url('../fonts/draftingmono-regular-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'berkeley_mono_regular';
-    src: url('fonts/BerkeleyMono-Regular.woff2') format('woff2'),
-         url('fonts/BerkeleyMono-Regular.woff') format('woff');
+    src: url('../fonts/BerkeleyMono-Regular.woff2') format('woff2'),
+         url('../fonts/BerkeleyMono-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'eb_garamond12_regular';
-    src: url('fonts/ebgaramond12-regular-webfont.woff2') format('woff2'),
-         url('fonts/ebgaramond12-regular-webfont.woff') format('woff');
+    src: url('../fonts/ebgaramond12-regular-webfont.woff2') format('woff2'),
+         url('../fonts/ebgaramond12-regular-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
