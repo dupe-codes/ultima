@@ -17,6 +17,7 @@ toc: true
 ## dystopian
 
 1. the memory police by yoko ogawa
+2. never let me go by [Kazuo Ishiguro](https://en.wikipedia.org/wiki/Kazuo_Ishiguro)
 
 ## fantasy
 
