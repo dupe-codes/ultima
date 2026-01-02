@@ -294,6 +294,35 @@ a {
     margin-bottom: 5px;
 }
 
+/* Table of Contents */
+.post-content #TOC {
+    margin-bottom: 2em;
+    font-size: 0.9em;
+}
+
+.post-content #TOC ul {
+    margin: 0;
+    padding-left: 1.5em;
+    list-style-type: none;
+}
+
+.post-content #TOC > ul {
+    padding-left: 0;
+}
+
+.post-content #TOC li {
+    margin: 0.3em 0;
+}
+
+.post-content #TOC a {
+    text-decoration: none;
+    color: var(--color-primary);
+}
+
+.post-content #TOC a:hover {
+    text-decoration: underline;
+}
+
 .post-content img {
     display: block;
     max-width: 100%;

@@ -14,6 +14,7 @@ local lock_files = require "lock_files"
 local template_engine = require "templates.engine"
 
 local PANDOC_CMD_FMT = "pandoc -t html --lua-filter=%s %s"
+local PANDOC_CMD_FMT_TOC = "pandoc -t html --toc --toc-depth=3 --template=src/pandoc/toc-template.html --lua-filter=%s %s"
 
 -- TODO: set up logging with LuaLogging package
 
@@ -58,6 +59,31 @@ local DEFAULT_RECENTLY_UPDATED_THRESHOLD = 7
 
 local function get_template_path(tmpl_name)
     return CONFIG.templates.dir .. "/" .. tmpl_name
+end
+
+-- Quick check if frontmatter contains toc: true
+local function has_toc_enabled(source_path)
+    local file = io.open(source_path, "r")
+    if not file then
+        return false
+    end
+
+    local in_frontmatter = false
+    for line in file:lines() do
+        if line:match("^%-%-%-") then
+            if in_frontmatter then
+                break -- End of frontmatter
+            else
+                in_frontmatter = true
+            end
+        elseif in_frontmatter and line:match("^toc:%s*true") then
+            file:close()
+            return true
+        end
+    end
+
+    file:close()
+    return false
 end
 
 local function find_content(content_dir)
@@ -273,8 +299,9 @@ local function render_media_file(metadata, output_path, output_file)
 end
 
 local function render_file(output_path, source_path, file_name)
+    local cmd_fmt = has_toc_enabled(source_path) and PANDOC_CMD_FMT_TOC or PANDOC_CMD_FMT
     local pandoc_cmd = string.format(
-        PANDOC_CMD_FMT,
+        cmd_fmt,
         "src/pandoc/processor.lua",
         formatters.shell_escape(source_path)
     )

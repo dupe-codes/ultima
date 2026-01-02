@@ -3,6 +3,7 @@ title: "Wiki-style Links Demo"
 draft: true
 drafted: 2026-01-01
 description: "Demonstrating the wiki-link syntax for easy internal linking"
+toc: true
 ---
 
 # Wiki-style Links
