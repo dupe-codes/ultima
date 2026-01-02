@@ -1,44 +1,16 @@
 {
   "files":{
-    "sites/dupe_sh/content/bookshelf/on programming.md":{
-      "checksum":"8584372367be600244777464368285d8",
-      "last_modified_ts":"2024-10-05T17:56:47Z",
+    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/asynchronous communication/sagas.md":{
+      "checksum":"68b329da9893e34099c7d8ad5cb9c940",
+      "last_modified_ts":"2026-01-02T00:13:04Z",
+      "metadata_checksum":"944a05b23d2595a498236bf855b22841",
       "file_size":"1.14 KiB"
     },
-    "sites/dupe_sh/content/bookshelf/on programming/tuples.md":{
-      "checksum":"f6df6be54414add401be7303d2cb9801",
-      "last_modified_ts":"2024-10-16T03:18:02Z",
-      "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
-      "file_size":"1.18 KiB"
-    },
-    "sites/dupe_sh/content/about.md":{
-      "checksum":"f00374f8ecd52052a22bd134031a233f",
-      "last_modified_ts":"2024-10-05T17:56:46Z",
-      "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
-      "file_size":"1.87 KiB"
-    },
-    "sites/dupe_sh/content/draft.md":{
-      "checksum":"68b329da9893e34099c7d8ad5cb9c940",
-      "last_modified_ts":"2024-10-13T19:04:05Z",
-      "file_size":"642.00 B"
-    },
-    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/storing data/embedded databases.md":{
-      "checksum":"0ff400082f145fe9ea840e5694e0f06d",
-      "last_modified_ts":"2026-01-02T00:07:04Z",
-      "metadata_checksum":"e767e4ef935b0da27630f5550e96966d",
-      "file_size":"1.49 KiB"
-    },
-    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/storing data/replication.md":{
-      "checksum":"c56b73ee94c49f96b83362430ea56a16",
-      "last_modified_ts":"2024-11-03T20:37:19Z",
-      "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
-      "file_size":"735.00 B"
-    },
-    "sites/dupe_sh/content/bookshelf/on programming/ocaml-notes.md":{
-      "checksum":"f379a8ed8b3fb45719694618ffba9349",
-      "last_modified_ts":"2025-03-07T21:58:43Z",
-      "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
-      "file_size":"1.08 KiB"
+    "sites/dupe_sh/content/manuscripts/in-n-out, my brief stint at princeton.md":{
+      "checksum":"f5f5ea85d1638624e4fc2327212c09dd",
+      "last_modified_ts":"2026-01-02T00:13:04Z",
+      "metadata_checksum":"d888b703b0ed175eb9cf8896ce8e0f0b",
+      "file_size":"5.92 KiB"
     },
     "sites/dupe_sh/content/links.md":{
       "checksum":"07e32fa4c19522c36c644bffe460aba8",
@@ -46,29 +18,55 @@
       "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
       "file_size":"1.72 KiB"
     },
-    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/good old coding/stacks on stacks.md":{
-      "checksum":"4090fba8035b9684c05e2defb9ca9a88",
-      "last_modified_ts":"2026-01-02T00:07:04Z",
-      "metadata_checksum":"441c555255716024f9ca2eba2ef990d6",
-      "file_size":"6.02 KiB"
+    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/domain specific/authorization & authentication.md":{
+      "checksum":"c3395697155d1132142de2f5d4ca8629",
+      "last_modified_ts":"2026-01-02T00:13:04Z",
+      "metadata_checksum":"15cb1aa6213a41c4c954d7f0671570da",
+      "file_size":"3.49 KiB"
     },
-    "sites/dupe_sh/content/bookshelf/snippets.md":{
-      "checksum":"7ada7dbd14bc2440d457fb3d4be5fbb4",
-      "last_modified_ts":"2024-11-27T20:43:07Z",
+    "sites/dupe_sh/content/manuscripts/off on a coding adventure.md":{
+      "checksum":"dfa15b6926227e627a5f9e5e9b57c6cf",
+      "last_modified_ts":"2026-01-02T00:13:04Z",
+      "metadata_checksum":"02b5cdbcae198e10f468f3be879e5602",
+      "file_size":"1.55 KiB"
+    },
+    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/asynchronous communication/transactional outbox.md":{
+      "checksum":"68b329da9893e34099c7d8ad5cb9c940",
+      "last_modified_ts":"2026-01-02T00:13:04Z",
+      "metadata_checksum":"944a05b23d2595a498236bf855b22841",
+      "file_size":"1.15 KiB"
+    },
+    "sites/dupe_sh/content/home.md":{
+      "checksum":"64624689c2551cbbbff0ceae9b4b1c1b",
+      "file_size":"2.04 KiB",
+      "last_modified_ts":"2024-10-05T17:56:46Z"
+    },
+    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/distributed systems/main concepts.md":{
+      "checksum":"42c05d0def64ac706765175a64a56a3d",
+      "file_size":"918.00 B",
+      "last_modified_ts":"2024-11-03T21:29:21Z"
+    },
+    "sites/dupe_sh/static/images/sea-turtle.jpeg":{
+      "checksum":"5708d1af46d585f62c6c130088414916",
+      "file_size":"5.22 MiB",
+      "last_modified_ts":"2024-10-13T20:11:40Z"
+    },
+    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/interview categories.md":{
+      "checksum":"a91ee23d2e5f9713de80a72df3dd4a70",
+      "last_modified_ts":"2026-01-02T00:13:04Z",
+      "metadata_checksum":"2724605debf3aa660ed858e5f676e55c",
+      "file_size":"1.99 KiB"
+    },
+    "sites/dupe_sh/content/bookshelf/on programming/ocaml-notes.md":{
+      "checksum":"f379a8ed8b3fb45719694618ffba9349",
+      "last_modified_ts":"2025-03-07T21:58:43Z",
       "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
-      "file_size":"5.63 KiB"
+      "file_size":"1.08 KiB"
     },
-    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/storing data/db data structures.md":{
-      "checksum":"3a7a4e6ca6076bd0fda11b1789513779",
-      "last_modified_ts":"2024-11-03T20:37:19Z",
-      "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
-      "file_size":"911.00 B"
-    },
-    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/programming paradigms/concurrency, parallelism, multithreading.md":{
-      "checksum":"7a03db5c1b5813615b5fbd881831b596",
-      "last_modified_ts":"2026-01-02T00:07:03Z",
-      "metadata_checksum":"4a394ed052e090d8c2c38aaf086f9c7e",
-      "file_size":"3.52 KiB"
+    "sites/dupe_sh/content/draft.md":{
+      "checksum":"68b329da9893e34099c7d8ad5cb9c940",
+      "file_size":"642.00 B",
+      "last_modified_ts":"2024-10-13T19:04:05Z"
     },
     "sites/dupe_sh/content/workshop/project ultima.md":{
       "checksum":"68b329da9893e34099c7d8ad5cb9c940",
@@ -76,197 +74,23 @@
       "metadata_checksum":"25c79beb7593ccacdb6a8afdd1849157",
       "file_size":"651.00 B"
     },
-    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/good old coding/recursive backtracking.md":{
-      "checksum":"98f409fb2a27c8740f825a2e81c1396e",
-      "last_modified_ts":"2026-01-02T00:07:04Z",
-      "metadata_checksum":"084a396cbf751ca1458a219041329c8a",
-      "file_size":"4.14 KiB"
-    },
-    "sites/dupe_sh/content/bookshelf/on programming/providing evidence.md":{
-      "checksum":"5d3e620bba38281b872b2dc7aad81781",
-      "last_modified_ts":"2024-10-15T14:34:26Z",
-      "metadata_checksum":"25c79beb7593ccacdb6a8afdd1849157",
-      "file_size":"754.00 B"
-    },
-    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/about.md":{
-      "checksum":"6d0178df801206ecc429d289504f0bb8",
-      "last_modified_ts":"2026-01-02T00:07:04Z",
-      "metadata_checksum":"1a999f65f920c08e1b471a129d73e26c",
-      "file_size":"1.54 KiB"
-    },
-    "sites/dupe_sh/content/consciousness.md":{
-      "checksum":"f1daa5f4708a28b872ba8894b9ebe7a0",
-      "last_modified_ts":"2024-10-25T19:43:51Z",
-      "metadata_checksum":"25c79beb7593ccacdb6a8afdd1849157",
-      "file_size":"946.00 B"
-    },
-    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/asynchronous communication/transactional outbox.md":{
-      "checksum":"68b329da9893e34099c7d8ad5cb9c940",
-      "last_modified_ts":"2026-01-02T00:07:04Z",
-      "metadata_checksum":"39ab86777388d324790ffd407579ea71",
-      "file_size":"1.15 KiB"
-    },
-    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/domain specific/financial applications.md":{
-      "checksum":"1392ba39bd2e0fa672aedaef3dbd2d35",
-      "last_modified_ts":"2026-01-02T00:07:03Z",
-      "metadata_checksum":"9eb73c5a7b7666afa91fd021ebce2272",
-      "file_size":"1.31 KiB"
-    },
-    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/case studies/bluesky.md":{
-      "checksum":"afcd7a02670134d14ab1116410026021",
-      "last_modified_ts":"2026-01-02T00:07:03Z",
-      "metadata_checksum":"9eb73c5a7b7666afa91fd021ebce2272",
-      "file_size":"5.08 KiB"
-    },
-    "sites/dupe_sh/static/images/clothing-studies.jpeg":{
-      "checksum":"aa64f142161d23e706f9244e59b7c661",
-      "last_modified_ts":"2024-10-12T20:26:59Z",
-      "file_size":"819.97 KiB"
-    },
-    "sites/dupe_sh/static/images/sea-turtle.jpeg":{
-      "checksum":"5708d1af46d585f62c6c130088414916",
-      "last_modified_ts":"2024-10-13T20:11:40Z",
-      "file_size":"5.22 MiB"
-    },
-    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/APIs & web technologies/communication protocols.md":{
-      "checksum":"a49cf59b643ac3df6980f2bb500fa65d",
-      "last_modified_ts":"2026-01-02T00:07:03Z",
-      "metadata_checksum":"0e015f2e4541da5a77e1b2022c0e4df1",
-      "file_size":"2.22 KiB"
-    },
-    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/distributed systems/main concepts.md":{
-      "checksum":"42c05d0def64ac706765175a64a56a3d",
-      "last_modified_ts":"2024-11-03T21:29:21Z",
-      "file_size":"918.00 B"
-    },
-    "sites/dupe_sh/content/manuscripts/2025 - an artistic and personal retrospective.md":{
-      "checksum":"1ae982a2b5e23e70b4afebc98a4a6e3c",
-      "last_modified_ts":"2026-01-02T00:07:04Z",
-      "metadata_checksum":"b7b516ec1fcd8d69680616cfadbefcc2",
-      "file_size":"2.91 KiB"
-    },
     "sites/dupe_sh/content/bookshelf/curriculums/interview prep/coding and algorithms concepts.md":{
       "checksum":"5d63d59f71a996d6309a86c77d1d8da4",
       "last_modified_ts":"2024-12-12T18:07:02Z",
       "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
       "file_size":"55.20 KiB"
     },
-    "sites/dupe_sh/content/manuscripts/on art.md":{
-      "checksum":"64219dd239fb3f367d3a3cb6a1b40fdd",
-      "last_modified_ts":"2024-10-17T01:49:39Z",
-      "metadata_checksum":"25c79beb7593ccacdb6a8afdd1849157",
-      "file_size":"846.00 B"
+    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/about.md":{
+      "checksum":"6d0178df801206ecc429d289504f0bb8",
+      "last_modified_ts":"2026-01-02T00:13:04Z",
+      "metadata_checksum":"80c7c22e899eb25e10c6963f4f33379e",
+      "file_size":"1.54 KiB"
     },
-    "sites/dupe_sh/content/manuscripts/off on a coding adventure.md":{
-      "checksum":"dfa15b6926227e627a5f9e5e9b57c6cf",
-      "last_modified_ts":"2026-01-02T00:07:04Z",
-      "metadata_checksum":"266edf7484484a0bc6de7aa51d198850",
-      "file_size":"1.55 KiB"
-    },
-    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/APIs & web technologies/reverse proxies.md":{
-      "checksum":"5904f6f7714e85a14c28f1fda040eb39",
-      "last_modified_ts":"2026-01-02T00:07:03Z",
-      "metadata_checksum":"9eb73c5a7b7666afa91fd021ebce2272",
-      "file_size":"1.36 KiB"
-    },
-    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/distributed systems/concepts & techniques.md":{
-      "checksum":"69fdbe43b4253c580a57158ced96783c",
-      "last_modified_ts":"2024-11-27T20:43:04Z",
+    "sites/dupe_sh/content/bookshelf/on programming/rules-of-programming.md":{
+      "checksum":"9fc067e00c9f74e729e0301156f1e71c",
+      "last_modified_ts":"2025-03-07T21:58:44Z",
       "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
-      "file_size":"1.61 KiB"
-    },
-    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/systems design core concepts.md":{
-      "checksum":"ff100967b137460a598c4c364127db94",
-      "last_modified_ts":"2024-11-20T01:31:11Z",
-      "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
-      "file_size":"6.39 KiB"
-    },
-    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/domain specific/authorization & authentication.md":{
-      "checksum":"c3395697155d1132142de2f5d4ca8629",
-      "last_modified_ts":"2026-01-02T00:07:03Z",
-      "metadata_checksum":"333b4b7bc1f12e35380b6a6c886b0e46",
-      "file_size":"3.49 KiB"
-    },
-    "sites/dupe_sh/content/bookshelf/curriculums/deep systems programming.md":{
-      "checksum":"a602efece60585f0e87a3be352fc18d2",
-      "last_modified_ts":"2024-10-05T18:37:40Z",
-      "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
-      "file_size":"818.00 B"
-    },
-    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/asynchronous communication/event sourcing.md":{
-      "checksum":"68b329da9893e34099c7d8ad5cb9c940",
-      "last_modified_ts":"2026-01-02T00:07:04Z",
-      "metadata_checksum":"39ab86777388d324790ffd407579ea71",
-      "file_size":"1.15 KiB"
-    },
-    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/asynchronous communication/sagas.md":{
-      "checksum":"68b329da9893e34099c7d8ad5cb9c940",
-      "last_modified_ts":"2026-01-02T00:07:04Z",
-      "metadata_checksum":"39ab86777388d324790ffd407579ea71",
-      "file_size":"1.14 KiB"
-    },
-    "sites/dupe_sh/content/now.md":{
-      "checksum":"11c447a6ac25a34a1bd774d511b3ace8",
-      "last_modified_ts":"2024-10-05T17:56:46Z",
-      "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
-      "file_size":"2.84 KiB"
-    },
-    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/interview categories.md":{
-      "checksum":"a91ee23d2e5f9713de80a72df3dd4a70",
-      "last_modified_ts":"2026-01-02T00:07:04Z",
-      "metadata_checksum":"9eb73c5a7b7666afa91fd021ebce2272",
-      "file_size":"1.99 KiB"
-    },
-    "sites/dupe_sh/content/manuscripts/in-n-out, my brief stint at princeton.md":{
-      "checksum":"f5f5ea85d1638624e4fc2327212c09dd",
-      "last_modified_ts":"2026-01-02T00:07:04Z",
-      "metadata_checksum":"a8632c50bcd8108ae7af79d5839b58bc",
-      "file_size":"5.92 KiB"
-    },
-    "sites/dupe_sh/content/gallery/clothing studies.md":{
-      "checksum":"68b329da9893e34099c7d8ad5cb9c940",
-      "last_modified_ts":"2024-10-12T20:23:04Z",
-      "file_size":"653.00 B"
-    },
-    "sites/dupe_sh/content/home.md":{
-      "checksum":"64624689c2551cbbbff0ceae9b4b1c1b",
-      "last_modified_ts":"2024-10-05T17:56:46Z",
-      "file_size":"2.04 KiB"
-    },
-    "sites/dupe_sh/content/manuscripts/not another.md":{
-      "checksum":"68b329da9893e34099c7d8ad5cb9c940",
-      "last_modified_ts":"2024-10-15T14:34:25Z",
-      "metadata_checksum":"25c79beb7593ccacdb6a8afdd1849157",
-      "file_size":"648.00 B"
-    },
-    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/caching/in-memory KV stores.md":{
-      "checksum":"ebeab9b718f38eed92d622e6ea4e53e7",
-      "last_modified_ts":"2024-11-03T19:56:33Z",
-      "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
-      "file_size":"685.00 B"
-    },
-    "sites/dupe_sh/static/images/blue_sky.png":{
-      "checksum":"9cf52c4279fa4c7d38d5f8a50febd019",
-      "last_modified_ts":"2024-11-20T21:15:12Z",
-      "file_size":"275.68 KiB"
-    },
-    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/querying and data models/transactions.md":{
-      "checksum":"a67474a959bf7b07d57d58c4716f3cc5",
-      "last_modified_ts":"2024-11-03T21:50:06Z",
-      "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
-      "file_size":"4.67 KiB"
-    },
-    "sites/dupe_sh/content/test.md":{
-      "checksum":"84eb0b8ff0a859ac8d3e3b1f40cf0155",
-      "last_modified_ts":"2024-11-27T21:15:07Z",
-      "metadata_checksum":"25c79beb7593ccacdb6a8afdd1849157",
-      "file_size":"870.00 B"
-    },
-    "sites/dupe_sh/content/bookshelf/on programming/rust cheatsheet.md":{
-      "checksum":"9f8599b1099a1f4068bfc4175b4e0d37",
-      "last_modified_ts":"2026-01-02T00:07:04Z",
-      "metadata_checksum":"1a999f65f920c08e1b471a129d73e26c",
-      "file_size":"5.81 KiB"
+      "file_size":"887.00 B"
     },
     "sites/dupe_sh/content/bookshelf/curriculums/interview prep/python programming cheatsheet.md":{
       "checksum":"d30b12a93e43e789cad9d1ebbc0930c0",
@@ -274,11 +98,187 @@
       "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
       "file_size":"25.43 KiB"
     },
-    "sites/dupe_sh/content/bookshelf/on programming/rules-of-programming.md":{
-      "checksum":"9fc067e00c9f74e729e0301156f1e71c",
-      "last_modified_ts":"2025-03-07T21:58:44Z",
+    "sites/dupe_sh/content/bookshelf/on programming/rust cheatsheet.md":{
+      "checksum":"9f8599b1099a1f4068bfc4175b4e0d37",
+      "last_modified_ts":"2026-01-02T00:13:04Z",
+      "metadata_checksum":"80c7c22e899eb25e10c6963f4f33379e",
+      "file_size":"5.81 KiB"
+    },
+    "sites/dupe_sh/content/about.md":{
+      "checksum":"f00374f8ecd52052a22bd134031a233f",
+      "last_modified_ts":"2024-10-05T17:56:46Z",
       "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
-      "file_size":"887.00 B"
+      "file_size":"1.87 KiB"
+    },
+    "sites/dupe_sh/content/consciousness.md":{
+      "checksum":"f1daa5f4708a28b872ba8894b9ebe7a0",
+      "last_modified_ts":"2024-10-25T19:43:51Z",
+      "metadata_checksum":"25c79beb7593ccacdb6a8afdd1849157",
+      "file_size":"946.00 B"
+    },
+    "sites/dupe_sh/content/bookshelf/curriculums/deep systems programming.md":{
+      "checksum":"a602efece60585f0e87a3be352fc18d2",
+      "last_modified_ts":"2024-10-05T18:37:40Z",
+      "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
+      "file_size":"818.00 B"
+    },
+    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/APIs & web technologies/reverse proxies.md":{
+      "checksum":"5904f6f7714e85a14c28f1fda040eb39",
+      "last_modified_ts":"2026-01-02T00:13:04Z",
+      "metadata_checksum":"2724605debf3aa660ed858e5f676e55c",
+      "file_size":"1.36 KiB"
+    },
+    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/storing data/embedded databases.md":{
+      "checksum":"0ff400082f145fe9ea840e5694e0f06d",
+      "last_modified_ts":"2026-01-02T00:13:04Z",
+      "metadata_checksum":"7498978242ee48be1c319a3bd00cf364",
+      "file_size":"1.49 KiB"
+    },
+    "sites/dupe_sh/content/bookshelf/on programming/providing evidence.md":{
+      "checksum":"5d3e620bba38281b872b2dc7aad81781",
+      "last_modified_ts":"2024-10-15T14:34:26Z",
+      "metadata_checksum":"25c79beb7593ccacdb6a8afdd1849157",
+      "file_size":"754.00 B"
+    },
+    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/good old coding/recursive backtracking.md":{
+      "checksum":"98f409fb2a27c8740f825a2e81c1396e",
+      "last_modified_ts":"2026-01-02T00:13:04Z",
+      "metadata_checksum":"38130b6a2e7961bed79fe22ad7ce4ae7",
+      "file_size":"4.14 KiB"
+    },
+    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/storing data/db data structures.md":{
+      "checksum":"3a7a4e6ca6076bd0fda11b1789513779",
+      "last_modified_ts":"2024-11-03T20:37:19Z",
+      "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
+      "file_size":"911.00 B"
+    },
+    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/case studies/bluesky.md":{
+      "checksum":"afcd7a02670134d14ab1116410026021",
+      "last_modified_ts":"2026-01-02T00:13:04Z",
+      "metadata_checksum":"2724605debf3aa660ed858e5f676e55c",
+      "file_size":"5.08 KiB"
+    },
+    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/querying and data models/transactions.md":{
+      "checksum":"a67474a959bf7b07d57d58c4716f3cc5",
+      "last_modified_ts":"2024-11-03T21:50:06Z",
+      "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
+      "file_size":"4.67 KiB"
+    },
+    "sites/dupe_sh/content/bookshelf/on programming.md":{
+      "checksum":"8584372367be600244777464368285d8",
+      "file_size":"1.14 KiB",
+      "last_modified_ts":"2024-10-05T17:56:47Z"
+    },
+    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/good old coding/stacks on stacks.md":{
+      "checksum":"4090fba8035b9684c05e2defb9ca9a88",
+      "last_modified_ts":"2026-01-02T00:13:04Z",
+      "metadata_checksum":"20c17d2187eab0c1ddaba72941b0d6bb",
+      "file_size":"6.02 KiB"
+    },
+    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/distributed systems/concepts & techniques.md":{
+      "checksum":"69fdbe43b4253c580a57158ced96783c",
+      "last_modified_ts":"2024-11-27T20:43:04Z",
+      "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
+      "file_size":"1.61 KiB"
+    },
+    "sites/dupe_sh/static/images/blue_sky.png":{
+      "checksum":"9cf52c4279fa4c7d38d5f8a50febd019",
+      "file_size":"275.68 KiB",
+      "last_modified_ts":"2024-11-20T21:15:12Z"
+    },
+    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/APIs & web technologies/communication protocols.md":{
+      "checksum":"a49cf59b643ac3df6980f2bb500fa65d",
+      "last_modified_ts":"2026-01-02T00:13:04Z",
+      "metadata_checksum":"8182a6ff42c407dfd1c84d20de92b9d5",
+      "file_size":"2.22 KiB"
+    },
+    "sites/dupe_sh/content/manuscripts/not another.md":{
+      "checksum":"68b329da9893e34099c7d8ad5cb9c940",
+      "last_modified_ts":"2024-10-15T14:34:25Z",
+      "metadata_checksum":"25c79beb7593ccacdb6a8afdd1849157",
+      "file_size":"648.00 B"
+    },
+    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/domain specific/financial applications.md":{
+      "checksum":"1392ba39bd2e0fa672aedaef3dbd2d35",
+      "last_modified_ts":"2026-01-02T00:13:04Z",
+      "metadata_checksum":"2724605debf3aa660ed858e5f676e55c",
+      "file_size":"1.31 KiB"
+    },
+    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/storing data/replication.md":{
+      "checksum":"c56b73ee94c49f96b83362430ea56a16",
+      "last_modified_ts":"2024-11-03T20:37:19Z",
+      "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
+      "file_size":"735.00 B"
+    },
+    "sites/dupe_sh/content/manuscripts/on art.md":{
+      "checksum":"64219dd239fb3f367d3a3cb6a1b40fdd",
+      "last_modified_ts":"2024-10-17T01:49:39Z",
+      "metadata_checksum":"25c79beb7593ccacdb6a8afdd1849157",
+      "file_size":"846.00 B"
+    },
+    "sites/dupe_sh/static/images/clothing-studies.jpeg":{
+      "checksum":"aa64f142161d23e706f9244e59b7c661",
+      "file_size":"819.97 KiB",
+      "last_modified_ts":"2024-10-12T20:26:59Z"
+    },
+    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/caching/in-memory KV stores.md":{
+      "checksum":"ebeab9b718f38eed92d622e6ea4e53e7",
+      "last_modified_ts":"2024-11-03T19:56:33Z",
+      "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
+      "file_size":"685.00 B"
+    },
+    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/programming paradigms/concurrency, parallelism, multithreading.md":{
+      "checksum":"7a03db5c1b5813615b5fbd881831b596",
+      "last_modified_ts":"2026-01-02T00:13:04Z",
+      "metadata_checksum":"bee4d5e6d4b89da8fbf5a46d1a1d5bfc",
+      "file_size":"3.52 KiB"
+    },
+    "sites/dupe_sh/content/gallery/clothing studies.md":{
+      "checksum":"68b329da9893e34099c7d8ad5cb9c940",
+      "file_size":"653.00 B",
+      "last_modified_ts":"2024-10-12T20:23:04Z"
+    },
+    "sites/dupe_sh/content/bookshelf/snippets.md":{
+      "checksum":"7ada7dbd14bc2440d457fb3d4be5fbb4",
+      "last_modified_ts":"2024-11-27T20:43:07Z",
+      "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
+      "file_size":"5.63 KiB"
+    },
+    "sites/dupe_sh/content/now.md":{
+      "checksum":"11c447a6ac25a34a1bd774d511b3ace8",
+      "last_modified_ts":"2024-10-05T17:56:46Z",
+      "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
+      "file_size":"2.84 KiB"
+    },
+    "sites/dupe_sh/content/test.md":{
+      "checksum":"84eb0b8ff0a859ac8d3e3b1f40cf0155",
+      "last_modified_ts":"2024-11-27T21:15:07Z",
+      "metadata_checksum":"25c79beb7593ccacdb6a8afdd1849157",
+      "file_size":"870.00 B"
+    },
+    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/systems design core concepts.md":{
+      "checksum":"ff100967b137460a598c4c364127db94",
+      "last_modified_ts":"2024-11-20T01:31:11Z",
+      "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
+      "file_size":"6.39 KiB"
+    },
+    "sites/dupe_sh/content/manuscripts/2025 - an artistic and personal retrospective.md":{
+      "checksum":"1ae982a2b5e23e70b4afebc98a4a6e3c",
+      "last_modified_ts":"2026-01-02T00:13:04Z",
+      "metadata_checksum":"b48282664096d84a283eeb60e08b0488",
+      "file_size":"2.91 KiB"
+    },
+    "sites/dupe_sh/content/bookshelf/on programming/tuples.md":{
+      "checksum":"f6df6be54414add401be7303d2cb9801",
+      "last_modified_ts":"2024-10-16T03:18:02Z",
+      "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
+      "file_size":"1.18 KiB"
+    },
+    "sites/dupe_sh/content/bookshelf/curriculums/interview prep/asynchronous communication/event sourcing.md":{
+      "checksum":"68b329da9893e34099c7d8ad5cb9c940",
+      "last_modified_ts":"2026-01-02T00:13:04Z",
+      "metadata_checksum":"944a05b23d2595a498236bf855b22841",
+      "file_size":"1.15 KiB"
     }
   }
 }

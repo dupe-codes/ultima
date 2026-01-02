@@ -7,6 +7,21 @@ local file_utils = require "utils.files"
 
 local M = {}
 
+-- Helper to get sorted keys for deterministic JSON encoding
+local function get_sorted_keys(tbl)
+    local keys = {}
+    for k in pairs(tbl) do
+        table.insert(keys, k)
+    end
+    table.sort(keys)
+    return keys
+end
+
+-- Encode with sorted keys for deterministic output
+local function encode_deterministic(tbl)
+    return json.encode(tbl, { keyorder = get_sorted_keys(tbl) })
+end
+
 function M.load(lock_file_path)
     local lock_file_exists = lfs.attributes(lock_file_path)
     if not lock_file_exists then
@@ -58,7 +73,7 @@ function M.file_content_changed(lock_file, file_path, content, metadata)
 
     local lock_file_attrs = lock_file.files[file_path]
     local content_checksum = md5.sumhexa(content)
-    local metadata_checksum = metadata and md5.sumhexa(json.encode(metadata)) or nil
+    local metadata_checksum = metadata and md5.sumhexa(encode_deterministic(metadata)) or nil
 
     if not lock_file_attrs or not lock_file_attrs.checksum then
         return true, content_checksum, metadata_checksum
