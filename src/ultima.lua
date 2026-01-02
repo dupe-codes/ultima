@@ -11,7 +11,7 @@ local file_utils = require "utils.files"
 local formatters = require "utils.formatters"
 local functions = require "utils.functions"
 local lock_files = require "lock_files"
-local template_engine = require "templates.engine"
+local template_engine = require "template_engine"
 
 local PANDOC_CMD_FMT = "pandoc -t html --lua-filter=%s %s"
 local PANDOC_CMD_FMT_TOC = "pandoc -t html --toc --toc-depth=3 --template=src/pandoc/toc-template.html --lua-filter=%s %s"
@@ -57,8 +57,22 @@ local DEFAULT_RECENTLY_UPDATED_THRESHOLD = 7
 
 -- START: rendering logic
 
+local SHARED_TEMPLATES_DIR = "src/templates"
+
 local function get_template_path(tmpl_name)
-    return CONFIG.templates.dir .. "/" .. tmpl_name
+    -- Check site-specific templates first, then fall back to shared templates
+    local site_template = CONFIG.templates.dir .. "/" .. tmpl_name
+    if lfs.attributes(site_template, "mode") == "file" then
+        return site_template
+    end
+
+    local shared_template = SHARED_TEMPLATES_DIR .. "/" .. tmpl_name
+    if lfs.attributes(shared_template, "mode") == "file" then
+        return shared_template
+    end
+
+    -- Return site path for error messaging if neither exists
+    return site_template
 end
 
 -- Quick check if frontmatter contains toc: true

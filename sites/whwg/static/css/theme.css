@@ -1,0 +1,52 @@
+/* WHWG theme - lavender/purple palette */
+:root {
+    /* Typography */
+    --font-size-base: 16px;
+    --font-size-post: 16px;
+    --font-size-post-h1: 1.8em;
+    --font-size-post-metadata: 0.9em;
+    --line-height-post: 1.6;
+
+    /* Primary palette - purple */
+    --color-primary: #8c62c7;
+    --color-primary-dark: #4a437d;
+    --color-accent: #a98bd4;
+
+    /* Background colors - lavender */
+    --color-bg: #f3eefc;
+    --color-bg-card: #ffffff;
+    --color-bg-highlight: #eae4f8;
+    --color-bg-highlight-dark: #d8d0eb;
+    --color-bg-hover: #eae4f8;
+    --color-bg-active: #ddd6f0;
+
+    /* Text colors */
+    --color-text: #333333;
+    --color-text-muted: #6b7280;
+    --color-text-inverse: #ffffff;
+
+    /* Border colors */
+    --color-border: #ddd;
+    --color-border-light: #eee;
+    --color-border-dark: #ccc;
+
+    /* Status colors */
+    --color-error: #b84a3c;
+    --color-success: #5a8a5a;
+    --color-warning: #c99a4a;
+
+    /* Chart colors */
+    --color-chart-1: #8c62c7;
+    --color-chart-2: #4a437d;
+    --color-chart-3: #a98bd4;
+    --color-chart-4: #c4b0e0;
+    --color-chart-5: #d8d0eb;
+    --color-chart-6: #eae4f8;
+    --color-chart-7: #6b5a9e;
+    --color-chart-8: #b8a0d8;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(74, 67, 125, 0.08);
+    --shadow-md: 0 4px 8px rgba(74, 67, 125, 0.1);
+    --shadow-lg: 0 4px 12px rgba(74, 67, 125, 0.12);
+}
