@@ -1,16 +1,16 @@
 {
   "files":{
-    "sites/whwg/content/newsletters/newsletter 1 - introductions, plans, hopes, dreams, fears!.md":{
-      "checksum":"68b329da9893e34099c7d8ad5cb9c940",
-      "file_size":"879.00 B",
-      "metadata_checksum":"a465803e3babaf789d34c3b12817b6b3",
-      "last_modified_ts":"2025-03-09T00:33:35Z"
-    },
     "sites/whwg/content/about.md":{
-      "checksum":"95541378cfc2a3c2d9815075d2169945",
       "file_size":"1.38 KiB",
-      "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b",
-      "last_modified_ts":"2025-03-09T00:33:35Z"
+      "last_modified_ts":"2025-03-09T00:33:35Z",
+      "checksum":"95541378cfc2a3c2d9815075d2169945",
+      "metadata_checksum":"99914b932bd37a50b983c5e7c90ae93b"
+    },
+    "sites/whwg/content/newsletters/newsletter 1 - introductions, plans, hopes, dreams, fears!.md":{
+      "file_size":"879.00 B",
+      "last_modified_ts":"2025-03-09T00:33:35Z",
+      "checksum":"68b329da9893e34099c7d8ad5cb9c940",
+      "metadata_checksum":"a465803e3babaf789d34c3b12817b6b3"
     }
   }
 }
