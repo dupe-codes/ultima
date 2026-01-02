@@ -30,7 +30,7 @@ toc: true
 
 1. the coming of the third reich by richard j. evans
 2. stalin, volume I by stephen kotkin
-3. battle cry of freedom by jams m. mcpherson
+3. battle cry of freedom by james m. mcpherson
 
 ## politics
 
