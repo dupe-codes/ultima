@@ -698,6 +698,8 @@ local function main()
         CONFIG.generator.static_dir,
         CONFIG.generator.output_dir .. "/static"
     )
+
+    -- TODO: add config value to toggle this on/off
     generate_xml_feed(CONFIG.generator.output_dir, content_data)
 end
 
