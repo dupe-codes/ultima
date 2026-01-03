@@ -598,32 +598,30 @@ local function write_index_file(file_path, links, parent_dir, all_links, all_con
         )
     )
 
-    -- Generate timeline view only at site root
-    if not parent_dir then
-        local timeline_data = generate_timeline_data(all_content)
-        local timeline_page = template_engine.compile_template_file(
-            get_template_path "timeline.htmlua",
+    -- Generate timeline view for all index pages
+    local timeline_data = generate_timeline_data(all_content)
+    local timeline_page = template_engine.compile_template_file(
+        get_template_path "timeline.htmlua",
+        {
+            config = CONFIG,
+            dir_name = current_dir_path,
+            timeline = timeline_data,
+            ipairs = ipairs,
+            description = CONFIG.main.description,
+        }
+    )
+
+    file_utils.write_file(
+        file_path:gsub("index%.html$", "timeline.html"),
+        template_engine.compile_template_file(
+            get_template_path(CONFIG.templates.default),
             {
                 config = CONFIG,
-                dir_name = current_dir_path,
-                timeline = timeline_data,
-                ipairs = ipairs,
-                description = CONFIG.main.description,
+                content = timeline_page,
+                generate_absolute_path = formatters.generate_absolute_path,
             }
         )
-
-        file_utils.write_file(
-            file_path:gsub("index%.html$", "timeline.html"),
-            template_engine.compile_template_file(
-                get_template_path(CONFIG.templates.default),
-                {
-                    config = CONFIG,
-                    content = timeline_page,
-                    generate_absolute_path = formatters.generate_absolute_path,
-                }
-            )
-        )
-    end
+    )
 end
 
 local function render_content_dir(output_path, content, parent_dir, source_path)
