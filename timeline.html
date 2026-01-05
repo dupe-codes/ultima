@@ -22,6 +22,67 @@
         <p>jaunts through the software and artistic frontiers</p>
     
 
+    <div class="search-container">
+        <input type="text" id="search-bar" placeholder="/ to search..." />
+        <div id="search-results" class="search-dropdown"></div>
+    </div>
+
+    
+        <div class="recently-updated">
+            <div class="recently-updated-header">
+                <i class="mi-clock"></i>
+                <p>recently updated</p>
+            </div>
+            <ul class="recently-updated-list">
+                
+                    <li>
+                        <a href="https://dupe.sh/bookshelf/curriculums/interview prep/storing data/embedded databases.html">embedded databases</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://dupe.sh/bookshelf/curriculums/interview prep/programming paradigms/concurrency, parallelism, multithreading.html">concurrency, parallelism, multithreading</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://dupe.sh/bookshelf/curriculums/interview prep/domain specific/authorization & authentication.html">authorization & authentication</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://dupe.sh/bookshelf/curriculums/interview prep/about.html">about</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://dupe.sh/bookshelf/on programming/rust cheatsheet.html">rust cheatsheet</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://dupe.sh/manuscripts/off on a coding adventure.html">off on a coding adventure</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://dupe.sh/manuscripts/in-n-out, my brief stint at princeton.html">in-n-out, my brief stint at princeton</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://dupe.sh/manuscripts/2025 - an artistic and personal retrospective.html">2025 - an artistic and personal retrospective</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://dupe.sh/links.html">links</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://dupe.sh/now.html">now</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://dupe.sh/about.html">about</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
     <div class="view-toggle">
         <a href="index.html" class="view-button">
             <i class="mi-table"></i> table
@@ -66,13 +127,13 @@
                         
                             <li class="timeline-entry">
                                 <span class="timeline-date">2024-12-03</span>
-                                <a href="https://dupe.sh/bookshelf/on programming/rust cheatsheet.html">rust cheatsheet</a>
+                                <a href="https://dupe.sh/bookshelf/curriculums/interview prep/about.html">about</a>
                                 
                             </li>
                         
                             <li class="timeline-entry">
                                 <span class="timeline-date">2024-12-03</span>
-                                <a href="https://dupe.sh/bookshelf/curriculums/interview prep/about.html">about</a>
+                                <a href="https://dupe.sh/bookshelf/on programming/rust cheatsheet.html">rust cheatsheet</a>
                                 
                             </li>
                         
@@ -132,6 +193,144 @@
     
 
 </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var allLinks = JSON.parse('[{"search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/caching/in-memory KV stores.html","link":"https://dupe.sh/bookshelf/curriculums/interview prep/caching/in-memory KV stores.html"},{"search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/storing data/db data structures.html","link":"https://dupe.sh/bookshelf/curriculums/interview prep/storing data/db data structures.html"},{"search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/storing data/embedded databases.html","link":"https://dupe.sh/bookshelf/curriculums/interview prep/storing data/embedded databases.html"},{"search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/storing data/replication.html","link":"https://dupe.sh/bookshelf/curriculums/interview prep/storing data/replication.html"},{"search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/distributed systems/concepts & techniques.html","link":"https://dupe.sh/bookshelf/curriculums/interview prep/distributed systems/concepts & techniques.html"},{"search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/querying and data models/transactions.html","link":"https://dupe.sh/bookshelf/curriculums/interview prep/querying and data models/transactions.html"},{"search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/programming paradigms/concurrency, parallelism, multithreading.html","link":"https://dupe.sh/bookshelf/curriculums/interview prep/programming paradigms/concurrency, parallelism, multithreading.html"},{"search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/domain specific/authorization & authentication.html","link":"https://dupe.sh/bookshelf/curriculums/interview prep/domain specific/authorization & authentication.html"},{"search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/case studies/blue_sky.png","link":"https://dupe.sh/static/images/blue_sky.png"},{"search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/about.html","link":"https://dupe.sh/bookshelf/curriculums/interview prep/about.html"},{"search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/coding and algorithms concepts.html","link":"https://dupe.sh/bookshelf/curriculums/interview prep/coding and algorithms concepts.html"},{"search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/python programming cheatsheet.html","link":"https://dupe.sh/bookshelf/curriculums/interview prep/python programming cheatsheet.html"},{"search_display":"https://dupe.sh/bookshelf/curriculums/interview prep/systems design core concepts.html","link":"https://dupe.sh/bookshelf/curriculums/interview prep/systems design core concepts.html"},{"search_display":"https://dupe.sh/bookshelf/curriculums/deep systems programming.html","link":"https://dupe.sh/bookshelf/curriculums/deep systems programming.html"},{"search_display":"https://dupe.sh/bookshelf/on programming/ocaml-notes.html","link":"https://dupe.sh/bookshelf/on programming/ocaml-notes.html"},{"search_display":"https://dupe.sh/bookshelf/on programming/rules-of-programming.html","link":"https://dupe.sh/bookshelf/on programming/rules-of-programming.html"},{"search_display":"https://dupe.sh/bookshelf/on programming/rust cheatsheet.html","link":"https://dupe.sh/bookshelf/on programming/rust cheatsheet.html"},{"search_display":"https://dupe.sh/bookshelf/on programming/tuples.html","link":"https://dupe.sh/bookshelf/on programming/tuples.html"},{"search_display":"https://dupe.sh/bookshelf/snippets.html","link":"https://dupe.sh/bookshelf/snippets.html"},{"search_display":"https://dupe.sh/gallery/clothing-studies.jpeg","link":"https://dupe.sh/static/images/clothing-studies.jpeg"},{"search_display":"https://dupe.sh/gallery/sea-turtle.jpeg","link":"https://dupe.sh/static/images/sea-turtle.jpeg"},{"search_display":"https://dupe.sh/manuscripts/off on a coding adventure.html","link":"https://dupe.sh/manuscripts/off on a coding adventure.html"},{"search_display":"https://dupe.sh/manuscripts/in-n-out, my brief stint at princeton.html","link":"https://dupe.sh/manuscripts/in-n-out, my brief stint at princeton.html"},{"search_display":"https://dupe.sh/manuscripts/2025 - an artistic and personal retrospective.html","link":"https://dupe.sh/manuscripts/2025 - an artistic and personal retrospective.html"},{"search_display":"https://dupe.sh/links.html","link":"https://dupe.sh/links.html"},{"search_display":"https://dupe.sh/now.html","link":"https://dupe.sh/now.html"},{"search_display":"https://dupe.sh/about.html","link":"https://dupe.sh/about.html"}]');
+
+            var searchBar = document.getElementById('search-bar');
+            var searchResults = document.getElementById('search-results');
+            var currentIndex = -1;
+            var currentMatches = []
+
+            function filterLinks(query) {
+                var matches = [];
+                if (query.trim() === '') {
+                    return allLinks;
+                }
+
+                query = query.toLowerCase();
+
+                for (var i = 0; i < allLinks.length; i++) {
+                    var link = allLinks[i]
+                    if (link.search_display.toLowerCase().includes(query)) {
+                        matches.push(link);
+                    }
+                }
+                return matches;
+            }
+
+            function highlightText(text, query) {
+                var index = text.toLowerCase().indexOf(query.toLowerCase());
+                if (index === -1) {
+                    return text;
+                }
+
+                // Split text into three parts: before match, match, after match
+                var beforeMatch = text.substring(0, index);
+                var matchText = text.substring(index, index + query.length);
+                var afterMatch = text.substring(index + query.length);
+
+                // Return a concatenation of parts with <span> for highlighting the match
+                return `${beforeMatch}<span class="highlight">${matchText}</span>${afterMatch}`;
+            }
+
+            function renderSearchResults(matches, query) {
+                searchResults.innerHTML = '';
+                searchResults.style.display = matches.length > 0 ? 'block' : 'none';
+
+                currentMatches = matches;
+
+                matches.forEach(function(item, index) {
+                    var resultItem = document.createElement('div');
+                    resultItem.className = 'search-result';
+                    resultItem.setAttribute('data-index', index);
+                    resultItem.innerHTML = query ? highlightText(item.search_display, query) : item.search_display;
+
+                    resultItem.addEventListener('click', function() {
+                        window.location.href = item.link;
+                    });
+
+                    searchResults.appendChild(resultItem);
+                });
+
+                if (matches.length > 0) {
+                    currentIndex = 0;
+                    highlightResult(currentIndex);
+                } else {
+                    currentIndex = -1;
+                }
+            }
+
+            function highlightResult(index) {
+                var items = searchResults.getElementsByClassName('search-result');
+                for (var i = 0; i < items.length; i++) {
+                    items[i].classList.remove('highlighted');
+                }
+
+                if (index >= 0 && index < items.length) {
+                    items[index].classList.add('highlighted');
+                    items[index].scrollIntoView({ block: 'nearest' });
+                }
+            }
+
+            searchBar.addEventListener('input', function() {
+                var query = searchBar.value;
+                var matches = filterLinks(query);
+                renderSearchResults(matches, query);
+            });
+
+            searchBar.addEventListener('focus', function() {
+                renderSearchResults(allLinks, '');
+            });
+
+            document.addEventListener('keydown', function(event) {
+                if (event.key === '/' && !event.ctrlKey && !event.altKey && !event.metaKey) {
+                    event.preventDefault();
+                    searchBar.focus();
+                }
+            });
+
+            searchResults.addEventListener('mousedown', function(event) {
+                event.preventDefault();
+            });
+
+            searchBar.addEventListener('blur', function() {
+                searchResults.style.display = 'none';
+                searchBar.value = '';
+            });
+
+            searchBar.addEventListener('keydown', function(event) {
+                var items = searchResults.getElementsByClassName('search-result');
+
+                if (event.key === 'ArrowDown') {
+                    event.preventDefault();
+                    if (currentIndex < items.length - 1) {
+                        currentIndex++;
+                        highlightResult(currentIndex);
+                    }
+                }
+
+                if (event.key === 'ArrowUp') {
+                    event.preventDefault();
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                        highlightResult(currentIndex);
+                    }
+                }
+
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    if (currentIndex >= 0 && currentIndex < items.length) {
+                        var selectedLink = currentMatches[currentIndex].link;
+                        window.location.href = selectedLink;
+                    }
+                }
+            });
+        });
+    </script>
+
 
     <script src="https://dupe.sh/static/js/charts.js"></script>
 </body>
