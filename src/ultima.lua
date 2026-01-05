@@ -191,6 +191,14 @@ local function render_post_file(
     pandoc_output,
     metadata
 )
+    -- Get last modified from lock file (separate from metadata to avoid affecting checksums)
+    local existing_file_data = lock_files.get_file_data(LOCK_FILE, source_path)
+    local last_modified = nil
+    if existing_file_data and existing_file_data.last_modified_ts then
+        -- Extract just YYYY-MM-DD from ISO 8601 timestamp
+        last_modified = existing_file_data.last_modified_ts:match("^(%d%d%d%d%-%d%d%-%d%d)")
+    end
+
     local dir_index_path = formatters.generate_absolute_path(
         CONFIG,
         output_path .. "index.html"
@@ -204,6 +212,7 @@ local function render_post_file(
             content = pandoc_output,
             directory = dir_index_path,
             metadata = metadata,
+            last_modified = last_modified,
             generate_absolute_path = formatters.generate_absolute_path,
         }
     )
@@ -607,7 +616,11 @@ local function write_index_file(file_path, links, parent_dir, all_links, all_con
             dir_name = current_dir_path,
             timeline = timeline_data,
             ipairs = ipairs,
-            description = CONFIG.main.description,
+            all_links = json.encode(all_links),
+            description = is_root and CONFIG.main.description or nil,
+            recently_updated = is_root
+                    and generate_recently_updated_list(all_content)
+                or nil,
         }
     )
 

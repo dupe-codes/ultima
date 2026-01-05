@@ -17,6 +17,10 @@
         {% if metadata.published then }}
             <span>published: {{ metadata.published }}</span>
         {% end }}
+
+        {% if last_modified then }}
+            <span>modified: {{ last_modified }}</span>
+        {% end }}
     </div>
 
 
