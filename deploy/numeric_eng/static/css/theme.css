@@ -10,7 +10,7 @@
     /* Primary palette */
     --color-primary: #7036FF;
     --color-primary-dark: #44094A;
-    --color-accent: #FD742F;
+    --color-accent: #6D7242;
 
     /* Background colors */
     --color-bg: #FAF8F5;
@@ -22,7 +22,7 @@
 
     /* Text colors */
     --color-text: #080707;
-    --color-text-muted: #6D7242;
+    --color-text-muted: #FD742F;
     --color-text-inverse: #FFFFFF;
 
     /* Border colors */
