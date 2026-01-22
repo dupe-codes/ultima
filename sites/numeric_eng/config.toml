@@ -1,6 +1,6 @@
 [main]
 site_name                       = "numeric-eng"
-site_url                        = "https://engineering.numeric.io"
+site_url                        = "https://numeric-eng-directory-kgt43.ondigitalocean.app"
 description                     = "exploring the frontiers of data driven accounting"
 recently_updated_threshold      = 7
 enable_feed                     = false
