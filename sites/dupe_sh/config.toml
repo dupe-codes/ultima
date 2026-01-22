@@ -3,6 +3,7 @@ site_name                       = "dupe.sh"
 site_url                        = "https://dupe.sh"
 description                     = "jaunts through the software and artistic frontiers"
 recently_updated_threshold      = 7
+enable_feed                     = true
 
 [generator]
 input_dir       = "content"

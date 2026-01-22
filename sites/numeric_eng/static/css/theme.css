@@ -1,0 +1,52 @@
+/* Site-specific theme for numeric-eng */
+:root {
+    /* Typography */
+    --font-size-base: 16px;
+    --font-size-post: 16px;
+    --font-size-post-h1: 1.8em;
+    --font-size-post-metadata: 0.9em;
+    --line-height-post: 1.6;
+
+    /* Primary palette */
+    --color-primary: #7036FF;
+    --color-primary-dark: #44094A;
+    --color-accent: #FD742F;
+
+    /* Background colors */
+    --color-bg: #FAF8F5;
+    --color-bg-card: #FFFFFF;
+    --color-bg-highlight: #E9EBD6;
+    --color-bg-highlight-dark: #C5CC7F;
+    --color-bg-hover: #f3f0eb;
+    --color-bg-active: #ebe7e0;
+
+    /* Text colors */
+    --color-text: #080707;
+    --color-text-muted: #6D7242;
+    --color-text-inverse: #FFFFFF;
+
+    /* Border colors */
+    --color-border: #E9EBD6;
+    --color-border-light: #f0f2e6;
+    --color-border-dark: #C5CC7F;
+
+    /* Status colors */
+    --color-error: #c0392b;
+    --color-success: #6D7242;
+    --color-warning: #FD742F;
+
+    /* Chart colors - Numeric brand palette */
+    --color-chart-1: #44094A;
+    --color-chart-2: #7036FF;
+    --color-chart-3: #9966FF;
+    --color-chart-4: #FD742F;
+    --color-chart-5: #6D7242;
+    --color-chart-6: #C5CC7F;
+    --color-chart-7: #E9EBD6;
+    --color-chart-8: #080707;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(8, 7, 7, 0.08);
+    --shadow-md: 0 4px 8px rgba(8, 7, 7, 0.1);
+    --shadow-lg: 0 4px 12px rgba(8, 7, 7, 0.12);
+}

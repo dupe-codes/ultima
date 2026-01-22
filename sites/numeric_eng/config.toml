@@ -1,0 +1,18 @@
+[main]
+site_name                       = "numeric-eng"
+site_url                        = "https://engineering.numeric.io"
+description                     = "exploring the frontiers of data driven accounting"
+recently_updated_threshold      = 7
+enable_feed                     = false
+
+[generator]
+input_dir       = "content"
+static_dir      = "static"
+snippets_dir    = "snippets"
+lock_file       = "numeric.lock"
+
+[templates]
+dir             = "templates"
+default         = "page.htmlua"
+index_page      = "index.htmlua"
+post            = "post.htmlua"

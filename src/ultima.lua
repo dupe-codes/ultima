@@ -184,6 +184,19 @@ local function get_output_file_name(file_name, metadata)
     end
 end
 
+--- Returns the display name for a file, respecting metadata.extension override.
+-- The actual file is always .html, but display can show a custom extension.
+-- @param output_file string The actual output filename (e.g., "example.html")
+-- @param metadata table|nil The file's frontmatter metadata
+-- @return string The display name (e.g., "example.hello" if extension="hello")
+local function get_display_name(output_file, metadata)
+    if metadata and metadata.extension then
+        local base_name = output_file:gsub("%.html$", "")
+        return base_name .. "." .. metadata.extension
+    end
+    return output_file
+end
+
 local function render_post_file(
     source_path,
     output_path,
@@ -204,11 +217,12 @@ local function render_post_file(
         output_path .. "index.html"
     )
 
+    local display_name = get_display_name(output_file, metadata)
     local rendered_content = template_engine.compile_template_file(
         get_template_path(CONFIG.templates.post),
         {
             config = CONFIG,
-            title = output_file,
+            title = display_name,
             content = pandoc_output,
             directory = dir_index_path,
             metadata = metadata,
@@ -280,7 +294,7 @@ local function render_post_file(
             output_path .. output_file
         ),
         file_type = file_utils.FileType.FILE,
-        display_name = output_file,
+        display_name = display_name,
         metadata = metadata,
     }
 end
@@ -529,13 +543,15 @@ local function write_index_file(file_path, links, parent_dir, all_links, all_con
         })
     else
         -- if there is no parent dir, we are at the site root; include
-        -- a link to the to-be-generated feed.xml file
-        table.insert(links, {
-            link = formatters.generate_absolute_path(CONFIG, "feed.xml"),
-            file_type = file_utils.FileType.RSS,
-            display_name = "feed.xml",
-            metadata = {},
-        })
+        -- a link to the to-be-generated feed.xml file (if enabled)
+        if CONFIG.main.enable_feed then
+            table.insert(links, {
+                link = formatters.generate_absolute_path(CONFIG, "feed.xml"),
+                file_type = file_utils.FileType.RSS,
+                display_name = "feed.xml",
+                metadata = {},
+            })
+        end
     end
 
     table.sort(links, sort_file_links)
@@ -785,8 +801,9 @@ local function main()
         CONFIG.generator.output_dir .. "/static"
     )
 
-    -- TODO: add config value to toggle this on/off
-    generate_xml_feed(CONFIG.generator.output_dir, content_data)
+    if CONFIG.main.enable_feed then
+        generate_xml_feed(CONFIG.generator.output_dir, content_data)
+    end
 end
 
 main()

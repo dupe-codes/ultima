@@ -3,6 +3,7 @@ site_name                       = "what have we gained"
 site_url                        = "https://whathavewegained.com"
 description                     = "a dark fantasy world of blood magic, dual souls, totalitarianism, and destiny"
 recently_updated_threshold      = 7
+enable_feed                     = true
 
 [generator]
 input_dir       = "content"

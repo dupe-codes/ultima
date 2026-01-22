@@ -3,6 +3,7 @@ site_name                       = "rorschach.me"
 site_url                        = "https://rorschach.me"
 description                     = "look into the ink and see what stares back"
 recently_updated_threshold      = 7
+enable_feed                     = true
 
 [generator]
 input_dir       = "content"

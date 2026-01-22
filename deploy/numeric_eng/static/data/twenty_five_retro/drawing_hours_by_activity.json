@@ -1,0 +1,19 @@
+{
+  "title": "Drawing Hours by Activity",
+  "chart": "bar",
+  "orientation": "horizontal",
+  "xKey": "hoursByActivity",
+  "yLabel": "Hours",
+  "subtitle": "500.5 total hours",
+  "hoursByActivity": {
+    "Dynamic Sketching": 63.8,
+    "On Location": 1.5,
+    "Painted": 29.4,
+    "Drills": 23,
+    "Illustrated": 10.5,
+    "Mimicked": 18.1,
+    "Commute Sketch": 1.2,
+    "Blender": 2,
+    "Other/Untagged": 351
+  }
+}
