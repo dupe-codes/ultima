@@ -28,7 +28,7 @@ git commit -m "$msg"
 # (safe because deploy branches only contain build artifacts)
 echo ""
 printf "\033[0;32mPushing %s to deploy-%s branch...\033[0m\n" "deploy/$SITE" "$SITE"
-git push origin "$(git subtree split --prefix "deploy/$SITE")":"deploy-$SITE" --force
+git push origin "$(git subtree split --prefix "deploy/$SITE")":"refs/heads/deploy-$SITE" --force
 
 # Push all changes to main
 echo ""
