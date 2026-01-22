@@ -1,111 +1,111 @@
 {
   "files":{
-    "sites/numeric_eng/content/close/andrew-zhang.md":{
-      "checksum":"2c66ef47281158d8ba5134129dc1d613",
-      "last_modified_ts":"2026-01-22T01:50:15Z",
-      "metadata_checksum":"1aec797e61db294a6f3fcab2bab6ef8e",
-      "file_size":"1.13 KiB"
-    },
-    "sites/numeric_eng/content/platform/mark-niehe.md":{
-      "checksum":"2c66ef47281158d8ba5134129dc1d613",
-      "last_modified_ts":"2026-01-22T01:50:15Z",
-      "metadata_checksum":"d664ceb309937ce9096b0da7e4fbc3a7",
-      "file_size":"1.13 KiB"
-    },
-    "sites/numeric_eng/content/fdp/pdf/cory-lynch.md":{
-      "checksum":"2c66ef47281158d8ba5134129dc1d613",
-      "last_modified_ts":"2026-01-22T01:50:15Z",
-      "metadata_checksum":"25e9b50671b34e73f0980be1544016cb",
-      "file_size":"1.13 KiB"
-    },
-    "sites/numeric_eng/content/cash/kyle-yee.md":{
-      "checksum":"2c66ef47281158d8ba5134129dc1d613",
-      "last_modified_ts":"2026-01-22T01:50:15Z",
-      "metadata_checksum":"9ec2c534a69714ad666cb9077d7de34f",
-      "file_size":"1.13 KiB"
-    },
-    "sites/numeric_eng/content/fdp/pdf/nick-dupoux.md":{
-      "checksum":"2c66ef47281158d8ba5134129dc1d613",
-      "last_modified_ts":"2026-01-22T01:50:15Z",
-      "metadata_checksum":"6e922ff753e79738330e246cd5770bcd",
-      "file_size":"1.13 KiB"
-    },
-    "sites/numeric_eng/content/close/jiahao-woo.md":{
-      "checksum":"2c66ef47281158d8ba5134129dc1d613",
-      "last_modified_ts":"2026-01-22T01:50:16Z",
-      "metadata_checksum":"6b518fdf7537b67fe670ab2c04f37152",
-      "file_size":"1.13 KiB"
-    },
     "sites/numeric_eng/content/andrew-bihl.md":{
-      "checksum":"2c66ef47281158d8ba5134129dc1d613",
       "last_modified_ts":"2026-01-22T01:50:15Z",
+      "checksum":"2c66ef47281158d8ba5134129dc1d613",
       "metadata_checksum":"2394651212413e6671688db0f2893658",
       "file_size":"1.12 KiB"
     },
-    "sites/numeric_eng/content/fdp/ledgers/owen.md":{
-      "checksum":"2c66ef47281158d8ba5134129dc1d613",
-      "last_modified_ts":"2026-01-22T01:50:15Z",
-      "metadata_checksum":"090004c8a8a54a0d8e13338958ad42d3",
-      "file_size":"1.13 KiB"
-    },
-    "sites/numeric_eng/content/fdp/pdf/chris-yeung.md":{
-      "checksum":"2c66ef47281158d8ba5134129dc1d613",
-      "last_modified_ts":"2026-01-22T01:50:15Z",
-      "metadata_checksum":"91bb549e1aad48b8e8556999c59b4094",
-      "file_size":"1.13 KiB"
-    },
-    "sites/numeric_eng/content/fdp/ledgers/michael-zhao.md":{
-      "checksum":"2c66ef47281158d8ba5134129dc1d613",
-      "last_modified_ts":"2026-01-22T01:50:15Z",
-      "metadata_checksum":"09edab9f11ff7874d367b46bca944c76",
-      "file_size":"1.14 KiB"
-    },
-    "sites/numeric_eng/content/cash/tomi-adelusi.md":{
-      "checksum":"2c66ef47281158d8ba5134129dc1d613",
-      "last_modified_ts":"2026-01-22T01:50:15Z",
-      "metadata_checksum":"c1a52ec1eed325b9ba6d51f9fc04e2b0",
-      "file_size":"1.13 KiB"
-    },
-    "sites/numeric_eng/content/cash/justin-chang.md":{
-      "checksum":"2c66ef47281158d8ba5134129dc1d613",
-      "last_modified_ts":"2026-01-22T01:50:15Z",
-      "metadata_checksum":"a75031d548efc8d90e917d9a431033dd",
-      "file_size":"1.13 KiB"
-    },
-    "sites/numeric_eng/content/cash/sam-laing.md":{
-      "checksum":"2c66ef47281158d8ba5134129dc1d613",
-      "last_modified_ts":"2026-01-22T01:50:15Z",
-      "metadata_checksum":"5ce6434eb95731f22a1df95e56f92114",
-      "file_size":"1.13 KiB"
-    },
-    "sites/numeric_eng/content/fdp/ledgers/james-connolly.md":{
-      "checksum":"2c66ef47281158d8ba5134129dc1d613",
-      "last_modified_ts":"2026-01-22T01:50:15Z",
-      "metadata_checksum":"e2fb64a9a9f7c95146987c4e880349f3",
-      "file_size":"1.14 KiB"
-    },
     "sites/numeric_eng/content/close/ben-baker.md":{
-      "checksum":"2c66ef47281158d8ba5134129dc1d613",
       "last_modified_ts":"2026-01-22T01:50:16Z",
+      "checksum":"2c66ef47281158d8ba5134129dc1d613",
       "metadata_checksum":"0fe24793884002a30a395d2f47c7e6e9",
       "file_size":"1.13 KiB"
     },
     "sites/numeric_eng/content/fdp/ledgers/enoch-chau.md":{
-      "checksum":"2c66ef47281158d8ba5134129dc1d613",
       "last_modified_ts":"2026-01-22T01:50:15Z",
+      "checksum":"2c66ef47281158d8ba5134129dc1d613",
       "metadata_checksum":"254c26c7a1414d4c67f22844791ef9e0",
       "file_size":"1.14 KiB"
     },
-    "sites/numeric_eng/content/close/danny-hakim.md":{
+    "sites/numeric_eng/content/fdp/ledgers/james-connolly.md":{
+      "last_modified_ts":"2026-01-22T01:50:15Z",
       "checksum":"2c66ef47281158d8ba5134129dc1d613",
-      "last_modified_ts":"2026-01-22T01:50:16Z",
-      "metadata_checksum":"86686309e4e72cda7bc503222476f740",
-      "file_size":"1.13 KiB"
+      "metadata_checksum":"e2fb64a9a9f7c95146987c4e880349f3",
+      "file_size":"1.14 KiB"
     },
     "sites/numeric_eng/content/close/nel-crespo.md":{
-      "checksum":"2c66ef47281158d8ba5134129dc1d613",
       "last_modified_ts":"2026-01-22T01:50:16Z",
+      "checksum":"2c66ef47281158d8ba5134129dc1d613",
       "metadata_checksum":"247abfea4e1fd9ab92a5ed8804c49228",
+      "file_size":"1.13 KiB"
+    },
+    "sites/numeric_eng/content/fdp/ledgers/owen.md":{
+      "last_modified_ts":"2026-01-22T01:50:15Z",
+      "checksum":"2c66ef47281158d8ba5134129dc1d613",
+      "metadata_checksum":"090004c8a8a54a0d8e13338958ad42d3",
+      "file_size":"1.13 KiB"
+    },
+    "sites/numeric_eng/content/fdp/pdf/cory-lynch.md":{
+      "last_modified_ts":"2026-01-22T01:50:15Z",
+      "checksum":"2c66ef47281158d8ba5134129dc1d613",
+      "metadata_checksum":"25e9b50671b34e73f0980be1544016cb",
+      "file_size":"1.13 KiB"
+    },
+    "sites/numeric_eng/content/fdp/pdf/nick-dupoux.md":{
+      "last_modified_ts":"2026-01-22T01:50:15Z",
+      "checksum":"2c66ef47281158d8ba5134129dc1d613",
+      "metadata_checksum":"6e922ff753e79738330e246cd5770bcd",
+      "file_size":"1.13 KiB"
+    },
+    "sites/numeric_eng/content/close/andrew-zhang.md":{
+      "last_modified_ts":"2026-01-22T01:50:15Z",
+      "checksum":"2c66ef47281158d8ba5134129dc1d613",
+      "metadata_checksum":"1aec797e61db294a6f3fcab2bab6ef8e",
+      "file_size":"1.13 KiB"
+    },
+    "sites/numeric_eng/content/platform/mark-niehe.md":{
+      "last_modified_ts":"2026-01-22T01:50:15Z",
+      "checksum":"2c66ef47281158d8ba5134129dc1d613",
+      "metadata_checksum":"d664ceb309937ce9096b0da7e4fbc3a7",
+      "file_size":"1.13 KiB"
+    },
+    "sites/numeric_eng/content/fdp/ledgers/michael-zhao.md":{
+      "last_modified_ts":"2026-01-22T01:50:15Z",
+      "checksum":"2c66ef47281158d8ba5134129dc1d613",
+      "metadata_checksum":"09edab9f11ff7874d367b46bca944c76",
+      "file_size":"1.14 KiB"
+    },
+    "sites/numeric_eng/content/close/jiahao-woo.md":{
+      "last_modified_ts":"2026-01-22T01:50:16Z",
+      "checksum":"2c66ef47281158d8ba5134129dc1d613",
+      "metadata_checksum":"6b518fdf7537b67fe670ab2c04f37152",
+      "file_size":"1.13 KiB"
+    },
+    "sites/numeric_eng/content/cash/justin-chang.md":{
+      "last_modified_ts":"2026-01-22T01:50:15Z",
+      "checksum":"2c66ef47281158d8ba5134129dc1d613",
+      "metadata_checksum":"a75031d548efc8d90e917d9a431033dd",
+      "file_size":"1.13 KiB"
+    },
+    "sites/numeric_eng/content/cash/sam-laing.md":{
+      "last_modified_ts":"2026-01-22T01:50:15Z",
+      "checksum":"2c66ef47281158d8ba5134129dc1d613",
+      "metadata_checksum":"5ce6434eb95731f22a1df95e56f92114",
+      "file_size":"1.13 KiB"
+    },
+    "sites/numeric_eng/content/cash/kyle-yee.md":{
+      "last_modified_ts":"2026-01-22T01:50:15Z",
+      "checksum":"2c66ef47281158d8ba5134129dc1d613",
+      "metadata_checksum":"9ec2c534a69714ad666cb9077d7de34f",
+      "file_size":"1.13 KiB"
+    },
+    "sites/numeric_eng/content/fdp/pdf/chris-yeung.md":{
+      "last_modified_ts":"2026-01-22T01:50:15Z",
+      "checksum":"2c66ef47281158d8ba5134129dc1d613",
+      "metadata_checksum":"91bb549e1aad48b8e8556999c59b4094",
+      "file_size":"1.13 KiB"
+    },
+    "sites/numeric_eng/content/cash/tomi-adelusi.md":{
+      "last_modified_ts":"2026-01-22T01:50:15Z",
+      "checksum":"2c66ef47281158d8ba5134129dc1d613",
+      "metadata_checksum":"c1a52ec1eed325b9ba6d51f9fc04e2b0",
+      "file_size":"1.13 KiB"
+    },
+    "sites/numeric_eng/content/close/danny-hakim.md":{
+      "last_modified_ts":"2026-01-22T01:50:16Z",
+      "checksum":"2c66ef47281158d8ba5134129dc1d613",
+      "metadata_checksum":"86686309e4e72cda7bc503222476f740",
       "file_size":"1.13 KiB"
     }
   }
