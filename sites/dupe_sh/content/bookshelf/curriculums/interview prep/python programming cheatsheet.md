@@ -3,6 +3,8 @@
 #### strings
 
 - creating a substring: `O(n)` time
+- ord(s) - given a string representing a Unicode character, returns the Unicode code point for it. Can be used to map characters to indices:
+    - `counts = [0 for _ in range(256)]; counts[ord("a")] += 1`
 
 ## libraries
 
