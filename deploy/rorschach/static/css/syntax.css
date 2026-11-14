@@ -1,0 +1,113 @@
+:where(:root) {
+    --code-keyword: #995035;
+    --code-type: #77533f;
+    --code-function: #855c44;
+    --code-string: #526747;
+    --code-number: #8d5a27;
+    --code-operator: #6d6054;
+    --code-variable: #4b4036;
+    --code-comment: #776c60;
+    --code-error: #ad392e;
+    --code-border: #e0d5c9;
+}
+
+code {
+    font-family: 'berkeley_mono_regular', monospace;
+    font-size: 0.9em;
+    color: var(--color-text);
+    background-color: #ffffff;
+    border: 1px solid var(--code-border);
+    padding: 0.1em 0.25em;
+    overflow-wrap: anywhere;
+}
+
+pre {
+    max-width: 100%;
+    min-width: 0;
+    margin: 1.5em 0;
+    padding: 1em;
+    overflow-x: auto;
+    color: var(--color-text);
+    background-color: #ffffff;
+    border: 1px solid var(--code-border);
+    font-family: 'berkeley_mono_regular', monospace;
+    line-height: 1.5;
+}
+
+div.sourceCode {
+    max-width: 100%;
+    min-width: 0;
+    margin: 1.5em 0;
+}
+
+div.sourceCode pre {
+    margin: 0;
+}
+
+pre code {
+    display: block;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    white-space: pre;
+    overflow-wrap: normal;
+    word-break: normal;
+}
+
+pre code span.kw,
+pre code span.cf,
+pre code span.im,
+pre code span.pp {
+    color: var(--code-keyword);
+    font-weight: bold;
+}
+
+pre code span.dt {
+    color: var(--code-type);
+}
+
+pre code span.fu,
+pre code span.bu,
+pre code span.ex {
+    color: var(--code-function);
+}
+
+pre code span.ch,
+pre code span.sc,
+pre code span.st,
+pre code span.vs,
+pre code span.ss {
+    color: var(--code-string);
+}
+
+pre code span.dv,
+pre code span.bn,
+pre code span.fl,
+pre code span.cn {
+    color: var(--code-number);
+}
+
+pre code span.op {
+    color: var(--code-operator);
+}
+
+pre code span.va,
+pre code span.at,
+pre code span.ot {
+    color: var(--code-variable);
+}
+
+pre code span.co,
+pre code span.cv,
+pre code span.do,
+pre code span.an,
+pre code span.in {
+    color: var(--code-comment);
+}
+
+pre code span.al,
+pre code span.er,
+pre code span.wa {
+    color: var(--code-error);
+    font-weight: bold;
+}
