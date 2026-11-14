@@ -76,7 +76,7 @@ Ask about character sets and case sensitivity; e.g., problem may be limited to l
 In Python, this can be done using the `Counter` class
 
 ##### compute what characters are present in a string
-```
+```python
 mask = 0
 for c in word:
 	mask |= (1 << (ord(c) - ord('a')))

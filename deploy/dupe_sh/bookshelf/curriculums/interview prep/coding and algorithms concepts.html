@@ -10,6 +10,8 @@
             href="https://dupe.sh/static/css/theme.css">
         <link rel="stylesheet"
             href="https://dupe.sh/static/css/main.css">
+        <link rel="stylesheet"
+            href="https://dupe.sh/static/css/syntax.css">
         <link href="https://unpkg.com/mono-icons@1.3.1/iconfont/icons.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
@@ -31,7 +33,7 @@
         
 
         
-            <span>modified: 2024-12-12</span>
+            <span>modified: 2026-11-14</span>
         
     </div>
 
@@ -138,9 +140,10 @@ limited to lower case Latin letters (a to z).</p>
 <p>In Python, this can be done using the <code>Counter</code> class</p>
 <h5 id="compute-what-characters-are-present-in-a-string">compute what
 characters are present in a string</h5>
-<pre><code>mask = 0
-for c in word:
-    mask |= (1 &lt;&lt; (ord(c) - ord(&#39;a&#39;)))</code></pre>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> word:</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    mask <span class="op">|=</span> (<span class="dv">1</span> <span class="op">&lt;&lt;</span> (<span class="bu">ord</span>(c) <span class="op">-</span> <span class="bu">ord</span>(<span class="st">&#39;a&#39;</span>)))</span></code></pre></div>
 <p>you can then check if two strings have the common characters then
 with <code>maskA &amp; maskB &gt; 0</code></p>
 <h5 id="anagram-check">anagram check</h5>
