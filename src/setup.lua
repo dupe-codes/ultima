@@ -1,5 +1,9 @@
 local version = _VERSION:match "%d+%.%d+"
 
+if version ~= "5.5" then
+    error("Ultima requires Lua 5.5; detected " .. _VERSION, 0)
+end
+
 package.path = "lua_modules/share/lua/"
     .. version
     .. "/?.lua;lua_modules/share/lua/"

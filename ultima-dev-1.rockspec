@@ -9,16 +9,15 @@ description = {
 }
 dependencies = {
     "ldoc = 1.5.0-1",
-    "ltui = 2.7",
     "inspect >= 3.1",
-    "lua ~> 5.4",
+    "lua ~> 5.5",
     "debugger = scm-1",
-    "dkjson = 2.8-1",
+    "dkjson = 2.8-2",
     "md5 = 1.3-1",
-    "argparse = 0.7.1-1",
-    "date = 2.2.1-1",
+    "argparse = 0.7.2-1",
+    "date = 2.2.1-2",
     "lua-toml >= 2.0",
-    "luafilesystem = 1.8.0",
+    "luafilesystem = 1.9.0-1",
 }
 build = {
     type = "builtin",

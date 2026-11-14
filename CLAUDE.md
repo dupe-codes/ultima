@@ -4,7 +4,33 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Ultima is a Lua-based static site generator that builds multiple content-rich websites from markdown files. It manages three sites: dupe.sh, rorschach.me, and whathavewegained.com.
+Ultima is a Lua-based static site generator that builds multiple content-rich websites from markdown files. Run `make list-sites` to list the available sites.
+
+## Runtime and Local Dependencies
+
+Ultima requires Lua 5.5, LuaRocks configured for Lua 5.5, and Pandoc. Install these tools before you install project dependencies. The runtime rejects other Lua versions before it configures module paths.
+
+Run these commands from the repository root:
+
+```bash
+make install-local
+make check
+make list-sites
+make build-all
+make build-all
+```
+
+`install-local` runs `luarocks --lua-version=5.5 --tree "$PWD/lua_modules" install --deps-only ultima-dev-1.rockspec`. It does not install Pandoc or change global packages. It compiles native dependencies against Lua 5.5. Do not copy native modules from a Lua 5.4 tree.
+
+The rockspec pins argparse to `0.7.2-1`, dkjson to `2.8-2`, date to `2.2.1-2`, and LuaFileSystem to `1.9.0-1` for Lua 5.5 compatibility. It does not require the unused ltui dependency.
+
+The Makefile selects `lua5.5` and `luac5.5` by default. Use `make LUA=/path/to/lua5.5 LUAC=/path/to/luac5.5 LUAROCKS=/path/to/luarocks check` to select explicit executables. The installation target always selects Lua 5.5 for LuaRocks.
+
+`make check` checks Lua syntax, tests the runtime guard, and runs dependency smoke checks. The smoke checks exercise argument parsing, JSON, dates, TOML, filesystem access, and MD5.
+
+Build and run targets load `project.env`, which sets `LUA_INIT=@src/setup.lua`. For direct execution, use `LUA_INIT=@src/setup.lua lua5.5 src/ultima.lua dupe_sh`. The setup file resolves modules from `lua_modules/share/lua/5.5` and `lua_modules/lib/lua/5.5` first.
+
+`make build-all` builds development output without publishing. Production build targets write to `deploy/`. The deployment targets publish output. Do not run them for verification. The existing `make install` target also runs `brew install pandoc`; use `make install-local` when Pandoc is already available.
 
 ## Build Commands
 

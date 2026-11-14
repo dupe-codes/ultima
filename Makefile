@@ -1,13 +1,31 @@
+SHELL := /bin/bash
+LUA_VERSION := 5.5
+LUA ?= lua5.5
+LUAC ?= luac5.5
+LUAROCKS ?= luarocks
+LUA_TREE := $(CURDIR)/lua_modules
+
 # TODO: also add the package to the .rockspec file
 .PHONY: add
 add: ## Add a lua dependency to the local project, usage: make add package=package-name
-	luarocks install --tree lua_modules $(package)
+	$(LUAROCKS) --lua-version=$(LUA_VERSION) --tree "$(LUA_TREE)" install $(package)
 
 .PHONY: install
 install: ## Install project dependencies
 	# sudo pacman -Sy pandoc
 	brew install pandoc
-	luarocks install --tree lua_modules --deps-only ultima-dev-1.rockspec
+	$(MAKE) install-local
+
+.PHONY: install-local
+install-local:
+	$(LUA) -e 'assert(_VERSION == "Lua $(LUA_VERSION)", "Ultima requires Lua $(LUA_VERSION)")'
+	$(LUAROCKS) --lua-version=$(LUA_VERSION) --tree "$(LUA_TREE)" install --deps-only ultima-dev-1.rockspec
+
+.PHONY: check
+check:
+	@find src scripts -type f -name '*.lua' -exec $(LUAC) -p {} +
+	@$(LUA) scripts/check-runtime.lua
+	@LUA_INIT=@src/setup.lua $(LUA) scripts/check-dependencies.lua
 
 SITES := $(shell find sites -maxdepth 1 -mindepth 1 -type d -exec basename {} \;)
 
@@ -25,19 +43,19 @@ build-all: $(SITES) ## Build all sites
 $(SITES): ## Build a specific site
 	@echo ""
 	@echo "Building site: $@"
-	@source $(CURDIR)/project.env && ./src/ultima.lua $@
+	@source $(CURDIR)/project.env && $(LUA) src/ultima.lua $@
 
 # Site-specific targets with force flag
 .PHONY: $(addsuffix -f,$(SITES))
 $(addsuffix -f,$(SITES)): ## Force build a specific site
 	@echo "Force building site: $(subst -f,,$@)"
-	@source $(CURDIR)/project.env && ./src/ultima.lua -f $(subst -f,,$@)
+	@source $(CURDIR)/project.env && $(LUA) src/ultima.lua -f $(subst -f,,$@)
 
 # Site-specific targets for production
 .PHONY: $(addsuffix -prod,$(SITES))
 $(addsuffix -prod,$(SITES)): ## Build a specific site for production
 	@echo "Building site for production: $(subst -prod,,$@)"
-	@source $(CURDIR)/project.env && ./src/ultima.lua -f --env prod $(subst -prod,,$@)
+	@source $(CURDIR)/project.env && $(LUA) src/ultima.lua -f --env prod $(subst -prod,,$@)
 
 .PHONY: deploy
 deploy: ## Build & deploy a specific site to production, usage: make deploy site=site-name
@@ -49,7 +67,7 @@ deploy: ## Build & deploy a specific site to production, usage: make deploy site
 	@echo ""
 	@echo "Building $(site) for production..."
 	@echo ""
-	@source $(CURDIR)/project.env && ./src/ultima.lua -f --env prod $(site)
+	@source $(CURDIR)/project.env && $(LUA) src/ultima.lua -f --env prod $(site)
 	@echo ""
 	@./scripts/deploy.sh $(site)
 
@@ -67,7 +85,7 @@ run: ## Run a specific site with local server, usage: make run site=site-name
 		echo "Error: site parameter is required. Usage: make run site=site-name"; \
 		exit 1; \
 	fi
-	@source $(CURDIR)/project.env && ./src/ultima.lua $(site)
+	@source $(CURDIR)/project.env && $(LUA) src/ultima.lua $(site)
 	@echo "Starting local server at http://localhost:8000"
 	@cd build/$(site) && python3 -m http.server 8000
 
