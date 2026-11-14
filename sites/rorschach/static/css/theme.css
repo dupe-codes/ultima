@@ -1,5 +1,16 @@
 /* Rorschach theme - dusty rose palette */
 :root {
+    --code-keyword: #803e4c;
+    --code-type: #76516b;
+    --code-function: #914b43;
+    --code-string: #586846;
+    --code-number: #95602c;
+    --code-operator: #72565d;
+    --code-variable: #4c3a43;
+    --code-comment: #77676f;
+    --code-error: #aa342f;
+    --code-border: #ddcaca;
+
     /* Typography */
     --font-size-base: 16px;
     --font-size-post: 16px;

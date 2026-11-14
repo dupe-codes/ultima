@@ -1,5 +1,16 @@
 /* Site-specific theme for dupe.sh */
 :root {
+    --code-keyword: #245b91;
+    --code-type: #60469a;
+    --code-function: #315c89;
+    --code-string: #326b50;
+    --code-number: #8a4d2f;
+    --code-operator: #4b5b72;
+    --code-variable: #354b63;
+    --code-comment: #647082;
+    --code-error: #ab302b;
+    --code-border: #d6dfed;
+
     /* Typography */
     --font-size-base: 16px;
     --font-size-post: 16px;
