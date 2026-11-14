@@ -1,5 +1,16 @@
 /* WHWG theme - lavender/purple palette */
 :root {
+    --code-keyword: #6c489a;
+    --code-type: #4a437d;
+    --code-function: #665491;
+    --code-string: #4c6c60;
+    --code-number: #92517a;
+    --code-operator: #665b7a;
+    --code-variable: #443c5c;
+    --code-comment: #736b80;
+    --code-error: #ae344e;
+    --code-border: #e0d7ef;
+
     /* Typography */
     --font-size-base: 16px;
     --font-size-post: 16px;
