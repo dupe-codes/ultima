@@ -1,5 +1,16 @@
 /* Site-specific theme for numeric-eng */
 :root {
+    --code-keyword: #7036FF;
+    --code-type: #44094A;
+    --code-function: #594292;
+    --code-string: #626735;
+    --code-number: #a3481d;
+    --code-operator: #59533f;
+    --code-variable: #3d3047;
+    --code-comment: #70665f;
+    --code-error: #a62b36;
+    --code-border: #dce0c2;
+
     /* Typography */
     --font-size-base: 16px;
     --font-size-post: 16px;
